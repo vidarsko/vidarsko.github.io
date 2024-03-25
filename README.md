@@ -1,2 +1,0 @@
-# vidarsko.github.io
- 
