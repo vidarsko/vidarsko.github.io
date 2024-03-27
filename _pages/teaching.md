@@ -1,7 +1,7 @@
 ---
 layout: single
-title: "Vidar Skogvoll"
-permalink: /cv/
+title: "Teaching"
+permalink: /teaching/
 author_profile: true
 classes: wide
 toc: true
@@ -10,13 +10,5 @@ toc_sticky: true
 toc_icon: "cog"
 ---
 
-## Personal information
-
-
-## Education
-
-
-## Work experience
-
-
+## Teaching philosophy
 

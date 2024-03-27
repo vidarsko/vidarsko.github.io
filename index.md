@@ -4,32 +4,32 @@ permalink: /
 hidden: true
 header:
   overlay_color: "#5e616c"
-  overlay_image: /assets/images/logo_half.png
+  overlay_image: /assets/images/foreleser.JPG
   actions:
-    - label: "<i class='fas fa-play'></i> Hør siste episode"
-      url: "/siste-episode/"
+    - label: "<i class='fas fa-play'></i> Curriculum Vitae"
+      url: "/cv/"
 excerpt: >
-  Podcasten som tar superkrefter på alvor. <br />
+  Physicist, programmer, researcher and educator. <br />
 feature_row:
-  - image_path: /assets/images/mm-customizable-feature.png
-    alt: "customizable"
-    title: "Hør alle episodene"
-    excerpt: "Fra jerver til edderkopper, fra superhelter til superkrefter. Hør alle episodene her."
-    url: "/docs/configuration/"
+  - image_path: /assets/images/research.gif
+    alt: "Projects and research"
+    title: "Projects and research"
+    excerpt: "Computational software and mathematical physics."
+    url: "/projects/"
     btn_class: "btn--primary"
     btn_label: "Learn more"
-  - image_path: /assets/images/mm-responsive-feature.png
-    alt: "fully responsive"
-    title: "Rangering"
-    excerpt: "Ingen vitenskapelig podcast uten kvantisering og rangering. Vi gir superkreftene en score på 0-20 i fem kategorier (KAPPE: Kul, Atypisk, Plausibel, Praktisk og Ekstraordinær), og rangerer dem mot hverandre. "
-    url: "/docs/layouts/"
+  - image_path: /assets/images/teaching.jpg
+    alt: "Teaching"
+    title: "Teaching"
+    excerpt: "Teaching is important."
+    url: "/teaching/"
     btn_class: "btn--primary"
     btn_label: "Learn more"
-  - image_path: /assets/images/mm-free-feature.png
-    alt: "100% free"
-    title: "Under Kappa i media"
-    excerpt: "Se hvor Under Kappa har vært omtalt i media."
-    url: "/docs/license/"
+  - image_path: /assets/images/outreach.jpeg
+    alt: "Outreach"
+    title: "Outreach"
+    excerpt: "Science communication is also important."
+    url: "/outreach/"
     btn_class: "btn--primary"
     btn_label: "Learn more"      
 ---
