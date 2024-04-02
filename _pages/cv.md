@@ -14,14 +14,13 @@ toc_icon: "cog"
 
 - **Location:** City, Country
 - **Phone:** Your phone number
-- **Email:** your.email@example.com
-- **LinkedIn:** [your-linkedin](https://www.linkedin.com/in/your-linkedin)
-- **GitHub:** [your-github](https://github.com/your-github)
+- **Email:** [](mailto:vidar
+- **LinkedIn:** [vidarsko](https://www.linkedin.com/in/vidarsko/)
+- **GitHub:** [vidarsko](https://github.com/vidarsko)
 
 ## Education
 
 
+
 ## Work experience
-
-
 
