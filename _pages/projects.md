@@ -10,9 +10,16 @@ toc_sticky: true
 toc_icon: "cog"
 ---
 
+## LLMteaching: A web site resource for 
+
 ## ComFiT: a Python package for computational field theory with topological defects
 
 ComFiT is a Python package for the study of topological defects in field theories.
+Based on the work done in the PhD these of mine and Jonas Rønning, we have developed ComFiT, a Python package for simulating, analyzing and visualizing different field theories. 
+It is currently under peer-review at the Journal of Open Source Software and can be found at [https://comfitlib.com](https://comfitlib.com).
+To ease the introduction, I have made several videos on how to use the package, which will be published shortly. 
+
+Videos:
 
 Publications:
 
@@ -28,9 +35,7 @@ Publications:
 * Skogvoll, V., Skaugen, A., & Angheluta, L. (2021). Stress in ordered systems: Ginzburg-Landau-type density field theory. Physical Review B, 103(22), 224107. [https://doi.org/10.1103/PhysRevB.103.224107](https://doi.org/10.1103/PhysRevB.103.224107)
 * Skogvoll, V., Skaugen, A., Angheluta, L., & Viñals, J. (2021). Dislocation nucleation in the phase-field crystal model. Physical Review B, 103(1), 014107. [https://doi.org/10.1103/PhysRevB.103.014107](https://doi.org/10.1103/PhysRevB.103.014107)
 
-
 ## Topology and mathematical physics
-
 
 
 Publications:
