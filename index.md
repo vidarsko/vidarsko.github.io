@@ -21,14 +21,14 @@ feature_row:
   - image_path: /assets/images/teaching.jpg
     alt: "Teaching"
     title: "Teaching"
-    excerpt: "Teaching is important."
+    excerpt: "Teaching."
     url: "/teaching/"
     btn_class: "btn--primary"
     btn_label: "Learn more"
   - image_path: /assets/images/outreach.jpeg
     alt: "Outreach"
     title: "Outreach"
-    excerpt: "Science communication is also important."
+    excerpt: "Science communication."
     url: "/outreach/"
     btn_class: "btn--primary"
     btn_label: "Learn more"      
