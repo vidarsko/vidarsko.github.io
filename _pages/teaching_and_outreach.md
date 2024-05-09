@@ -1,7 +1,7 @@
 ---
 layout: single
-title: "Vidar Skogvoll"
-permalink: /outreach/
+title: "Teaching and outreach"
+permalink: /teaching_and_outreach/
 author_profile: true
 classes: wide
 toc: true
@@ -9,6 +9,8 @@ toc_label: "Contents"
 toc_sticky: true
 toc_icon: "cog"
 ---
+
+## Science communication
 
 I believe that science communication is important.
 Here are some of the ways I try to communicate science to the public.
@@ -25,7 +27,3 @@ More information can be found on the [Under Kappa website](https://underkappa.no
 I have guested several radio shows and podcasts.
 
 ## Articles
-
-
-
-

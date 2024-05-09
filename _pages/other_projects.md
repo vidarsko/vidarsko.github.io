@@ -1,7 +1,7 @@
 ---
 layout: single
-title: "Projects and research"
-permalink: /projects/
+title: "Other projects"
+permalink: /other_projects/
 author_profile: true
 classes: wide
 toc: true
@@ -10,14 +10,7 @@ toc_sticky: true
 toc_icon: "cog"
 ---
 
-## LLMteaching: A web site resource for 
-
-## ComFiT: a Python package for computational field theory with topological defects
-
-ComFiT is a Python package for the study of topological defects in field theories.
-Based on the work done in the PhD these of mine and Jonas Rønning, we have developed ComFiT, a Python package for simulating, analyzing and visualizing different field theories. 
-It is currently under peer-review at the Journal of Open Source Software and can be found at [https://comfitlib.com](https://comfitlib.com).
-To ease the introduction, I have made several videos on how to use the package, which will be published shortly. 
+## LLMteaching: A web site resource for learning, teaching and doing research with large language models (such as chatGPT)
 
 Videos:
 

@@ -12,26 +12,26 @@ excerpt: >
   Physicist, programmer, researcher and educator. <br />
 feature_row:
   - image_path: /assets/images/research.gif
-    alt: "Projects and research"
-    title: "Projects and research"
-    excerpt: "Computational software and mathematical physics."
-    url: "/projects/"
+    alt: "ComFiT"
+    title: "ComFiT"
+    excerpt: "A peer-reviewed Python package for computational field theory with topological defects. Based on the work done in my PhD thesis on topological defects in the phase-field crystal."
+    url: "/comfit/"
     btn_class: "btn--primary"
-    btn_label: "Learn more"
-  - image_path: /assets/images/teaching.jpg
-    alt: "Teaching"
-    title: "Teaching"
-    excerpt: "Teaching."
-    url: "/teaching/"
+    btn_label: "Read more"
+  - image_path: /assets/images/other_projects.jpg
+    alt: "Other projects"
+    title: "Other projects"
+    excerpt: "Podcasts about superheroes and science education, sites for learning and teaching with large language models, research and more."
+    url: "/other_projects/"
     btn_class: "btn--primary"
-    btn_label: "Learn more"
+    btn_label: "Read more"
   - image_path: /assets/images/outreach.jpeg
-    alt: "Outreach"
-    title: "Outreach"
-    excerpt: "Science communication."
-    url: "/outreach/"
+    alt: "Teaching and outreach"
+    title: "Teaching and outreach"
+    excerpt: "The importance of understanding your students perspective and how to communicate science to a broader audience."
+    url: "/teaching_and_outreach/"
     btn_class: "btn--primary"
-    btn_label: "Learn more"      
+    btn_label: "Read more"      
 ---
 
 {% include feature_row %}
