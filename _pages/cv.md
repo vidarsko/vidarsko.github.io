@@ -7,7 +7,7 @@ classes: wide
 toc: true
 toc_label: "Contents"
 toc_sticky: true
-toc_icon: "cog"
+toc_icon: "list"
 ---
 
 ## Contact information

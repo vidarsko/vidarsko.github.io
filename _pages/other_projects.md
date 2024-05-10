@@ -7,7 +7,7 @@ classes: wide
 toc: true
 toc_label: "Contents"
 toc_sticky: true
-toc_icon: "cog"
+toc_icon: "list"
 ---
 
 ## LLMteaching: A web site resource for learning, teaching and doing research with large language models (such as chatGPT)
