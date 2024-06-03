@@ -10,6 +10,36 @@ toc_sticky: true
 toc_icon: "list"
 ---
 
+# Philosophy of teaching and outreach
+
+For as long as I can remember, I have loved learning new things.
+From I was very young, I loved the feeling of understanding something properly and enjoyed nothing more than sharing this feeling.
+In particular, I enjoyed mathematics, and spent lots of time helping my friends understand the concepts we were learning in school.
+The moments I searched for in my own learning, the immensely satisfying "aha"-moments, were also the moments I looked forward to seeing in others, which lead me to spend a lot of energy in trying to understand exactly where my friends were struggling, and try to address exactly the point where they were stuck.
+This fascination for learning followed me through my studies, during which I worked as a homework helper at the Red Cross center in Oslo.
+And after finishing my Master's degree in physics, it is what led me to spend two years working in High School.
+Teaching your friends is different than teaching kids who have little relation to you and low interest in mathematics.
+These years thus served as a reality check, and I learned a lot about the importance of building a social frame around the learning process, and the role of motivation.
+In addition, I felt a strong burden of responsibility and experienced a sense of failure when my students did not manage to meet my (possibly too high) expectations for them.
+The feeling of failure was in many ways a symptom of me taking too much responsibility for the learning process, which led me to reflect on the role of responsibility in the learning process.
+How do you deal with the fact that you sometimes fall short in teaching your students what they need?
+In short, I think the answer to this question, is that it is ill-posed.
+You are not responsible for how much your students learn - you have only one resposibilty - which is to do your best.
+Sometimes that means working several hours after class to give your students the best possible feedback, and sometimes, it means taking care of yourself by letting go so that you can be the best possible teacher.
+Teaching and learning is not a all-or-nothing endeavor, it is a optimization problem.
+How can you spend your alloted time and energy in a way that maximized the learning of your students?
+Trying to find an answer to this question is the responsibility of a teacher, nothing else.
+
+Transitioning to teaching at the university level then, as part of my PhD, I brought with me these principles.
+I was shocked at how much students appeciated the small effort I put into creating a good learning environment for the students.
+By investing a small amount of energy in creating learning environnements that foster learning, including letting the students know that I expected them to be there.
+
+Coming from a background of physics, I am used to science and research to be very solid and precise.
+Trying to invest in the science of teaching then, was a bit of a hurdle for me, as the science education literature is much more focused on mental models with less predicitve power.
+I learned to reconcile these things after speaking with David Hammer from Tufts University. 
+Research into Physics education faces a tough challenge. 
+On the one hand, the target audience is physicists, who are used to a high level of precision and rigor.
+The uncertainty and ambivalence that is inherent in the science of teaching might therefore be construed as weakness in the eyes of a researcher who is used to the certainty of physics.
 
 # Podcasts
 
@@ -85,4 +115,7 @@ I have on a couple of occassions acted as a physics expert for TV2 (videos aired
 [January 2024](https://www.tv2.no/video/nyhetene/viral/her-gaar-det-galt/1929975/),
 [April 2024](https://www.tv2.no/video/nyhetene/nyttig/unngaa-feilen-alle-gjoer/1946938/)). 
 
+## Youtube
 
+![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/youtube-150.png){: .align-left}
+I have appeared in different videos on YouTube, such in the UiO science's library series "Science in the library", where I demonstrated [8 ways to breakt things](https://www.youtube.com/live/YmI0mThOots?si=lBAxOKV6pidPVFfq), as well as my own videos on [mathematics and physics](https://www.youtube.com/@vidarskogvoll8894), and [Chess](https://www.youtube.com/@tusenspilleren1928).

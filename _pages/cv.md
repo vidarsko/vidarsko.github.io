@@ -19,17 +19,16 @@ toc_icon: "list"
 
 ## Work experience
 
-- **Senior Lecturer**  
+- **Senior Lecturer of physics**  
   *University of Oslo, Oslo, Norway*  
   *August 2023 - present*  
-  Senior lecturer at the centre of teaching and learning at the Faculty of Mathematics and Natural Sciences. 
+  Senior lecturer at the centre of teaching and learning at the Faculty of Mathematics and Natural Sciences.
   Focus on how to implement machine learning into the science education programs.
 
 - **PhD Candidate**  
   *University of Oslo, Oslo, Norway*  
   *August 2019 - June 2023*  
   PhD candidate in condensed matter physics focusing on phase-field modelling of microplasticity.
-
 
 - **Teacher (lektor med opprykk)**
   *Hersleb High School, Oslo, Norway*
