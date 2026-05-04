@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superhero Ranking – skogvoll.com</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <a href="/projects/">Projects</a>
+            <a href="/apps/">Apps</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Superhero Ranking</h1>
+
+        <p>
+            In my podcast <a href="https://underkappa.no" target="_blank" rel="noopener noreferrer">Under Kappa</a>,
+            Even Garvang and I give scores to superheroes according to their scientific rigour and plausibility.
+            Here is a complete overview of the superheroes we have assessed so far.
+        </p>
+
+        <section id="controls" aria-label="Filter categories">
+            <p><strong>Categories</strong></p>
+            <div id="category-buttons" role="group" aria-label="Toggle scoring categories"></div>
+        </section>
+
+        <section id="ranking" aria-label="Superhero ranking">
+            <div id="loading">Loading…</div>
+            <div id="error" hidden></div>
+            <table id="ranking-table" hidden>
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Superhero</th>
+                        <th scope="col">Score breakdown</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody id="ranking-body"></tbody>
+            </table>
+            <p id="empty-msg" hidden>No superheroes found with these criteria.</p>
+        </section>
+
+        <p><small>Listen to the podcast at <a href="https://underkappa.no" target="_blank" rel="noopener noreferrer">underkappa.no</a></small></p>
+    </main>
+
+    <script>
+        const CATEGORIES = [
+            { id: 'Kul',           label: 'Kul',           color: '#ef4444' },
+            { id: 'Atypisk',       label: 'Atypisk',       color: '#a855f7' },
+            { id: 'Plausibel',     label: 'Plausibel',     color: '#3b82f6' },
+            { id: 'Praktisk',      label: 'Praktisk',      color: '#22c55e' },
+            { id: 'Ekstraordinær', label: 'Ekstraordinær', color: '#f59e0b' }
+        ];
+
+        const activeCategories = Object.fromEntries(CATEGORIES.map(c => [c.id, true]));
+
+        let allData = [];
+
+        // ── CSV parser ──────────────────────────────────────────────────────────
+
+        function parseCSV(text) {
+            const lines = text.split('\n').filter(l => l.trim() !== '');
+            if (lines.length === 0) return [];
+
+            const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+
+            return lines.slice(1).map(line => {
+                const values = [];
+                let current = '';
+                let inQuotes = false;
+
+                for (const char of line) {
+                    if (char === '"') {
+                        inQuotes = !inQuotes;
+                    } else if (char === ',' && !inQuotes) {
+                        values.push(current.trim().replace(/^"|"$/g, ''));
+                        current = '';
+                    } else {
+                        current += char;
+                    }
+                }
+                values.push(current.trim().replace(/^"|"$/g, ''));
+
+                const row = {};
+                headers.forEach((h, i) => { row[h] = values[i]; });
+                return row;
+            });
+        }
+
+        // ── Scoring ─────────────────────────────────────────────────────────────
+
+        function processData(raw) {
+            return raw
+                .map(hero => {
+                    let total = 0;
+                    const scores = {};
+                    CATEGORIES.forEach(cat => {
+                        const val = parseFloat((hero[cat.id] || '0').replace(',', '.')) || 0;
+                        scores[cat.id] = val;
+                        if (activeCategories[cat.id]) total += val;
+                    });
+                    return { name: hero['Episode'], total: parseFloat(total.toFixed(2)), scores };
+                })
+                .sort((a, b) => b.total - a.total);
+        }
+
+        // ── Render ───────────────────────────────────────────────────────────────
+
+        function render() {
+            const data = processData(allData);
+            const maxTotal = data.reduce((m, d) => Math.max(m, d.total), 0) || 1;
+
+            const tbody = document.getElementById('ranking-body');
+            const table = document.getElementById('ranking-table');
+            const empty = document.getElementById('empty-msg');
+
+            tbody.innerHTML = '';
+
+            if (data.length === 0) {
+                table.hidden = true;
+                empty.hidden = false;
+                return;
+            }
+
+            table.hidden = false;
+            empty.hidden = true;
+
+            data.forEach((hero, i) => {
+                const tr = document.createElement('tr');
+
+                // Rank
+                const tdRank = document.createElement('td');
+                tdRank.textContent = i + 1;
+                tr.appendChild(tdRank);
+
+                // Name
+                const tdName = document.createElement('td');
+                tdName.textContent = hero.name;
+                tr.appendChild(tdName);
+
+                // Bar
+                const tdBar = document.createElement('td');
+                const barWrap = document.createElement('div');
+                barWrap.className = 'bar';
+
+                CATEGORIES.forEach(cat => {
+                    if (!activeCategories[cat.id]) return;
+                    const pct = (hero.scores[cat.id] / maxTotal) * 100;
+                    const seg = document.createElement('span');
+                    seg.className = 'bar-segment';
+                    seg.style.width = pct + '%';
+                    seg.style.backgroundColor = cat.color;
+                    seg.title = cat.label + ': ' + hero.scores[cat.id];
+                    barWrap.appendChild(seg);
+                });
+
+                tdBar.appendChild(barWrap);
+                tr.appendChild(tdBar);
+
+                // Total
+                const tdTotal = document.createElement('td');
+                tdTotal.textContent = hero.total;
+                tr.appendChild(tdTotal);
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ── Category toggle buttons ──────────────────────────────────────────────
+
+        function buildCategoryButtons() {
+            const container = document.getElementById('category-buttons');
+            CATEGORIES.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.textContent = cat.label;
+                btn.dataset.cat = cat.id;
+                btn.className = 'cat-btn active';
+                btn.style.setProperty('--cat-color', cat.color);
+
+                btn.addEventListener('click', () => {
+                    activeCategories[cat.id] = !activeCategories[cat.id];
+                    btn.classList.toggle('active', activeCategories[cat.id]);
+                    render();
+                });
+
+                container.appendChild(btn);
+            });
+        }
+
+        // ── Fetch ────────────────────────────────────────────────────────────────
+
+        const SHEET_ID = '1khKOu-9zjDnH8E1H0vBQE_FHg009-71wmB51pHtaZJ8';
+        const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
+
+        buildCategoryButtons();
+
+        fetch(CSV_URL)
+            .then(r => {
+                if (!r.ok) throw new Error('Network error');
+                return r.text();
+            })
+            .then(csvText => {
+                const parsed = parseCSV(csvText);
+                allData = parsed.filter(r => r['Episode'] && r['Episode'].trim() !== '');
+                document.getElementById('loading').hidden = true;
+                render();
+            })
+            .catch(err => {
+                console.error(err);
+                document.getElementById('loading').hidden = true;
+                const errEl = document.getElementById('error');
+                errEl.textContent = 'Could not load data. Please check your connection or the Google Sheet permissions.';
+                errEl.hidden = false;
+            });
+    </script>
+
+    <style>
+        /* App-specific styles for the bar chart and toggle buttons.
+           Layout, typography, and colour variables come from /css/style.css. */
+
+        #controls {
+            margin: 1.5rem 0;
+        }
+
+        #category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .cat-btn {
+            padding: 0.3rem 0.85rem;
+            border-radius: 999px;
+            border: 2px solid var(--cat-color);
+            background: transparent;
+            color: inherit;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .cat-btn.active {
+            background: var(--cat-color);
+            color: #fff;
+        }
+
+        #ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #ranking-table th,
+        #ranking-table td {
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        #ranking-table thead th {
+            border-bottom: 2px solid currentColor;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.6;
+        }
+
+        #ranking-table tbody tr + tr {
+            border-top: 1px solid rgba(128,128,128,0.15);
+        }
+
+        .bar {
+            display: flex;
+            height: 1.25rem;
+            border-radius: 4px;
+            overflow: hidden;
+            background: rgba(128,128,128,0.1);
+            min-width: 120px;
+        }
+
+        .bar-segment {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+    </style>
+
+</body>
+</html>

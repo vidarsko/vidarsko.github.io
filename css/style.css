@@ -105,3 +105,31 @@ footer {
 footer p { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted); }
 
 @media (max-width: 600px) { header h1 { font-size: 1.7rem; } }
+
+figure img {
+    width: 100%;
+    height: auto;
+}
+
+main ul, main ol {
+  padding-left: 1.5rem;
+  line-height: 1.75;
+}
+
+main li {
+  margin-bottom: 0.3rem;
+}
+
+main ul ul, main ol ol {
+  margin-top: 0.3rem;
+}
+
+main p {
+  line-height: 1.75;
+  margin-bottom: 1.2rem;
+}
+
+main h1, main h2, main h3, main h4 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}

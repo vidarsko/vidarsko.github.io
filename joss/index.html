@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jøss‽-analysen – skogvoll.com</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <article>
+
+            <h1>Jøss‽-analysen</h1>
+
+            <p>
+                Dette er historien om da jeg var gjest i Andreas Wahls podcast
+                <a href="https://joss.podcasten.no" target="_blank" rel="noopener noreferrer">Jøss‽</a>
+                og gikk fullstendig bananas i å analysere episodene i podcasten ved hjelp av kunstig intelligens.
+                Foruten å være gøy for alle som er interessert i tallknusing og grafer, er det også et eksempel på
+                hvordan kombinasjonen av kunstig intelligens og programmering kan gjøre analyse av vanvittig mye tekst
+                på kort tid, og gi ny innsikt. 
+            </p>
+
+            <p>Under kan du høre episoden hvor jeg forteller om analysen.</p>
+            
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/6M7Vo9pndemvbVAGIc5oAn?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+            <p>
+                I podcasten Jøss‽ "fekter" raringer (Andreas + 2–3 gjester) om hvem som har de beste funfactene.
+                I starten av hver episode gir hver raring sin "hook" som skal få de andre interesserte. Deretter
+                forteller de funfacten sin etter tur, gjerne en historie på 5–10 minutter. Til slutt forsøker raringene
+                å bli enige om hvilken funfact som vant – dvs. hvilken funfact som var mest "Jøss‽".
+            </p>
+
+            <p>
+                Jeg var med i podcasten for første gang i januar 2022. Som spirende fysikkformidler synes jeg det var
+                veldig stort å få invitasjon fra Andreas, hvis fysikkshow og folkeopplysning jeg hadde vært megafan av
+                lenge. Under innspilling traff jeg Andreas, Ishita Barua og tekniker Vincent Engebretsen, og i kofferten
+                hadde jeg to finslipte funfacts.
+            </p>
+
+            <figure>
+                <img src="received_320220096684856.jpeg" alt="Andreas, Vidar, Ishita and Vincent at the recording studio">
+                <figcaption>Andreas, meg selv, Ishita og Vincent.</figcaption>                
+            </figure>
+
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/0F04vY1YoNv2wPx1FFwpev?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" ></iframe>
+
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/6bfU8NaY6k8Pi1ARf9Gwvi?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+            <p>
+                Det ble én funfact om bønder som fryser is på plantene sine for å holde dem varme om vintern, og én
+                hvor jeg forsøkte å forklare relativitetsteorien på fem minutter. I retrospekt var kanskje sistnevnte
+                i overkant ambisiøs, men hvis du vil være dommer, kan du høre mine to forsøk under. Podcastopptredenen
+                ga meg etterhvert en plass i Abels tårn, og inspirasjon til å lage min egen podcast
+                <a href="https://underkappa.no" target="_blank" rel="noopener noreferrer">Under Kappa</a>.
+            </p>
+
+            <p>
+                Denne gangen, i 2025, var det min tur til å invitere Andreas. Han kom til realfagbiblioteket på
+                Blindern og vi spilte inn to episoder av Jøss og én episode av Under Kappa.
+            </p>
+
+            <figure>
+                <img src="IMG_6180.jpg" alt="Andreas, Vidar, and Even at the recording studio">
+                <figcaption>Andreas, meg selv, og Even (min medhost av Under Kappa).</figcaption>                
+            </figure>
+
+            <p>
+                Lørdagen før innspilling brukte jeg flere timer på å laste ned alle episodene av podcasten,
+                transkribere dem, og be ChatGPT om å gi karakter til alle episodene. Deretter gjorde jeg en
+                omfattende dataknusing. Dette beskriver jeg i det som følger.
+            </p>
+
+            <h2>Metode</h2>
+
+            <p>
+                For å analysere episodene, lastet jeg ned alle episodene fra RSS-feeden til podcasten. Deretter
+                transkriberte jeg episodene, og lagde et Python-skript som brukte API-et til OpenAIs modell
+                ChatGPT 4o for å gjøre analysen. For analysen brukte jeg denne preledeteksten.
+            </p>
+
+            <details>
+                <summary>Preledetekst (klikk for å vise)</summary>
+                <pre><code>Du får et transcript fra en podcasten Jøss.
+I episoden er det flere personer som forteller funfacts og konkurrere om hvem
+som har den mest "jøss"-ete funfacten.
+Din oppgave er å ekstrahere disse funfactene og lage en liste over dem.
+
+I podcasten er det ulike personer som snakker.
+Basert på samtalen må du assosiere hva de ulike personene heter.
+Programlederen i podcasten er som oftest Andreas Wahl.
+
+Du skal også plassere hver funfact i en kategori, her er alternativene:
+  Vitenskap og Teknologi: (Fysikk, kjemi, biologi, astronomi, data, oppfinnelser)
+  Natur og Dyr: (Zoologi, botanikk, miljø, geologi utenom ren geografi)
+  Historie og Samfunn: (Hendelser, personer, politikk, sosiologi, økonomi)
+  Kultur og Underholdning: (Kunst, musikk, film, litteratur, sport, spill, media, popkultur)
+  Menneskekroppen og Helse: (Anatomi, medisin, psykologi)
+  Språk og Kommunikasjon: (Lingvistikk, ords opprinnelse, kommunikasjonsformer)
+  Geografi og Steder: (Land, byer, naturformasjoner, reise)
+  Mat og Drikke: (Ingredienser, retter, drikkevarer, mathistorie)
+  Hverdagsliv og Rariteter: (Lover, statistikk, vaner, pussige fakta som ikke passer inn andre steder)
+
+Du skal gi fire kriterier for karakteren:
+
+Hookens Effektivitet (0–25): I starten av episoden kommer gjesten med en hook.
+  Hva den måler: Hvor godt fanger introduksjonen (hooken) oppmerksomheten?
+  Høy score: Hooken er fengende, original og gjør deg ivrig etter å høre svaret/faktaen.
+  Lav score: Hooken er flat, forutsigbar, forvirrende eller avslører for mye for tidlig.
+
+Overraskelsesmoment (0–25):
+  Hva den måler: Hvor uventet, sjokkerende eller kontraintuitiv er informasjonen?
+  Høy score: Faktaen er genuint overraskende eller får deg til å revurdere noe du trodde du visste.
+  Lav score: Faktaen er interessant, men ikke spesielt sjokkerende.
+
+Uvanlighet / Sjeldenhet (0–25):
+  Hva den måler: Hvor obskur, unik eller lite kjent er informasjonen?
+  Høy score: Dette er sjelden kunnskap de færreste har hørt om.
+  Lav score: Faktaen er relativt kjent eller dekker et vanlig tema.
+
+Minneverdighet / Formidlingspotensial (0–25):
+  Hva den måler: Hvor lett er kjernen i funfacten å forstå, huske og gjenfortelle?
+  Høy score: Faktaen er lett å gripe, huske og dele videre.
+  Lav score: Faktaen er kompleks, vanskelig å huske nøyaktig, eller lite egnet for gjenfortelling.
+
+Det er viktig at du er STRENG og bruker hele skalaen!
+En helt gjennomsnittlig funfact fortjener rundt 8–10 poeng per kategori.
+Ikke gi mer enn 15 poeng med mindre faktaen er genuint eksepsjonell.
+De fleste fakta vil ligge i sjiktet 5–12 poeng.</code></pre>
+            </details>
+
+            <p>Slik ledeteksten viser, var jeg interessert i å samle følgende data om hver funfact:</p>
+
+            <ul>
+                <li>Navn på raring</li>
+                <li>Kjønn på raring</li>
+                <li>
+                    Kategori, enten:
+                    <ul>
+                        <li>Vitenskap og Teknologi (fysikk, kjemi, biologi, astronomi, data, oppfinnelser)</li>
+                        <li>Natur og Dyr (zoologi, botanikk, miljø, geologi)</li>
+                        <li>Historie og Samfunn (hendelser, personer, politikk, sosiologi, økonomi)</li>
+                        <li>Kultur og Underholdning (kunst, musikk, film, litteratur, sport, spill, media, popkultur)</li>
+                        <li>Menneskekroppen og Helse (anatomi, medisin, psykologi)</li>
+                        <li>Språk og Kommunikasjon (lingvistikk, ords opprinnelse, kommunikasjonsformer)</li>
+                        <li>Geografi og Steder (land, byer, naturformasjoner, reise)</li>
+                        <li>Mat og Drikke (ingredienser, retter, drikkevarer, mathistorie)</li>
+                        <li>Hverdagsliv og Rariteter (lover, statistikk, vaner, pussige fakta)</li>
+                    </ul>
+                </li>
+                <li>
+                    Fire karakterer à 0–25 poeng:
+                    <ul>
+                        <li><strong>Hook</strong> – Hvor effektiv var hooken</li>
+                        <li><strong>Overraskelsesmoment</strong> – Hvor overraskende er resultatet</li>
+                        <li><strong>Uvanlighet</strong> – Hvor uvanlig er funfacten</li>
+                        <li><strong>Minneverdighet</strong> – Kommer man til å huske den i ettertid</li>
+                    </ul>
+                </li>
+                <li>Hvorvidt funfacten vant konkurransen</li>
+                <li>Hvorvidt det var en "underbukse"-funfact (noe med kjønnsorganer, rumpe eller sex)</li>
+            </ul>
+
+            <p>
+                Hver episode ga meg dermed en <code>.json</code>-fil som jeg kunne bruke for å analysere innholdet.
+                Innholdet ble samstilt i et stort Excel-ark.
+            </p>
+
+            <p>
+                For å beregne "vinnersjanse" for en kategori av funfact, tok jeg antall ganger en funfact av den
+                denne kategorien har vunnet og delt på antall ganger en slik funfact har vært med.
+            </p>
+
+            <aside>
+                <p>
+                    <strong>OBS OBS OBS!</strong> Mengden salt alle resultatene i denne bloggposten må tas med!
+                    Språkmodeller er notorisk rotete og surrer voldsomt, spesielt når inputtekstene blir lange, slik
+                    transkripsjoner av podcaster ofte er. Innholdet her har vært et raskt arbeid uten strukturert og
+                    intens dobbeltsjekking, og noen ganger oppdaget jeg at språkmodellen rotet med hvem som hadde sagt
+                    hva, og spesielt rekkefølgen på ting som ble sagt. Ta derfor alt som finnes i denne bloggposten
+                    med dertilegnet mengde salt.
+                </p>
+                <p>
+                    Vær også veldig forsiktig med å dobbeltsjekke resultater dersom du lar deg inspirere til å repetere
+                    denne typen undersøkelser.
+                </p>
+                <p>
+                    Bloggposten er ment for gøy. Og selv om språkmodellen har rota litt, så jeg gjennom en del
+                    stikkprøver sett nok til å føle meg relativt sikker på at noen av de generelle trendene som jeg
+                    viser er reelle.
+                </p>
+                <p>
+                    I tillegg er det viktig å ha et bevisst forhold til hvordan man behandler data – spesielt i dagens
+                    tidsalder med KI og spesielt når man behandler persondata om andre. Du kan lese min redegjørelse
+                    for databehandling <a href="#databehandling">nederst i artikkelen</a>.
+                </p>
+            </aside>
+
+            <h2>Resultater</h2>
+
+            <p>
+                Det endelige Excel-arket ble et monster med 621 funfacts, med informasjon om hvem som sa hva, kjønn,
+                tema og karakterer. Dette regnearket kommer jeg ikke til å dele, men dersom du har vært gjest i Jøss
+                og ønsker å vite hvilken tilbakemelding og poengscore du fikk av ChatGPT, så send meg en melding på
+                Instagram, <a href="https://instagram.com/fysikkvidar" target="_blank" rel="noopener noreferrer">@fysikkvidar</a>.
+            </p>
+
+            <h3>Andreas, Vidar eller Even?</h3>
+
+            <p>
+                Siden både jeg og Even hadde vært med i podcasten tidligere, tenkte jeg å finne ut av hvem av meg og
+                Even som hadde gjort det best tidligere.
+            </p>
+
+            <p>
+                Resultatet viser at jeg gjorde det litt bedre enn snittet, men dessverre ble jeg slått av Even –
+                kanskje fordi han ikke gikk i fella av å prøve å forklare relativitetsteorien på fem minutter.
+                Andreas derimot presterer under gjennomsnittet – kanskje ikke så rart når hver gjest som kommer har
+                med seg det beste de har, mens Andreas har stilt med nesten 200 funfacts selv.
+            </p>
+
+            <figure>
+                <img src="image-21.png" alt="Gjennomsnittlig poengscore for Andreas, Vidar og Even">
+                <figcaption>Gjennomsnittlig poengscore for Andreas, Vidar og Even sammenliknet med snittet.</figcaption>
+            </figure>
+
+            <h3>Den beste, og dårligste, funfacten</h3>
+
+            <h4>Den beste funfacten</h4>
+
+            <p>
+                Den beste funfacten, ifølge ChatGPT, ble fortalt av Eldrid Borgan i episode 66 –
+                <em>Forlenget klitoris, telefon i rumpa, og vennskapsparadokset</em>.
+            </p>
+
+            <blockquote>
+                <p>
+                    <strong>Vennskapsparadokset:</strong> De fleste av oss vil oppleve at vennene våre er mer populære
+                    enn oss selv, også selv om vi ikke er mindre populære enn snittet.
+                </p>
+                <footer>
+                    <dl>
+                        <dt>Hook</dt>
+                        <dd>25/25 – Et kraftig og direkte utsagn som utfordrer personens selvbilde og fanger umiddelbart oppmerksomhet.</dd>
+                        <dt>Sjokkeffekt</dt>
+                        <dd>21/25 – Et skikkelig sjokk for mange mennesker fordi det utfordrer et dypt rotfestet perspektiv på sosial status.</dd>
+                        <dt>Uvanlighet</dt>
+                        <dd>22/25 – Mens vennskap og popularitet er allmennkjente temaer, gjør denne spesifikke innsikten det til et sjeldent stykke sosial teori.</dd>
+                        <dt>Minneverdighet</dt>
+                        <dd>21/25 – Konseptet er lett å forstå og gjenfortelle under diskusjoner om sosiale nettverk og dynamikk.</dd>
+                        <dt>Totalt</dt>
+                        <dd>89/100 – Denne funfacten er både tankevekkende og reflekterende, og gir et nytt perspektiv på sosial status.</dd>
+                    </dl>
+                </footer>
+            </blockquote>
+
+            <h4>Den dårligste funfacten</h4>
+
+            <p>
+                Jeg hadde ikke delt hvem som havnet på sisteplass, hvis det ikke var for at det var Andreas selv som
+                var så uheldig å havne på den plassen. Denne ble fortalt i episode 94 –
+                <em>Språkstopp, evige spor, og en ode til fitta</em>.
+            </p>
+
+            <blockquote>
+                <p>
+                    <strong>Spor av menneskelig tilstedeværelse i geologien:</strong> Fysiske spor etter menneskelig
+                    aktivitet kan bli bevart i millioner, kanskje milliarder, av år i jordens geologiske lag.
+                </p>
+                <footer>
+                    <dl>
+                        <dt>Hook</dt>
+                        <dd>0/25 – Ingen tydelig introduksjon til denne funfacten.</dd>
+                        <dt>Sjokkeffekt</dt>
+                        <dd>7/25 – Interessant å tenke på hvordan menneskelige aktiviteter kan bli bevart i geologisk tid, men ikke sjokkerende.</dd>
+                        <dt>Uvanlighet</dt>
+                        <dd>9/25 – Temaet med geologiske spor av menneskelig aktivitet er ikke helt ukjent.</dd>
+                        <dt>Minneverdighet</dt>
+                        <dd>8/25 – Kjernen i funfacten er grei å forstå og huske, men ikke ekstremt minneverdig.</dd>
+                        <dt>Totalt</dt>
+                        <dd>24/100 – Til tross for at det er fascinerende, når denne funfacten ikke helt opp i konkurransen.</dd>
+                    </dl>
+                </footer>
+            </blockquote>
+
+            <h3>Utvikling over tid</h3>
+
+            <p>
+                Hvordan har funfactene utviklet seg over tid? For å finne ut av det plottet jeg karakterene de ulike
+                funfactene fikk som funksjon av episodenummer.
+            </p>
+
+            <figure>
+                <img src="image-21.png" alt="Karakterer per funfact plottet mot episodenummer">
+                <figcaption>Karakterer per funfact plottet mot episodenummer. Liten negativ trend på −0,0122 per episode.</figcaption>
+            </figure>
+
+            <p>
+                Som vi ser, har nivået vært veldig uvariabelt – liten trend. Om noe, er det en bitteliten negativ
+                trend, hvor karakterene går ned med 0,0122 per episode. Hvis vi ekstrapolerer videre, konkluderer vi
+                med at ved ca. episode 5000 vil funfactene være bånn i bøtta – men da er det kanskje på tide å gi
+                seg uansett?
+            </p>
+
+            <h3>Er menn bedre enn kvinner til å fortelle funfacts?</h3>
+
+            <p>
+                Ifølge analysen har det blitt fortalt 411 funfacts av menn, og 209 funfacts av kvinner. Siden Andreas
+                selv er mann, og det er to gjester i hver episode, tyder det på at det i snitt har blitt invitert
+                omtrent like mange menn og kvinner som gjester. Klapp klapp.
+            </p>
+
+            <p>
+                Dessverre for oss menn, ser det ut til at kvinnene slår oss i alle kategoriene, og ender opp med et
+                snitt på 57,1 poeng mot våre 54,4.
+            </p>
+
+            <figure>
+                <!-- Legg inn figur: gjennomsnittlig score menn vs. kvinner per kategori -->
+                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem;">
+                    <img src="image-14.png" alt="Gjennomsnittlig score menn vs kvinner - Hook">
+                    <img src="image-15.png" alt="Gjennomsnittlig score menn vs kvinner - Sjokkeffekt">
+                    <img src="image-16.png" alt="Gjennomsnittlig score menn vs kvinner - Uvanlighet">
+                    <img src="image-18.png" alt="Gjennomsnittlig score menn vs kvinner - Minneverdighet">
+                    <img src="image-19.png" alt="Gjennomsnittlig score menn vs kvinner - Total">
+                </div>
+                <figcaption>Gjennomsnittlig poengscore fordelt på kjønn og kategori.</figcaption>
+            </figure>
+
+            <h3>Gjelder det å fortelle først eller sist?</h3>
+
+            <figure>
+                <img src="image-22.png" alt="Vinnersjanse etter rekkefølge for 3 deltakere">
+                <figcaption>I episoder med 3 deltakere er det ganske jevnt. (N = 173 episoder)</figcaption>
+            </figure>
+
+            <figure>
+                <img src="image-23.png" alt="Vinnersjanse etter rekkefølge for 4 deltakere">
+                <figcaption>I episoder med 4 deltakere er det et tydelig mønster. (N = 17 episoder)</figcaption>
+            </figure>
+
+            <p>
+                Det kan tyde på at det å gå sist, sjeldent er en god strategi, spesielt ikke hvis man er fire! Slik
+                jeg ser det, er det to måter å forklare dette på. For det første, siden raringene starter episoden
+                med å presentere en hook hver, er det ikke usannsynlig at den minst spennende funfacten blir tatt sist
+                og dermed vinner sjeldnere. For det andre kan det hende at det er akkurat nok plass i hodet til tre
+                funfacts og at den første av disse har fått tid til å modne godt.
+            </p>
+
+            <p>
+                Her må det dog nevnes, at noe av det ChatGPT er dårligst på, er å si i hvilken rekkefølge
+                funfactene ble fortalt. Dermed må denne delen tas med en ekstra klype salt.
+            </p>
+
+            <h3>Hvilken kategori er best?</h3>
+
+            <figure>
+                <img src="image-26.png" alt="Antall funfacts fortalt i de ulike kategoriene">
+                <figcaption>Antall funfacts fortalt i de ulike kategoriene.</figcaption>
+            </figure>
+
+            <p>Men hvilken kategori er det lettest å vinne i?</p>
+
+            <figure>
+                <img src="image-27.png" alt="Vinnersjanse per kategori">
+                <figcaption>
+                    Vinnersjanse per kategori. Konklusjonen: velg en funfact fra "Kultur og underholdning,"
+                    men hold deg unna "Språk og kommunikasjon"!
+                </figcaption>
+            </figure>
+
+            <h3>Hjelper det med underbukse-funfact?</h3>
+
+            <p>
+                En vanlig gjentatt påstand i Jøss er at det hjelper med underbukse-funfact, altså en funfact som
+                involverer kjønn, rumpe eller sex. Figurene under viser hvor mange funfacts det var i de ulike
+                kategoriene vinnende/tapende og underbukse/ikke for tre og fire gjester.
+            </p>
+
+            <figure>
+                <img src="image-28.png" alt="Antall funfacts (3 deltakere)">
+                <figcaption>Antall funfacts i episoder med 3 deltakere.</figcaption>
+            </figure>
+
+            <figure>
+                <img src="image-29.png" alt="Andel vinnende/tapende og underbukse (3 deltakere)">
+                <figcaption>Andel vinnende/tapende og underbukse-/sofistikert funfact i episoder med 3 deltakere.</figcaption>
+            </figure>
+
+            <figure>
+                <img src="image-30.png" alt="Antall funfacts (4 deltakere)">
+                <figcaption>Antall funfacts i episoder med 4 deltakere.</figcaption>
+            </figure>
+
+            <figure>
+                <img src="image-31.png" alt="Andel vinnende/tapende og underbukse (4 deltakere)">
+                <figcaption>Andel vinnende/tapende og underbukse-/sofistikert funfact i episoder med 4 deltakere.</figcaption>
+            </figure>
+
+            <p>
+                Som vi ser er det litt under 1/3 sjanse for å vinne når det er 3 deltakere. Grunnen er at det ikke
+                alltid kåres en vinner, og at ChatGPT kan ha gjort feil i analysen. Det vi lurer på er hva sjansen
+                for å vinne er gitt at du går for en underbukse-funfact, sammenliknet med sjansen for å vinne gitt
+                at du går for en sofistikert funfact.
+            </p>
+
+            <p>
+                I en episode med 3 deltakere: sjansen for å vinne er ca. 3 prosentpoeng <em>høyere</em> med
+                underbukse-funfact. I episoder med fire deltakere er det ingen forskjell.
+            </p>
+
+            <h3>Er ChatGPT enig i vinneren?</h3>
+
+            <p>
+                I de to siste delene av analysen, ønsket jeg å se litt på troverdigheten i analysen. Det første man
+                kan gjøre er å se om det er korrelasjon mellom hvilken poengscore en funfact fikk, og hvor stor sjanse
+                den hadde for å vinne.
+            </p>
+
+            <figure>
+                <img src="image-31.png" alt="Andel vinnende/tapende og underbukse (4 deltakere)">
+                <figcaption>Vinnersjanse for funfacts med ulik poengscore. Det er en viss korrelasjon.</figcaption>
+            </figure>
+
+            <p>
+                Det må dog nevnes at ChatGPT har gitt karakterscore basert på hele transkripsjonen av samtalen. En av
+                konsekvensene med dette, er at språkmodellen tar inn diskusjonen som kom etter analysen – hvor
+                deltakerne i podcasten diskuterer hvilken funfact som bør vinne. Dersom en funfact omtales i hyggelige
+                ordlag her, er det naturlig at den blir inspirert til å gi den historien en god score.
+            </p>
+
+            <h3>Er ChatGPT enig med seg selv?</h3>
+
+            <p>
+                Slik jeg nevnte innledningsvis, skal vi ta denne analysen med en god mengde NaCl. Men selv om vi kunne
+                stolt på at ChatGPT hadde full oversikt over hvem som sa hva hele tiden – kan vi stole på vurderingen
+                av kvalitetene til funfactene? Sagt på en annen måte – dersom jeg kjører analysen én gang til, matcher
+                poengsummene?
+            </p>
+
+            <figure>
+                <img src="image-31.png" alt="Andel vinnende/tapende og underbukse (4 deltakere)">
+                <figcaption>
+                    Poengsum i andre analyse sammenliknet med første. Dersom ChatGPT hadde vært 100% konsistent,
+                    ville poengene havnet langs diagonalen fra (0,0) til (100,100).
+                </figcaption>
+            </figure>
+
+            <p>
+                Vi ser at ChatGPT er langt fra å være konsekvent, selv om det finnes en trend i dataene. For eksempel
+                ser vi at den beste funfacten i første omgang, nemlig Eldrid Borgans funfact om vennskapsparadokset,
+                kun fikk 69 poeng i andre analyse. Og Benedicte Garman-Aarhus fikk kun 61 poeng i første analyse,
+                men vant soleklart i andre.
+            </p>
+
+            <p>
+                Betyr dette at man ikke kan stole på ChatGPTs analyse av data? Jeg tror det betyr to ting: for det
+                første handler det om at språkmodeller er best på kvalitative oppgaver – analysere meningsinnholdet i
+                tekster – og mindre gode på kvantitative oppgaver som å gi poeng. For det andre er gjestene i Jøss
+                som regel hentet inn fordi de allerede er gode formidlere som vet å snakke om funfacts. Dermed er det
+                lite "strekk i laget," og jeg tror det ville vært svært vanskelig selv for et menneske å objektivt
+                sette karakterer på disse. I mer realistiske situasjoner, som f.eks. skoleeksamener, ville det vært
+                mye mer spredning og kanskje enklere for ChatGPT å være konsekvent.
+            </p>
+
+            <h2>Konklusjon</h2>
+
+            <p>
+                Så, hva sitter jeg igjen med etter å ha gått fullstendig bananas med KI-analyse på hele
+                Jøss‽-arkivet?
+            </p>
+
+            <p>
+                Noen mønstre dukket jo opp: Kvinnene ser ut til å slå oss menn jevnt over, kultur-funfacts er
+                tilsynelatende den beste strategien, og å melde seg frivillig til å gå sist? Kanskje ikke så lurt,
+                spesielt hvis dere er fire.
+            </p>
+
+            <p>
+                Det er jo ingen tvil om at KI er et kraftig verktøy for å tygge seg gjennom vanvittige mengder tekst
+                – som 621 funfacts fordelt på årevis med podcast – og finne ting man ellers ville brukt evigheter på
+                manuelt.
+            </p>
+
+            <p>
+                Allikevel hadde KI-en litt problemer med å være konsekvent i sin kvantitative analyse. Og det er
+                kanskje ikke så rart, for Jøss‽ handler jo egentlig om mye mer enn poeng og kategorier. Det handler
+                om formidlingsgleden til raringene, den gode historien, latteren – ting som en språkmodell nok ikke
+                klarer å fange helt ennå, uansett hvor fancy den er.
+            </p>
+
+            <p>
+                Men forhåpentligvis var denne tallknuse-bonanzaen gøy lesning og ga et litt annerledes blikk på denne
+                rare podcasten. Jakten på den perfekte funfacten fortsetter – både for meg og forhåpentligvis for
+                Andreas og andre raringer i mange episoder til!
+            </p>
+
+            <h2 id="databehandling">Databehandling</h2>
+
+            <p>
+                Et vanlig rammeverk for å vurdere behovet for beskyttelse av data er en fargekoding av data, se f.eks.
+                <a href="https://www.uio.no/for-ansatte/arbeidsstotte/fa/informasjonssikkerhet/hva-er-informasjonssikkerhet/kategorier.html"
+                   target="_blank" rel="noopener noreferrer">UiOs retningslinjer</a>. Her går graderingen fra grønn
+                (åpen informasjon), gul (intern informasjon), rød (konfidensiell informasjon) og til sort (strengt
+                konfidensiell informasjon).
+            </p>
+
+            <p>
+                I dette prosjektet, hvor jeg analyserer innhold fra podcasten "Jøss", er råmaterialet (lydopptakene)
+                offentlig tilgjengelig via åpne podcast-plattformer. Alle som deltar i podcasten er klar over at deres
+                stemmer og uttalelser blir publisert og gjort tilgjengelig for allmennheten. Slikt kan man argumentere
+                for at det er snakk om grønn data.
+            </p>
+
+            <p>
+                Det til tross, har podcasten en diskursform som er personlig og deltakere vil raskt kunne dele
+                personlig informasjon. I tillegg, ved å generere transkripsjoner av episodene kan man bidra til å
+                gjøre denne informasjonen mer tilgjengelig. Derfor har jeg valgt i denne analysen å holde meg til
+                tjenester hvor dataen ikke blir permanent lagret på noen servere.
+            </p>
+
+            <dl>
+                <dt>Innhenting</dt>
+                <dd>
+                    Lydfilene fra podcast-episodene ble lastet ned direkte til min private, lokale datamaskin for å
+                    ha kontroll på hvor rådataene befant seg.
+                </dd>
+                <dt>Transkribering med Autotekst</dt>
+                <dd>
+                    For å omdanne lyd til tekst, benyttet jeg tjenesten
+                    <a href="https://autotekst.uio.no" target="_blank" rel="noopener noreferrer">Autotekst</a>,
+                    som driftes av Universitetet i Oslo. Lydfilene ble lastet opp til denne tjenesten for automatisk
+                    transkribering. Autotekst kjører på UiOs egne servere lokalisert i Norge, og tjenesten sletter de
+                    opplastede lydfilene umiddelbart etter at transkripsjonen er fullført.
+                </dd>
+                <dt>Analyse via OpenAI API</dt>
+                <dd>
+                    Selve analysen av tekstdataene (transkripsjonene) ble utført ved hjelp av OpenAIs språkmodeller
+                    via deres API. Ved bruk av dette API-et gjelder følgende retningslinjer:
+                    <ul>
+                        <li>Data sendt inn via API-et brukes ikke til å trene OpenAIs modeller.</li>
+                        <li>Dataene blir ikke gjennomgått manuelt av ansatte hos OpenAI. Tilgang for mennesker er
+                            strengt begrenset og skjer kun unntaksvis for å etterforske mulig misbruk, overholde
+                            lovpålagte krav eller løse tekniske/sikkerhetsmessige problemer.</li>
+                        <li>Dataene lagres midlertidig i maksimalt 30 dager, primært for å overvåke misbruk og av
+                            juridiske hensyn, før de slettes permanent fra deres systemer.</li>
+                    </ul>
+                </dd>
+            </dl>
+
+            <p>
+                Etter analysen har jeg slettet alle lydfiler og transkripsjoner og beholdt kun et Excel-ark med
+                oversikten. I denne artikkelen har jeg kun delt aggregerte resultater og gir informasjon til
+                deltakere kun på forespørsel av dem selv.
+            </p>
+
+        </article>
+
+    </main>
+
+</body>
+</html>
