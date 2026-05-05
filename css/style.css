@@ -133,3 +133,20 @@ main h1, main h2, main h3, main h4 {
   margin-top: 2rem;
   margin-bottom: 0.75rem;
 }
+
+figure {
+  margin: 1.5rem 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+figcaption {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--border) 40%, var(--bg));
+  padding: 0.5rem 0.75rem;
+  border-top: 1px solid var(--border);
+  line-height: 1.5;
+}
