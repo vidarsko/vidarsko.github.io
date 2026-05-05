@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="no">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Progresjonskart</title>
+	<style>
+		:root{--bg1:#081229;--bg2:#0b3b5a;--card:#fff;--muted:#555}
+		html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+		body{background:linear-gradient(135deg,var(--bg1),var(--bg2));color:#fff;display:flex;align-items:flex-start;justify-content:center;padding:32px}
+		.wrap{width:100%;max-width:1200px}
+		h1{margin:0 0 12px;font-size:20px}
+		.board{display:flex;gap:20px;align-items:flex-start;min-height:60vh;transition:all .4s ease}
+		.column{display:flex;flex-direction:column;gap:14px;min-width:220px}
+		.card{background:var(--card);color:#0b2333;padding:12px;border-radius:12px;box-shadow:0 8px 20px rgba(2,6,23,.45);width:220px;transition:transform .35s ease,box-shadow .2s;position:relative}
+		.card small{color:var(--muted);display:block;margin-bottom:8px}
+		.actions{display:flex;gap:6px;margin-top:8px}
+		button{flex:1;padding:6px 8px;border-radius:8px;border:0;cursor:pointer;background:#0b83b5;color:#fff}
+		button.ghost{background:#e6eef5;color:#0b2333}
+		.hint{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:10px}
+		.hidden{display:none}
+		.card .meta{font-size:13px;margin-top:8px;color:#0b3b4b}
+		.card .goal,.card .prompt{background:linear-gradient(90deg,#f8fafc,#eef6fb);padding:8px;border-radius:8px;margin-top:8px;color:#042033}
+		.card.done{opacity:.85;transform:translateY(-6px) scale(.995);box-shadow:0 12px 30px rgba(2,6,23,.55)}
+		.card.appear{animation:pop .45s ease}
+		@keyframes pop{from{transform:translateY(12px) scale(.98);opacity:0}to{transform:none;opacity:1}}
+		.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+		.small{font-size:13px;color:rgba(255,255,255,.7)}
+		/* responsive */
+		@media (max-width:880px){.board{flex-wrap:wrap}.column{min-width:180px}}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="topbar">
+			<div>
+				<h1>Progresjonskart — interaktiv</h1>
+				<div class="hint">Vis kun åpne ferdigheter. Marker som ferdig for å åpne barn.</div>
+			</div>
+			<div class="small">Framdrift lagres lokalt i nettleseren</div>
+		</div>
+
+		<div id="board" class="board" aria-live="polite"></div>
+	</div>
+
+	<script>
+	(function(){
+		const CSV_PATH = 'skills.csv';
+		const LS_KEY = 'progress_done_v1';
+
+		// util: simple CSV parser (comma-separated, no fancy quoting)
+		function parseCSV(text){
+			const lines = text.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+			if(!lines.length) return [];
+			const headers = lines.shift().split(',').map(h=>h.trim());
+			return lines.map(line=>{
+				const cols = line.split(',').map(c=>c.trim());
+				const obj = {};
+				headers.forEach((h,i)=>obj[h]=cols[i]||'');
+				return obj;
+			});
+		}
+
+		// load CSV
+		async function loadCSV(){
+			try{
+				const res = await fetch(CSV_PATH);
+				if(!res.ok) throw new Error('Kunne ikke hente ' + CSV_PATH);
+				const txt = await res.text();
+				return parseCSV(txt);
+			}catch(e){
+				console.error(e);
+				return [];
+			}
+		}
+
+		// build tree
+		function buildTree(items){
+			const nodes = {};
+			items.forEach(it=>{
+				const id = (it['Level']||'').trim();
+				if(!id) return;
+				nodes[id] = {id, title: it['Learning goal']||'', prompt: it['Prompt']||'', children: []};
+			});
+			Object.values(nodes).forEach(n=>{
+				const parts = n.id.split('-');
+				if(parts.length>1){
+					const parent = parts.slice(0,-1).join('-');
+					if(nodes[parent]) nodes[parent].children.push(n.id);
+				}
+			});
+			// compute depth
+			let maxDepth = 1;
+			Object.values(nodes).forEach(n=>{ maxDepth = Math.max(maxDepth, n.id.split('-').length); });
+			return {nodes, maxDepth};
+		}
+
+		// state
+		const state = {done: new Set(), showGoal: {}, showPrompt: {}};
+
+		function loadState(){
+			try{
+				const raw = localStorage.getItem(LS_KEY);
+				if(raw){ JSON.parse(raw).forEach(id=>state.done.add(id)); }
+			}catch(e){ console.warn('load err',e); }
+		}
+		function saveState(){ localStorage.setItem(LS_KEY, JSON.stringify(Array.from(state.done))); }
+
+		function isVisible(id, nodes){
+			const parts = id.split('-');
+			if(parts.length===1) return true; // roots always visible
+			const parent = parts.slice(0,-1).join('-');
+			return state.done.has(parent);
+		}
+
+		// render
+		function render(boardEl, nodesObj, maxDepth){
+			// clear
+			boardEl.innerHTML = '';
+			// create columns 1..maxDepth
+			const columns = [];
+			for(let d=1; d<=maxDepth; d++){
+				const col = document.createElement('div'); col.className='column'; col.dataset.depth=d; boardEl.appendChild(col); columns.push(col);
+			}
+
+			// collect visible nodes and place by depth
+			Object.values(nodesObj).forEach(node=>{
+				if(!isVisible(node.id,nodesObj)) return;
+				const depth = node.id.split('-').length;
+				const card = createCard(node, nodesObj);
+				card.classList.add('appear');
+				columns[depth-1].appendChild(card);
+			});
+		}
+
+		function createCard(node, nodesObj){
+			const card = document.createElement('div'); card.className='card';
+			if(state.done.has(node.id)) card.classList.add('done');
+			const idEl = document.createElement('small'); idEl.textContent = node.id; card.appendChild(idEl);
+			const title = document.createElement('div'); title.textContent = node.title || '(ingen tittel)'; title.style.fontWeight='600'; card.appendChild(title);
+
+			const goalEl = document.createElement('div'); goalEl.className='goal hidden'; goalEl.textContent = node.title||''; card.appendChild(goalEl);
+			const promptEl = document.createElement('div'); promptEl.className='prompt hidden'; promptEl.textContent = node.prompt||''; card.appendChild(promptEl);
+
+			const meta = document.createElement('div'); meta.className='meta'; meta.textContent = node.children.length ? `${node.children.length} underliggende` : 'Ingen underliggende'; card.appendChild(meta);
+
+			const actions = document.createElement('div'); actions.className='actions';
+			const btnShowGoal = document.createElement('button'); btnShowGoal.textContent='Vis mål'; btnShowGoal.className='ghost';
+			btnShowGoal.onclick = ()=>{ const v = !goalEl.classList.toggle('hidden'); btnShowGoal.textContent = v ? 'Skjul mål' : 'Vis mål'; };
+			const btnShowPrompt = document.createElement('button'); btnShowPrompt.textContent='Vis prompt'; btnShowPrompt.className='ghost';
+			btnShowPrompt.onclick = ()=>{ const v = !promptEl.classList.toggle('hidden'); btnShowPrompt.textContent = v ? 'Skjul prompt' : 'Vis prompt'; };
+
+			const btnDone = document.createElement('button'); btnDone.textContent = state.done.has(node.id) ? 'Ferdig' : 'Merk ferdig';
+			btnDone.onclick = ()=>{
+				if(state.done.has(node.id)) return; // no un-mark to keep simple
+				state.done.add(node.id); saveState(); render(document.getElementById('board'), nodesObj, maxDepthGlobal); 
+			};
+
+			actions.appendChild(btnShowGoal); actions.appendChild(btnShowPrompt); actions.appendChild(btnDone);
+			card.appendChild(actions);
+			return card;
+		}
+
+		// bootstrap
+		let nodesGlobal = {}, maxDepthGlobal = 1;
+		(async ()=>{
+			const rows = await loadCSV();
+			if(!rows.length){ document.getElementById('board').textContent = 'Fant ingen ferdigheter i skills.csv'; return; }
+			const tree = buildTree(rows);
+			nodesGlobal = tree.nodes; maxDepthGlobal = tree.maxDepth;
+			loadState();
+			render(document.getElementById('board'), nodesGlobal, maxDepthGlobal);
+		})();
+	})();
+	</script>
+</body>
+</html>
+
