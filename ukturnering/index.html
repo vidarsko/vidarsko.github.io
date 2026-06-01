@@ -93,6 +93,46 @@
       text-overflow: ellipsis;
     }
 
+    .audio-player {
+      display: flex;
+      align-items: center;
+      width: 85%;
+      margin-top: 6px;
+      gap: 6px;
+      font-family: sans-serif;
+    }
+    .audio-btn {
+      font-size: 10px;
+      line-height: 1;
+      user-select: none;
+      color: #fbbf24;
+      background: #333;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .audio-btn:hover { background: #000; }
+    .audio-timeline {
+      flex-grow: 1;
+      height: 6px;
+      background: rgba(0,0,0,0.15);
+      border-radius: 3px;
+      position: relative;
+      cursor: pointer;
+    }
+    .audio-fill {
+      height: 100%;
+      background: #fbbf24;
+      border-radius: 3px;
+      width: 0%;
+      pointer-events: none;
+    }
+
     /* Each column represents a round */
     .col {
       display: flex;
@@ -320,11 +360,11 @@
 
   // CONFIGURATION FOR NODES (Tunables for intersections and targets)
   const NODE_CONFIG = {
-    battleWidth: 100,
-    battleHeight: 100,
+    battleWidth: 120,
+    battleHeight: 110,
     battleEmoji: '⚔️',
-    trophyWidth: 90,
-    trophyHeight: 90,
+    trophyWidth: 110,
+    trophyHeight: 100,
     trophyEmoji: '🏆'
   };
 
@@ -452,10 +492,27 @@
     // -- Player --
     const playerWrap = mk('div', { class:'card-player' });
     if (cfg.podcast && cfg.podcast.scriptSrc) {
-      const playerDiv = mk('div', { id: cfg.podcast.containerId });
+      // Create a unique identifier so repeating the same Buzzsprout embed in multiple cards won't break
+      const uniqueSuffix = Math.random().toString(36).substring(2, 8);
+      const uniqueContainerId = `${cfg.podcast.containerId}-${uniqueSuffix}`;
+      
+      const playerDiv = mk('div', { id: uniqueContainerId });
       playerWrap.appendChild(playerDiv);
+      
+      // We must also accurately replace whatever container_id parameter Buzzsprout gave you in the URL
+      // with our new unique container ID so the script targets the correct wrapper
+      let finalSrc = cfg.podcast.scriptSrc;
+      if (finalSrc.includes('container_id=')) {
+        finalSrc = finalSrc.replace(/container_id=[^&]+/, `container_id=${uniqueContainerId}`);
+      } else {
+        // Fallback just in case it doesn't have it, though standard buzzsprout URLs do
+        finalSrc += (finalSrc.includes('?') ? '&' : '?') + `container_id=${uniqueContainerId}`;
+      }
+
       const script = document.createElement('script');
-      script.src = cfg.podcast.scriptSrc; script.type = 'text/javascript'; script.charset = 'utf-8';
+      script.src = finalSrc; 
+      script.type = 'text/javascript'; 
+      script.charset = 'utf-8';
       playerWrap.appendChild(script);
     } else {
       const placeholder = mk('div', { class: 'placeholder-podcast' });
@@ -534,16 +591,6 @@
     // Use a global tracker so only one audio plays at a time
     if (!window.currentAudioPlayer) window.currentAudioPlayer = null;
 
-    function playAudio(url) {
-      if (!url) return;
-      if (window.currentAudioPlayer) {
-        window.currentAudioPlayer.pause();
-        window.currentAudioPlayer.currentTime = 0;
-      }
-      window.currentAudioPlayer = new Audio(url);
-      window.currentAudioPlayer.play().catch(e => console.error("Audio error:", e));
-    }
-
     function addMiniNode(x, y, data, type) {
       const wrap = mk('div', { class: `mini-node ${type}` });
       // Center the node at the computed x, y
@@ -567,7 +614,59 @@
            wrap.appendChild(lbl);
         }
         if (data.mp3) {
-           wrap.onclick = () => playAudio(data.mp3);
+           const audio = new Audio(data.mp3);
+           audio.preload = "metadata";
+
+           const player = mk('div', { class: 'audio-player' });
+           const btn = mk('div', { class: 'audio-btn' });
+           btn.innerHTML = '&#9654;'; // Play icon
+           const timeline = mk('div', { class: 'audio-timeline' });
+           const fill = mk('div', { class: 'audio-fill' });
+           
+           timeline.appendChild(fill);
+           player.appendChild(btn);
+           player.appendChild(timeline);
+           wrap.appendChild(player);
+
+           const togglePlay = (e) => {
+             e.stopPropagation();
+             if (audio.paused) {
+               if (window.currentAudioPlayer && window.currentAudioPlayer !== audio) {
+                 window.currentAudioPlayer.pause();
+               }
+               window.currentAudioPlayer = audio;
+               audio.play().catch(err => console.error("Audio error:", err));
+             } else {
+               audio.pause();
+             }
+           };
+
+           btn.onclick = togglePlay;
+           // If they click the whole node, let's also toggle play for convenience
+           wrap.onclick = togglePlay;
+
+           timeline.onclick = (e) => {
+             e.stopPropagation();
+             const rect = timeline.getBoundingClientRect();
+             // This math is robust against CSS scale zooming
+             const pct = (e.clientX - rect.left) / rect.width;
+             if (audio.duration) {
+               audio.currentTime = pct * audio.duration;
+               fill.style.width = (pct * 100) + '%';
+             }
+           };
+
+           audio.addEventListener('play', () => { btn.innerHTML = '&#10074;&#10074;'; }); // Pause icon
+           audio.addEventListener('pause', () => { btn.innerHTML = '&#9654;'; });
+           audio.addEventListener('timeupdate', () => {
+             if (audio.duration) {
+               fill.style.width = ((audio.currentTime / audio.duration) * 100) + '%';
+             }
+           });
+           audio.addEventListener('ended', () => {
+             btn.innerHTML = '&#9654;';
+             fill.style.width = '0%';
+           });
         }
       } else {
         wrap.classList.add('inactive');
