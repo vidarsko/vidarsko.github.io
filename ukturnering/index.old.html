@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KAPPE — Turneringskort</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--page-bg, #f2ece6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Barlow Condensed', sans-serif;
+    }
+
+    /* ─── Card shell ───────────────────────────────────── */
+    .card {
+      display: flex;
+      border-radius: 7px;
+      overflow: hidden;
+      position: relative;
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,0.09),
+        0 12px 48px rgba(0,0,0,0.13),
+        0 2px 8px  rgba(0,0,0,0.06);
+      animation: fadeUp 0.4s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Rainbow top-edge accent */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ef4444, #a855f7, #3b82f6, #22c55e, #f59e0b);
+      z-index: 20;
+    }
+
+    /* ─── Left square: image ───────────────────────────── */
+    .card-left {
+      flex-shrink: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .card-left img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Edge-blend from image into card panel — tracks card-bg color */
+    .card-left::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 60%, var(--card-bg, #e5ddd4) 100%);
+      pointer-events: none;
+    }
+
+    /* ─── Right square ─────────────────────────────────── */
+    .card-right {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--card-bg, #e5ddd4);
+    }
+
+    /* Top 50 %: name + scores */
+    .card-info {
+      height: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 16px 24px 12px;
+      gap: 10px;
+    }
+
+    .card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      color: #2a2218;
+      letter-spacing: 3px;
+      line-height: 1;
+      /* font-size set from JS */
+    }
+
+    .kappe-header {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+    }
+    .kappe-header-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: rgba(0,0,0,0.38);
+    }
+    .kappe-total {
+      font-size: 17px;
+      font-weight: 700;
+      color: #2a2218;
+    }
+
+    /* Full-width track + filled bar
+       The ::after pseudo-element draws the empty track behind the segments */
+    .kappe-bar-area {
+      width: 100%;
+      position: relative;
+    }
+    .kappe-bar-area::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 13px;              /* same as seg-block height */
+      background: rgba(0,0,0,0.08);
+      border-radius: 3px;
+      pointer-events: none;
+    }
+
+    /* Filled portion — width set dynamically as sum/100 % */
+    .kappe-bar-container {
+      display: flex;
+      gap: 2px;
+      position: relative;
+      z-index: 1;             /* sits above the track */
+    }
+
+    .seg-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .seg-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: rgba(0,0,0,0.48);
+      white-space: nowrap;
+    }
+
+    .seg-block {
+      height: 13px;
+      width: 100%;
+      border-radius: 2px;
+      transition: filter 0.15s;
+    }
+    .seg-block:hover { filter: brightness(1.18) saturate(1.2); }
+
+    /* ─── Bottom 50 %: podcast player ──────────────────── */
+    .card-player {
+      height: 50%;
+      overflow: hidden;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+    }
+    .card-player > div { width: 100%; }
+
+  </style>
+</head>
+<body>
+
+  <div id="app"></div>
+
+  <script>
+  /* ════════════════════════════════════════════════════════════════════
+   *  CONFIG — all tunable values live here
+   * ════════════════════════════════════════════════════════════════════ */
+
+  const CONFIG = {
+
+    /* Card geometry — height = CARD_WIDTH / 2, each half is square */
+    CARD_WIDTH: 800,
+
+    /* ── Background colors ─────────────────────────────────────────── */
+    pageBg: "#f5f0eb",   // page background  (warm off-white, Claude-ish)
+    cardBg: "#e0d3c3",   // card right panel + image-edge blend
+
+    /* ── Character ──────────────────────────────────────────────────── */
+    name:     "Clayface",
+    imageUrl: "https://www.denofgeek.com/wp-content/uploads/2025/11/Clayface-Batman-the-Animated-Series.png?resize=768%2C432",
+
+    /* ── KAPPE scores ───────────────────────────────────────────────
+       The bar fills to (sum / 100) of the total track width,
+       capped at 100 %.  Segments scale proportionally within that.
+       P1 = first P, P2 = second P.                                   */
+    kappe: {
+      K:  10,
+      A:   8,
+      P1: 14,
+      P2:  6,
+      E:  12,
+    },
+
+    /* ── Segment colors ─────────────────────────────────────────────── */
+    kappeColors: {
+      K:  "#ef4444",   // red
+      A:  "#a855f7",   // purple
+      P1: "#3b82f6",   // blue
+      P2: "#22c55e",   // green
+      E:  "#f59e0b",   // amber
+    },
+
+    /* ── Podcast embed (Buzzsprout) ─────────────────────────────────
+       Replace containerId and scriptSrc to point to a different episode. */
+    podcast: {
+      containerId: "buzzsprout-player-19248436",
+      scriptSrc:   "https://www.buzzsprout.com/2188463/episodes/19248436-79-clayface-topologi-og-slimsopp.js?container_id=buzzsprout-player-19248436&player=small",
+    },
+
+  };
+
+  /* ════════════════════════════════════════════════════════════════════
+   *  RENDER
+   * ════════════════════════════════════════════════════════════════════ */
+
+  function renderCard(cfg) {
+    // Expose colors as CSS variables (used by stylesheet and ::after gradients)
+    document.documentElement.style.setProperty('--page-bg', cfg.pageBg);
+    document.documentElement.style.setProperty('--card-bg', cfg.cardBg);
+
+    const W = cfg.CARD_WIDTH;
+    const S = W / 2;   // each half is S × S
+
+    const KEYS   = ['K', 'A', 'P1', 'P2', 'E'];
+    const LABELS = { K:'K', A:'A', P1:'P', P2:'P', E:'E' };
+    const total  = KEYS.reduce((sum, k) => sum + cfg.kappe[k], 0);
+
+    // Bar fills to sum/100 of the track width (max 100 %)
+    const barPct = Math.min(total, 100);
+
+    /* ── Card shell ── */
+    const card = mk('div', { class:'card', style:`width:${W}px; height:${S}px;` });
+
+    /* ── Left: image ── */
+    const left = mk('div', { class:'card-left', style:`width:${S}px; height:${S}px;` });
+    left.appendChild(mk('img', { src: cfg.imageUrl, alt: cfg.name }));
+    card.appendChild(left);
+
+    /* ── Right panel ── */
+    const right = mk('div', { class:'card-right', style:`width:${S}px; height:${S}px;` });
+
+    // — Info section (top half) —
+    const info = mk('div', { class:'card-info' });
+
+    const nameEl = mk('div', {
+      class: 'card-name',
+      style: `font-size:${Math.round(S * 0.115)}px;`
+    });
+    nameEl.textContent = cfg.name;
+    info.appendChild(nameEl);
+
+    // "Kappe-score: XX"
+    const hdr = mk('div', { class:'kappe-header' });
+    const hl  = mk('span', { class:'kappe-header-label' }); hl.textContent = 'Kappe-score:';
+    const ht  = mk('span', { class:'kappe-total'       }); ht.textContent = total;
+    hdr.appendChild(hl); hdr.appendChild(ht);
+    info.appendChild(hdr);
+
+    // Bar track + filled segments
+    const barArea = mk('div', { class:'kappe-bar-area' });
+    const bar     = mk('div', {
+      class: 'kappe-bar-container',
+      style: `width:${barPct}%;`
+    });
+    KEYS.forEach(k => {
+      const seg = mk('div', { class:'seg-wrapper', style:`flex:${cfg.kappe[k]};` });
+      const lbl = mk('span', { class:'seg-label' }); lbl.textContent = `${LABELS[k]}: ${cfg.kappe[k]}`;
+      const blk = mk('div', { class:'seg-block', style:`background:${cfg.kappeColors[k]};` });
+      seg.appendChild(lbl); seg.appendChild(blk);
+      bar.appendChild(seg);
+    });
+    barArea.appendChild(bar);
+    info.appendChild(barArea);
+
+    right.appendChild(info);
+
+    // — Player section (bottom half) —
+    const playerWrap = mk('div', { class:'card-player' });
+    const playerDiv  = mk('div', { id: cfg.podcast.containerId });
+    playerWrap.appendChild(playerDiv);
+
+    const script = document.createElement('script');
+    script.src = cfg.podcast.scriptSrc; script.type = 'text/javascript'; script.charset = 'utf-8';
+    playerWrap.appendChild(script);
+
+    right.appendChild(playerWrap);
+    card.appendChild(right);
+    document.getElementById('app').appendChild(card);
+  }
+
+  function mk(tag, attrs = {}) {
+    const el = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+    return el;
+  }
+
+  renderCard(CONFIG);
+  </script>
+</body>
+</html>
