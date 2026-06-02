@@ -812,8 +812,14 @@
   const viewport = document.getElementById('viewport');
   const canvas = document.getElementById('canvas');
 
+  let transformRaf = null;
+
   function applyTransform() {
-    canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+    if (transformRaf) cancelAnimationFrame(transformRaf);
+    transformRaf = requestAnimationFrame(() => {
+      canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+      transformRaf = null;
+    });
   }
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -905,6 +911,11 @@
     window.addEventListener('touchend', onDragEnd);
     
     window.addEventListener('touchmove', (e) => {
+      // Prevent browser from doing pull-to-refresh or swipe navigation while we pan/zoom
+      if (e.cancelable && (isDragging || e.touches.length >= 2)) {
+        e.preventDefault();
+      }
+
       if (e.touches.length === 1 && isDragging) {
         onDragMove(e.touches[0].clientX, e.touches[0].clientY);
       } else if (e.touches.length === 2) {
