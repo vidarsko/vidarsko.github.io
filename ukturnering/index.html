@@ -26,6 +26,8 @@
       cursor: grab;
       position: relative;
       touch-action: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
     #viewport:active {
       cursor: grabbing;
@@ -35,10 +37,9 @@
     #canvas {
       position: absolute;
       transform-origin: 0 0;
+      will-change: transform;
       /* Initial placeholder state, overriden by JS immediately */
       transform: scale(0.1) translate(0px, 0px);
-      transition: opacity 0.5s ease;
-      opacity: 0; 
     }
 
     /* Container for the flex bracket */
@@ -171,6 +172,8 @@
       border-radius: 7px;
       overflow: hidden;
       position: relative;
+      will-change: transform;
+      transform: translateZ(0); /* Force isolated texture to prevent whole-layout repaints */
       box-shadow:
         0 0 0 1px rgba(0,0,0,0.09),
         0 12px 48px rgba(0,0,0,0.4),
@@ -828,7 +831,7 @@
     // Run geometric measuring and drawing BEFORE we scale the canvas!
     // Set explicit reset so bounds calculations represent reality.
     canvas.style.transform = "scale(1) translate(0px,0px)";
-    canvas.style.opacity = "1";
+    viewport.style.opacity = "1";
 
     // Wait a tick for DOM reflow
     setTimeout(() => {
