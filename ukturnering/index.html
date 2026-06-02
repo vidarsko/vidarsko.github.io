@@ -33,12 +33,15 @@
       cursor: grabbing;
     }
 
+    #pan-container {
+      position: absolute;
+      transform-origin: 0 0;
+      will-change: transform;
+    }
+
     #canvas {
       position: absolute;
       transform-origin: 0 0;
-      transform-style: preserve-3d;
-      /* Initial placeholder state, overriden by JS immediately */
-      transform: scale(0.1) translate(0px, 0px);
     }
 
     /* Container for the flex bracket */
@@ -171,8 +174,6 @@
       border-radius: 7px;
       overflow: hidden;
       position: relative;
-      will-change: transform;
-      transform: translateZ(0); /* Force isolated texture to prevent whole-layout repaints */
       box-shadow:
         0 0 0 1px rgba(0,0,0,0.09),
         0 12px 48px rgba(0,0,0,0.4),
@@ -371,9 +372,11 @@
 <body>
 
   <div id="viewport">
-    <div id="canvas">
-      <div id="lines-layer"></div>
-      <div id="bracket"></div>
+    <div id="pan-container">
+      <div id="canvas">
+        <div id="lines-layer"></div>
+        <div id="bracket"></div>
+      </div>
     </div>
     <button id="reset-view-btn">TILBAKESTILL KART</button>
   </div>
@@ -482,7 +485,7 @@
     if (cfg.gold) card.classList.add('gold-card');
 
     const left = mk('div', { class: 'card-left' });
-    left.appendChild(mk('img', { src: cfg.imageUrl, alt: cfg.name }));
+    left.appendChild(mk('img', { src: cfg.imageUrl, alt: cfg.name, loading: 'lazy' }));
     card.appendChild(left);
 
     const right = mk('div', { class: 'card-right' });
@@ -836,6 +839,7 @@
   let fullFitY = 0;
 
   const viewport = document.getElementById('viewport');
+  const panContainer = document.getElementById('pan-container');
   const canvas = document.getElementById('canvas');
 
   let transformRaf = null;
@@ -843,7 +847,8 @@
   function applyTransform() {
     if (transformRaf) cancelAnimationFrame(transformRaf);
     transformRaf = requestAnimationFrame(() => {
-      canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+      canvas.style.zoom = currentScale;
+      panContainer.style.transform = `translate(${translateX}px, ${translateY}px)`;
       transformRaf = null;
     });
   }
@@ -853,7 +858,8 @@
 
     // Run geometric measuring and drawing BEFORE we scale the canvas!
     // Set explicit reset so bounds calculations represent reality.
-    canvas.style.transform = "scale(1) translate(0px,0px)";
+    canvas.style.zoom = 1;
+    panContainer.style.transform = "translate(0px,0px)";
     viewport.style.opacity = "1";
 
     // Wait a tick for DOM reflow
