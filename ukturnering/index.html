@@ -33,11 +33,10 @@
       cursor: grabbing;
     }
 
-    /* Use this to wrap the entire scalable tree */
     #canvas {
       position: absolute;
       transform-origin: 0 0;
-      will-change: transform;
+      transform-style: preserve-3d;
       /* Initial placeholder state, overriden by JS immediately */
       transform: scale(0.1) translate(0px, 0px);
     }
@@ -153,7 +152,7 @@
       margin-bottom: 1100px; 
     }
 
-    svg#lines {
+    #lines-layer {
       position: absolute;
       top: 0;
       left: 0;
@@ -373,7 +372,7 @@
 
   <div id="viewport">
     <div id="canvas">
-      <svg id="lines"></svg>
+      <div id="lines-layer"></div>
       <div id="bracket"></div>
     </div>
     <button id="reset-view-btn">TILBAKESTILL KART</button>
@@ -598,8 +597,8 @@
    *  LINE DRAWING
    * ════════════════════════════════════════════════════════════════════ */
   function updateLines() {
-    const svg = document.getElementById('lines');
-    svg.innerHTML = '';
+    const linesLayer = document.getElementById('lines-layer');
+    linesLayer.innerHTML = '';
     
     // Create or clear the layer for mini nodes (battles/trophies)
     let nodesLayer = document.getElementById('mini-nodes-layer');
@@ -706,6 +705,17 @@
       nodesLayer.appendChild(wrap);
     }
 
+    function createLineDiv(l, t, w, h, color) {
+      const d = document.createElement('div');
+      d.style.position = 'absolute';
+      d.style.left = l + 'px';
+      d.style.top = t + 'px';
+      d.style.width = w + 'px';
+      d.style.height = h + 'px';
+      d.style.backgroundColor = color || 'rgba(0,0,0,1)';
+      return d;
+    }
+
     function drawLine(el1, el2, dir) {
       const b1 = el1.getBoundingClientRect();
       const b2 = el2.getBoundingClientRect();
@@ -725,12 +735,22 @@
       }
 
       const midX = (x1 + x2) / 2;
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('d', `M ${x1} ${y1} L ${midX} ${y1} L ${midX} ${y2} L ${x2} ${y2}`);
-      path.setAttribute('stroke', 'rgba(0,0,0,1)');
-      path.setAttribute('stroke-width', '10');
-      path.setAttribute('fill', 'none');
-      svg.appendChild(path);
+      
+      const h1Left = Math.min(x1, midX);
+      const h1Width = Math.abs(midX - x1);
+      let l1 = createLineDiv(h1Left, y1 - 5, h1Width + 5, 10);
+      
+      const vTop = Math.min(y1, y2);
+      const vHeight = Math.abs(y2 - y1);
+      let l2 = createLineDiv(midX - 5, vTop - 5, 10, vHeight + 10);
+      
+      const h2Left = Math.min(midX, x2);
+      const h2Width = Math.abs(x2 - midX);
+      let l3 = createLineDiv(h2Left, y2 - 5, h2Width + 5, 10);
+
+      linesLayer.appendChild(l1);
+      linesLayer.appendChild(l2);
+      linesLayer.appendChild(l3);
 
       // Add nodes perfectly aligned along the paths.
       // Ensure we only draw ONE set of nodes per target advancing spot.
@@ -782,13 +802,16 @@
       const xC = bC.left + bC.width/2 - canvasRect.left;
       const yC = bC.bottom - canvasRect.top;
 
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      // Go horizontally from left & right to the middle, then vertically UP to the winner card
-      path.setAttribute('d', `M ${xL} ${yL} L ${xR} ${yR} M ${xMid} ${yL} L ${xC} ${yC}`);
-      path.setAttribute('stroke', '#fbbf24');
-      path.setAttribute('stroke-width', '15');
-      path.setAttribute('fill', 'none');
-      svg.appendChild(path);
+      const f1Left = Math.min(xL, xR);
+      const f1Width = Math.abs(xR - xL);
+      let f1 = createLineDiv(f1Left, yL - 7.5, f1Width, 15, '#fbbf24');
+      
+      const f2Top = Math.min(yL, yC);
+      const f2Height = Math.abs(yC - yL);
+      let f2 = createLineDiv(xMid - 7.5, f2Top, 15, f2Height + 7.5, '#fbbf24');
+
+      linesLayer.appendChild(f1);
+      linesLayer.appendChild(f2);
       
       // Add finale nodes
       const finalData = getCardData('FINAL');
