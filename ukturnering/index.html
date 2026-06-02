@@ -25,6 +25,7 @@
       height: 100vh;
       cursor: grab;
       position: relative;
+      touch-action: none;
     }
     #viewport:active {
       cursor: grabbing;
@@ -337,6 +338,32 @@
       font-weight: 600;
       color: #2a2218;
     }
+
+    #reset-view-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      padding: 12px 24px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      background: #fbbf24;
+      border: 3px solid #ccc;
+      color: #333;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.15s, background 0.2s, border-color 0.2s;
+    }
+    #reset-view-btn:hover {
+      background: #f59e0b;
+      border-color: #333;
+      transform: scale(1.05);
+    }
+    #reset-view-btn:active {
+      transform: scale(0.95);
+    }
   </style>
 </head>
 <body>
@@ -346,6 +373,7 @@
       <svg id="lines"></svg>
       <div id="bracket"></div>
     </div>
+    <button id="reset-view-btn">TILBAKESTILL KART</button>
   </div>
 
   <script>
@@ -777,6 +805,10 @@
   let translateX = 0;
   let translateY = 0;
 
+  let fullFitScale = 1;
+  let fullFitX = 0;
+  let fullFitY = 0;
+
   const viewport = document.getElementById('viewport');
   const canvas = document.getElementById('canvas');
 
@@ -802,11 +834,11 @@
       const vRect = viewport.getBoundingClientRect();
       
       // Calculate how to zoom exactly to fit horizontal bracket width with some padding
-      currentScale = Math.min((vRect.width - 100) / bRect.width, (vRect.height - 100) / bRect.height);
+      fullFitScale = Math.min((vRect.width - 100) / bRect.width, (vRect.height - 100) / bRect.height);
       
       // Center the bracket on screen
-      translateX = (vRect.width - bRect.width * currentScale) / 2;
-      translateY = (vRect.height - bRect.height * currentScale) / 2;
+      fullFitX = (vRect.width - bRect.width * fullFitScale) / 2;
+      fullFitY = (vRect.height - bRect.height * fullFitScale) / 2;
       
       // We start slightly zoomed in towards the center / grand champion
       // Find grand champion position relative to canvas
@@ -825,21 +857,80 @@
     // --- Events ---
     let isDragging = false;
     let startX, startY;
+    let initialPinchDist = null;
+    let initialPinchScale = null;
+
+    function onDragStart(clientX, clientY) {
+      isDragging = true;
+      startX = clientX - translateX;
+      startY = clientY - translateY;
+    }
+
+    function onDragMove(clientX, clientY) {
+      if (!isDragging) return;
+      translateX = clientX - startX;
+      translateY = clientY - startY;
+      applyTransform();
+    }
+
+    function onDragEnd() {
+      isDragging = false;
+      initialPinchDist = null;
+      initialPinchScale = null;
+    }
 
     viewport.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.clientX - translateX;
-      startY = e.clientY - translateY;
+      onDragStart(e.clientX, e.clientY);
     });
 
-    window.addEventListener('mouseup', () => { isDragging = false; });
+    window.addEventListener('mouseup', onDragEnd);
     
     window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      translateX = e.clientX - startX;
-      translateY = e.clientY - startY;
-      applyTransform();
+      onDragMove(e.clientX, e.clientY);
     });
+
+    // Touch events for mobile
+    viewport.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        onDragStart(e.touches[0].clientX, e.touches[0].clientY);
+      } else if (e.touches.length === 2) {
+        isDragging = false; // switch to pinch-zoom mode
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        initialPinchDist = Math.sqrt(dx * dx + dy * dy);
+        initialPinchScale = currentScale;
+      }
+    }, { passive: false });
+
+    window.addEventListener('touchend', onDragEnd);
+    
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches.length === 1 && isDragging) {
+        onDragMove(e.touches[0].clientX, e.touches[0].clientY);
+      } else if (e.touches.length === 2) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        if (initialPinchDist !== null && initialPinchDist > 0) {
+          const scaleFactor = dist / initialPinchDist;
+          const newScale = Math.max(0.01, Math.min(initialPinchScale * scaleFactor, 2));
+
+          const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+          const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+
+          const viewportRect = viewport.getBoundingClientRect();
+          const mouseX = centerX - viewportRect.left;
+          const mouseY = centerY - viewportRect.top;
+
+          translateX = mouseX - ((mouseX - translateX) * (newScale / currentScale));
+          translateY = mouseY - ((mouseY - translateY) * (newScale / currentScale));
+          currentScale = newScale;
+
+          applyTransform();
+        }
+      }
+    }, { passive: false });
 
     viewport.addEventListener('wheel', (e) => {
       e.preventDefault();
@@ -861,6 +952,15 @@
 
       applyTransform();
     }, { passive: false });
+
+    // Reset Map View Button
+    document.getElementById('reset-view-btn').addEventListener('click', (e) => {
+      e.stopPropagation(); // prevent mis-drags
+      currentScale = fullFitScale;
+      translateX = fullFitX;
+      translateY = fullFitY;
+      applyTransform();
+    });
   });
 
   </script>
