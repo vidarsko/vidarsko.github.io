@@ -426,25 +426,29 @@
       }
     },
     // Example: Left Round 2 (This creates nodes before it)
-    //"L-R2-1": {
-    //  name: "Doctor Octopus",
-    //  imageUrl: "https://th.bing.com/th/id/R.582df62c9d26177f07d6b8fb830855f9?rik=PSv4TUy2Csq%2fbQ&pid=ImgRaw&r=0",
-   //   kappe: { K: 18, A: 18, P1: 17, P2: 3, E: 13 },
+    "L-R2-1": {
+     name: "???",
+    //  imageUrl: "https://th.bing.com/th//R.582df62c9d26177f07d6b8fb830855f9?rik=PSv4TUy2Csq%2fbQ&pid=ImgRaw&r=0",
+     kappe: { K: 0, A: 0, P1: 0, P2: 0, E: 0 },
     //  podcast: {
     //   containerId: "buzzsprout-player-17623515",
     //    scriptSrc: "https://www.buzzsprout.com/2188463/episodes/17623515-58-doctor-octopus-blekkspruter-og-hjernebolger.js?container_id=buzzsprout-player-17623515&player=small"
     //  },
-    //  battle: { text: "#93", mp3: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-    //  trophy: { text: "#93.5", mp3: "https://www.w3schools.com/html/horse.mp3" }
-    //},
+     battlePodcast: {
+       containerId: "buzzsprout-player-19462772",
+       scriptSrc: "https://www.buzzsprout.com/2188463/episodes/19462772-82-doctor-octopus-vs-the-flash-morderisk-ki-og-menneskelig-toppfart.js?container_id=buzzsprout-player-19462772&player=small"
+     }
+    },
     // The Final Bracket Winner
     //"FINAL": {
     //  name: "Champion",
     //  imageUrl: "https://via.placeholder.com/400x400/fbbf24/000000?text=WINNER",
     //  kappe: { K: 20, A: 20, P1: 20, P2: 20, E: 20 },
     //  gold: true,
-    //  battle: { text: "GRAND FINALE", mp3: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-    //  trophy: { text: "CHAMPION!", mp3: "https://www.w3schools.com/html/horse.mp3" }
+    //  battlePodcast: {
+    //    containerId: "buzzsprout-player-final-battle-example",
+    //    scriptSrc: "https://www.buzzsprout.com/2188463/episodes/final-battle-episode-example.js?container_id=buzzsprout-player-final-battle-example&player=small"
+    //  }
     //}
   };
 
@@ -643,68 +647,41 @@
       emoji.textContent = (type === 'battle') ? NODE_CONFIG.battleEmoji : NODE_CONFIG.trophyEmoji;
       wrap.appendChild(emoji);
 
-      const active = data && (data.text || data.mp3);
+      const active = data && data.scriptSrc;
       if (active) {
-        if (data.text) {
-           const lbl = mk('div', { class: 'label' });
-           lbl.innerHTML = data.text;
-           wrap.appendChild(lbl);
-        }
-        if (data.mp3) {
-           const audio = new Audio(data.mp3);
-           audio.preload = "metadata";
+        // Embed the Buzzsprout player
+        const podWrap = mk('div', { class: 'podcast-wrapper' });
+        podWrap.style.width = '100%';
+        podWrap.style.minWidth = '200px';
+        const uniqueSuffix = Math.random().toString(36).substring(2, 9);
+        const uniqueContainerId = `${data.containerId}-${uniqueSuffix}`;
+        
+        const container = mk('div', { id: uniqueContainerId });
+        podWrap.appendChild(container);
 
-           const player = mk('div', { class: 'audio-player' });
-           const btn = mk('div', { class: 'audio-btn' });
-           btn.innerHTML = '&#9654;'; // Play icon
-           const timeline = mk('div', { class: 'audio-timeline' });
-           const fill = mk('div', { class: 'audio-fill' });
-           
-           timeline.appendChild(fill);
-           player.appendChild(btn);
-           player.appendChild(timeline);
-           wrap.appendChild(player);
-
-           const togglePlay = (e) => {
-             e.stopPropagation();
-             if (audio.paused) {
-               if (window.currentAudioPlayer && window.currentAudioPlayer !== audio) {
-                 window.currentAudioPlayer.pause();
-               }
-               window.currentAudioPlayer = audio;
-               audio.play().catch(err => console.error("Audio error:", err));
-             } else {
-               audio.pause();
-             }
-           };
-
-           btn.onclick = togglePlay;
-           // If they click the whole node, let's also toggle play for convenience
-           wrap.onclick = togglePlay;
-
-           timeline.onclick = (e) => {
-             e.stopPropagation();
-             const rect = timeline.getBoundingClientRect();
-             // This math is robust against CSS scale zooming
-             const pct = (e.clientX - rect.left) / rect.width;
-             if (audio.duration) {
-               audio.currentTime = pct * audio.duration;
-               fill.style.width = (pct * 100) + '%';
-             }
-           };
-
-           audio.addEventListener('play', () => { btn.innerHTML = '&#10074;&#10074;'; }); // Pause icon
-           audio.addEventListener('pause', () => { btn.innerHTML = '&#9654;'; });
-           audio.addEventListener('timeupdate', () => {
-             if (audio.duration) {
-               fill.style.width = ((audio.currentTime / audio.duration) * 100) + '%';
-             }
-           });
-           audio.addEventListener('ended', () => {
-             btn.innerHTML = '&#9654;';
-             fill.style.width = '0%';
-           });
-        }
+        setTimeout(() => {
+          let finalSrc = data.scriptSrc;
+          if (finalSrc.includes('container_id=')) {
+            finalSrc = finalSrc.replace(/container_id=[^&]+/, `container_id=${uniqueContainerId}`);
+          } else {
+            finalSrc += (finalSrc.includes('?') ? '&' : '?') + `container_id=${uniqueContainerId}`;
+          }
+          const script = document.createElement('script');
+          script.src = finalSrc;
+          script.type = 'text/javascript';
+          script.charset = 'utf-8';
+          script.async = true;
+          document.body.appendChild(script);
+        }, 10);
+        
+        // Hide emoji if podcast is loaded
+        emoji.style.display = 'none';
+        
+        wrap.appendChild(podWrap);
+        
+        // Auto-expand node width to fit the player better
+        wrap.style.width = '350px';
+        wrap.style.height = 'auto';
       } else {
         wrap.classList.add('inactive');
       }
@@ -766,11 +743,9 @@
         const targetData = getCardData(el2.id);
         
         // Battle intersection is specifically at midX, y2
-        addMiniNode(midX, y2, targetData.battle, 'battle');
-        
-        // Trophy is halfway between the battle and the target card
-        const advX = (midX + x2) / 2;
-        addMiniNode(advX, y2, targetData.trophy, 'trophy');
+        if (targetData && targetData.battlePodcast) {
+          addMiniNode(midX, y2, targetData.battlePodcast, 'battle');
+        }
       }
     }
 
@@ -823,11 +798,9 @@
       // Add finale nodes
       const finalData = getCardData('FINAL');
       // Final Battle where left and right meet
-      addMiniNode(xMid, yL, finalData.battle, 'battle');
-      
-      // Trophy placed vertically between intersection and champion card
-      const advY = (yL + yC) / 2;
-      addMiniNode(xC, advY, finalData.trophy, 'trophy');
+      if (finalData && finalData.battlePodcast) {
+        addMiniNode(xMid, yL, finalData.battlePodcast, 'battle');
+      }
     }
   }
 
