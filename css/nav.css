@@ -63,6 +63,26 @@
 .nav-icon:hover, .nav-icon:focus-visible { color: var(--text); border-color: var(--border-strong); }
 .nav-icon svg { width: 18px; height: 18px; }
 
+.theme-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+.theme-toggle:hover, .theme-toggle:focus-visible { color: var(--text); border-color: var(--border-strong); }
+.theme-toggle svg { width: 18px; height: 18px; }
+.theme-toggle .icon-moon { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+
 @media (max-width: 860px) {
   .primary-nav { display: none; }
 }
