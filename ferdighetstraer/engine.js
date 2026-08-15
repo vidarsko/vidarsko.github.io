@@ -136,6 +136,16 @@ function setZoom(newZoom, contentX, contentY, cx, cy) {
   }
 }
 
+// Zoomer inn/ut ett steg, sentrert på midten av synlig kartområde.
+function zoomBy(factor) {
+  const scrollEl = document.getElementById('graph-scroll');
+  const cx = scrollEl.clientWidth / 2;
+  const cy = scrollEl.clientHeight / 2;
+  const contentX = (scrollEl.scrollLeft + cx) / zoomLevel;
+  const contentY = (scrollEl.scrollTop + cy) / zoomLevel;
+  setZoom(zoomLevel * factor, contentX, contentY, cx, cy);
+}
+
 function setupZoom() {
   const scrollEl = document.getElementById('graph-scroll');
 
@@ -151,13 +161,36 @@ function setupZoom() {
     setZoom(zoomLevel * factor, contentX, contentY, cx, cy);
   }, { passive: false });
 
+  const group = document.createElement('div');
+  group.id = 'zoom-controls';
+
+  const zoomOutBtn = document.createElement('button');
+  zoomOutBtn.id = 'zoom-out-btn';
+  zoomOutBtn.type = 'button';
+  zoomOutBtn.textContent = '−';
+  zoomOutBtn.setAttribute('aria-label', 'Zoom ut');
+  zoomOutBtn.title = 'Zoom ut';
+  zoomOutBtn.addEventListener('click', () => zoomBy(1 / 1.25));
+  group.appendChild(zoomOutBtn);
+
   const btn = document.createElement('button');
   btn.id = 'fit-view-btn';
   btn.type = 'button';
   btn.innerHTML = '⤢ Vis hele treet<br>Ctrl+scroll for å zoome';
   btn.title = 'Zoom ut for å se alle kategoriene i treet';
   btn.addEventListener('click', fitToView);
-  getBottomToolbar().appendChild(btn);
+  group.appendChild(btn);
+
+  const zoomInBtn = document.createElement('button');
+  zoomInBtn.id = 'zoom-in-btn';
+  zoomInBtn.type = 'button';
+  zoomInBtn.textContent = '+';
+  zoomInBtn.setAttribute('aria-label', 'Zoom inn');
+  zoomInBtn.title = 'Zoom inn';
+  zoomInBtn.addEventListener('click', () => zoomBy(1.25));
+  group.appendChild(zoomInBtn);
+
+  getBottomToolbar().appendChild(group);
 }
 
 // Flytende verktøylinje nederst til venstre - deler plass mellom

@@ -4,31 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drittpoeng – skogvoll.com</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/tokens.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/content.css">
   <script src="/js/analytics.js"></script>
 </head>
 <body>
 
-    <header>
-        <div class="header-inner">
-            <nav>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-nav">
+        <div class="nav-inner">
+            <a class="brand" href="/">
+                <span class="brand-mark" aria-hidden="true">V</span>
+                <span>Vidar Skogvoll</span>
+            </a>
+            <nav class="primary-nav" aria-label="Primary">
                 <a href="/">Home</a>
+                <a href="/apps/" aria-current="page">Apps</a>
                 <a href="/projects/">Projects</a>
-                <a href="/apps/">Apps</a>
             </nav>
+            <a class="nav-icon" href="https://github.com/vidarsko" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+            </a>
         </div>
     </header>
 
-    <main>
-        <h1>💩 Drittpoeng</h1>
-        <p>
-            Fordel husets gjøremål så rettferdig som mulig. Alle gir «drittpoeng» til hver oppgave
-            — et mål på hvor lite de har lyst til å gjøre den. Algoritmen fordeler oppgavene slik at
-            ingen sitter igjen med en unødvendig stor byrde, ut fra hva hver enkelt faktisk misliker mest.
-        </p>
+    <main id="main">
+        <div class="page-header reveal">
+            <h1>💩 Drittpoeng</h1>
+            <p>
+                Fordel husets gjøremål så rettferdig som mulig. Alle gir «drittpoeng» til hver oppgave
+                — et mål på hvor lite de har lyst til å gjøre den. Algoritmen fordeler oppgavene slik at
+                ingen sitter igjen med en unødvendig stor byrde, ut fra hva hver enkelt faktisk misliker mest.
+            </p>
+        </div>
 
         <!-- ───────────────────────── SETUP ───────────────────────── -->
-        <section id="setup">
+        <section id="setup" class="panel content-panel">
             <h2>1. Hvem er med?</h2>
             <form id="person-form" class="row-form">
                 <input type="text" id="person-name-input" placeholder="Navn" autocomplete="off">
@@ -48,7 +66,7 @@
         </section>
 
         <!-- ───────────────────────── HANDOFF ───────────────────────── -->
-        <section id="handoff" hidden>
+        <section id="handoff" class="panel content-panel" hidden>
             <h2>Gi telefonen videre</h2>
             <p>Nå er det <strong id="handoff-name"></strong> sin tur.</p>
             <p class="hint">De andre bør ikke se poengene som blir satt nå.</p>
@@ -56,7 +74,7 @@
         </section>
 
         <!-- ───────────────────────── ALLOCATE ───────────────────────── -->
-        <section id="allocate" hidden>
+        <section id="allocate" class="panel content-panel" hidden>
             <h2><span id="allocate-name"></span> sin tur</h2>
             <p>
                 Du har <strong id="allocate-budget"></strong> poeng å fordele, gjennomsnitt skal bli 5 per oppgave.
@@ -68,7 +86,7 @@
         </section>
 
         <!-- ───────────────────────── RESULTS ───────────────────────── -->
-        <section id="results" hidden>
+        <section id="results" class="panel content-panel" hidden>
             <h2>Resultat</h2>
             <div id="results-list"></div>
             <button id="reset-btn" class="secondary">Start på nytt</button>
@@ -77,8 +95,16 @@
 
     <footer>
         <div class="footer-inner">
-            <span class="mark" aria-hidden="true"></span>
-            <p>skogvoll.com</p>
+            <a class="brand" href="/">
+                <span class="brand-mark" aria-hidden="true">V</span>
+                <span>skogvoll.com</span>
+            </a>
+            <nav class="footer-nav" aria-label="Footer">
+                <a href="/">Home</a>
+                <a href="/apps/">Apps</a>
+                <a href="/projects/">Projects</a>
+            </nav>
+            <p class="copyright">© 2026 Vidar Skogvoll</p>
         </div>
     </footer>
 
@@ -477,7 +503,17 @@
 
     <style>
         /* App-specific styles. Layout, typography, and colour variables come
-           from /css/style.css. */
+           from /css/tokens.css, /css/nav.css, /css/footer.css, /css/components.css. */
+
+        #setup h2, #handoff h2, #allocate h2, #results h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        #setup h2:not(:first-child) { margin-top: 1.8rem; }
+
+        #handoff p, #allocate p { color: var(--text-muted); line-height: 1.6; margin-bottom: 0.6rem; }
 
         .row-form {
             display: flex;
@@ -487,39 +523,41 @@
 
         .row-form input[type="text"] {
             flex: 1;
-            padding: 0.5rem 0.75rem;
+            padding: 0.6rem 0.85rem;
             border: 1px solid var(--border);
-            border-radius: 4px;
-            font-family: 'Lora', Georgia, serif;
+            border-radius: 8px;
             font-size: 1rem;
-            background: #fff;
+            background: var(--bg);
             color: var(--text);
         }
 
+        .row-form input[type="text"]::placeholder { color: var(--text-muted); }
+
         button {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.85rem;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            border: 1px solid var(--accent);
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 0.55rem 1.1rem;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--border);
             background: transparent;
-            color: var(--accent);
+            color: var(--text);
             cursor: pointer;
-            transition: background 0.15s, color 0.15s;
+            transition: background 0.15s, border-color 0.15s, color 0.15s;
         }
 
-        button:hover:not(:disabled) { background: var(--accent); color: #fff; }
+        button:hover:not(:disabled) { border-color: var(--border-strong); background: var(--surface-hover); }
 
         button:disabled { opacity: 0.4; cursor: not-allowed; }
 
         button.primary {
-            background: var(--accent);
-            color: #fff;
+            background: var(--accent-grad);
+            color: #14100A;
+            border: none;
             display: block;
             margin-top: 1rem;
         }
 
-        button.primary:hover:not(:disabled) { opacity: 0.85; }
+        button.primary:hover:not(:disabled) { opacity: 0.9; background: var(--accent-grad); }
 
         button.secondary { margin-top: 1.5rem; }
 
@@ -533,28 +571,27 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.5rem 0.75rem;
-            background: #fff;
+            padding: 0.6rem 0.9rem;
+            background: var(--bg);
             border: 1px solid var(--border);
-            border-radius: 4px;
+            border-radius: 8px;
             margin-bottom: 0.4rem;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.9rem;
+            font-size: 0.92rem;
         }
 
         .remove-btn {
             border: none;
             background: none;
-            color: var(--muted);
+            color: var(--text-muted);
             font-size: 1.1rem;
             line-height: 1;
             padding: 0 0.25rem;
         }
 
-        .remove-btn:hover { color: #b33; background: none; }
+        .remove-btn:hover { color: var(--danger); background: none; border-color: transparent; }
 
         .hint {
-            color: var(--muted);
+            color: var(--text-muted);
             font-size: 0.9rem;
             font-style: italic;
         }
@@ -566,7 +603,7 @@
         }
 
         .task-points-list li {
-            padding: 0.75rem 0;
+            padding: 0.85rem 0;
             border-bottom: 1px solid var(--border);
         }
 
@@ -574,15 +611,14 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
         }
 
-        .task-name { font-size: 1rem; }
+        .task-name { font-size: 1rem; color: var(--text); }
 
         .points-value {
-            font-family: 'DM Mono', monospace;
             font-size: 0.95rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--accent);
             min-width: 3.5rem;
             text-align: right;
@@ -594,7 +630,7 @@
             appearance: none;
             height: 6px;
             border-radius: 999px;
-            background: rgba(128,128,128,0.2);
+            background: var(--border);
             outline: none;
         }
 
@@ -604,9 +640,9 @@
             width: 1.25rem;
             height: 1.25rem;
             border-radius: 50%;
-            background: var(--accent);
+            background: var(--accent-grad);
             cursor: pointer;
-            border: 2px solid #fff;
+            border: 2px solid var(--bg);
             box-shadow: 0 0 0 1px var(--accent);
         }
 
@@ -614,47 +650,49 @@
             width: 1.25rem;
             height: 1.25rem;
             border-radius: 50%;
-            background: var(--accent);
+            background: var(--accent-grad);
             cursor: pointer;
-            border: 2px solid #fff;
+            border: 2px solid var(--bg);
             box-shadow: 0 0 0 1px var(--accent);
         }
 
         .points-slider::-moz-range-track {
             height: 6px;
             border-radius: 999px;
-            background: rgba(128,128,128,0.2);
+            background: var(--border);
         }
 
         .total-indicator {
-            font-family: 'DM Mono', monospace;
             font-size: 0.9rem;
-            color: #b33;
+            font-weight: 600;
+            color: #F87171;
         }
 
-        .total-indicator.ok { color: var(--accent); }
+        .total-indicator.ok { color: var(--success); }
 
         .result-card {
-            background: #fff;
+            background: var(--bg);
             border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: 10px;
             padding: 1.25rem 1.5rem;
             margin-bottom: 1.25rem;
         }
 
-        .result-card h3 { margin-bottom: 0.5rem; }
+        .result-card:last-child { margin-bottom: 0; }
+
+        .result-card h3 { margin-bottom: 0.6rem; font-weight: 700; }
 
         .burden-bar {
             height: 0.9rem;
             border-radius: 999px;
-            background: rgba(128,128,128,0.15);
+            background: var(--border);
             overflow: hidden;
             margin-bottom: 0.4rem;
         }
 
         .burden-bar-fill {
             height: 100%;
-            background: var(--accent);
+            background: var(--accent-grad);
             transition: width 0.4s ease;
         }
     </style>

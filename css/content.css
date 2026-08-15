@@ -1,0 +1,134 @@
+/* Simple content pages: apps, projects, learning-with-ai, ferdighetstraer index.
+   Shared tokens/nav/footer/components load first. */
+
+.page-header {
+  padding: 3.5rem 0 1rem;
+  max-width: 70ch;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+}
+
+.page-header p {
+  margin-top: 0.9rem;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* ---------- prose panels ---------- */
+
+.content-panel {
+  padding: 2rem 2.4rem;
+  margin-bottom: 1.6rem;
+}
+
+.content-panel:last-child { margin-bottom: 0; }
+
+.content-panel h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+}
+
+.content-panel h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.content-panel h3:not(:first-child) { margin-top: 1.6rem; }
+
+.content-panel p {
+  color: var(--text-muted);
+  line-height: 1.75;
+  font-size: 1.02rem;
+  max-width: 68ch;
+}
+
+.content-panel p + p { margin-top: 1rem; }
+
+.content-panel p:has(+ .content-links) { margin-bottom: 1rem; }
+
+.content-panel figure {
+  margin: 1.4rem 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  max-width: 320px;
+}
+
+.content-panel figure img { display: block; width: 100%; height: auto; }
+
+.content-panel figcaption {
+  padding: 0.6rem 0.9rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+}
+
+.content-panel iframe { margin-top: 0.4rem; border-radius: var(--radius-sm); }
+
+/* row of arrow-links inside a prose panel */
+.content-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  margin-top: 1rem;
+}
+
+.content-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--accent);
+  transition: color 0.2s;
+}
+.content-links a::after { content: '→'; font-size: 0.85rem; transition: transform 0.2s; }
+.content-links a:hover, .content-links a:focus-visible { color: var(--text); }
+.content-links a:hover::after, .content-links a:focus-visible::after { transform: translateX(2px); }
+
+/* ---------- link grid (apps / projects / course lists) ---------- */
+
+.link-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.link-tile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: border-color 0.2s, background 0.2s, transform 0.15s ease;
+}
+
+.link-tile::after { content: '→'; font-size: 0.9rem; color: var(--text-muted); transition: color 0.2s, transform 0.2s; }
+
+.link-tile:hover, .link-tile:focus-visible {
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
+  transform: translateY(-2px);
+}
+.link-tile:hover::after, .link-tile:focus-visible::after { color: var(--accent); transform: translateX(2px); }
+
+@media (max-width: 560px) {
+  .page-header { padding: 2.5rem 0 0.5rem; }
+  .page-header h1 { font-size: 2rem; }
+  .content-panel { padding: 1.5rem; }
+}

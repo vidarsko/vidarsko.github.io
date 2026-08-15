@@ -1,0 +1,209 @@
+/* Long-form article prose: headings, quotes, asides, details/code, lists,
+   definition lists, full-width figures. Used by pages with a single
+   continuous <article> (e.g. joss). Shared tokens/nav/footer/components/
+   content load first. */
+
+.article-wrap {
+  padding: 2.6rem 3rem;
+  margin: 2.5rem 0;
+}
+
+.article { max-width: 72ch; }
+
+.article > * + * { margin-top: 1.2rem; }
+
+.article h1 {
+  font-size: 2.3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+
+.article h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-top: 2.6rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--border);
+}
+
+.article h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 2rem;
+}
+
+.article h4 {
+  font-size: 1.02rem;
+  font-weight: 700;
+  margin-top: 1.4rem;
+  color: var(--text-muted);
+}
+
+.article p, .article li {
+  color: var(--text-muted);
+  line-height: 1.75;
+  font-size: 1.02rem;
+}
+
+.article strong { color: var(--text); font-weight: 700; }
+.article em { color: var(--text); }
+
+.article a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.15s;
+}
+.article a:hover, .article a:focus-visible { text-decoration-color: currentColor; }
+
+.article ul, .article ol {
+  padding-left: 1.4rem;
+}
+
+.article ul ul, .article ol ol, .article ul ol, .article ol ul {
+  margin-top: 0.4rem;
+}
+
+.article li { margin-bottom: 0.3rem; }
+
+/* ---------- figures ---------- */
+
+.article figure {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.article figure img { display: block; width: 100%; height: auto; }
+
+.article figure figcaption {
+  padding: 0.7rem 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  line-height: 1.5;
+}
+
+/* figure containing a manual image grid */
+.article figure > div {
+  display: grid;
+  gap: 2px;
+  background: var(--border);
+}
+.article figure > div img { border-radius: 0; }
+
+/* ---------- blockquote (with optional footer/dl scorecard) ---------- */
+
+.article blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 0.2rem 0 0.2rem 1.4rem;
+}
+
+.article blockquote p {
+  color: var(--text);
+  font-size: 1.1rem;
+  line-height: 1.55;
+}
+
+.article blockquote footer {
+  margin-top: 1rem;
+}
+
+.article blockquote dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1rem;
+  row-gap: 0.5rem;
+  font-size: 0.92rem;
+}
+
+.article blockquote dt {
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.article blockquote dd {
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ---------- aside (callout) ---------- */
+
+.article aside {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.4rem 1.6rem;
+}
+
+.article aside p { font-size: 0.96rem; }
+
+/* ---------- details / summary / code ---------- */
+
+.article details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1.2rem;
+}
+
+.article summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.article details[open] summary { margin-bottom: 0.9rem; }
+
+.article pre {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  overflow-x: auto;
+}
+
+.article code {
+  font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  white-space: pre-wrap;
+}
+
+.article :not(pre) > code {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  white-space: normal;
+}
+
+/* ---------- definition list (top-level, e.g. methodology steps) ---------- */
+
+.article > dl dt {
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 1rem;
+}
+
+.article > dl dd {
+  margin-top: 0.3rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.article > dl dd ul { margin-top: 0.5rem; }
+
+.article iframe { border-radius: var(--radius-sm); width: 100%; }
+
+@media (max-width: 640px) {
+  .article-wrap { padding: 1.6rem; margin: 1.5rem 0; }
+  .article h1 { font-size: 1.9rem; }
+  .article h2 { font-size: 1.35rem; }
+  .article figure > div { grid-template-columns: 1fr !important; }
+}
