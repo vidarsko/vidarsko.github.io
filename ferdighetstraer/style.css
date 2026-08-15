@@ -4,16 +4,29 @@
    loaded before this file. */
 
 :root {
-  --begrep-bg: rgba(255, 255, 255, 0.055);
-  --begrep-border: rgba(255, 255, 255, 0.32);
+  --begrep-bg: rgba(20, 16, 10, 0.04);
+  --begrep-border: rgba(20, 16, 10, 0.22);
 
-  --ferdighet-bg: rgba(255, 255, 255, 0.09);
+  --ferdighet-bg: rgba(20, 16, 10, 0.06);
   --ferdighet-border: rgba(232, 161, 94, 0.55);
 
   --locked-opacity: 0.45;
 
+  --column-alt: rgba(20, 16, 10, 0.03);
+  --danger-soft: #B91C1C;
+
   --del1: #5E6E96;
   --del2: #B9702F;
+}
+
+html[data-theme="dark"] {
+  --begrep-bg: rgba(255, 255, 255, 0.055);
+  --begrep-border: rgba(255, 255, 255, 0.32);
+
+  --ferdighet-bg: rgba(255, 255, 255, 0.09);
+
+  --column-alt: rgba(255, 255, 255, 0.02);
+  --danger-soft: #FCA5A5;
 }
 
 html, body { height: 100%; }
@@ -29,7 +42,31 @@ header {
 header .header-inner {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
 }
+
+.theme-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+.theme-toggle:hover, .theme-toggle:focus-visible { color: var(--text); border-color: var(--border-strong); }
+.theme-toggle svg { width: 18px; height: 18px; }
+.theme-toggle .icon-moon { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 
 .back-link {
   display: inline-block;
@@ -93,7 +130,7 @@ header p.tagline {
   display: none;
   background: rgba(220, 38, 38, 0.12);
   border-bottom: 1px solid rgba(220, 38, 38, 0.4);
-  color: #FCA5A5;
+  color: var(--danger-soft);
   font-size: 0.85rem;
   padding: 0.8rem 2rem;
   white-space: pre-wrap;
@@ -382,7 +419,7 @@ main {
 }
 
 .column-band-alt {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--column-alt);
 }
 
 .column-header {

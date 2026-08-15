@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vidar Skogvoll</title>
-  <meta name="description" content="Vidar Skogvoll — physicist, researcher, and science communicator based in Oslo.">
+  <meta name="description" content="Vidar Skogvoll — physicist, researcher, and science communicator based in Oslo." data-i18n-attr="content:meta-description">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,6 +16,80 @@
   <link rel="stylesheet" href="/css/landing.css">
   <script src="/js/analytics.js"></script>
   <script src="/js/theme.js" defer></script>
+  <script src="/js/i18n.js" defer></script>
+  <script type="application/json" id="i18n-dict">
+  {
+    "meta-description": {
+      "en": "Vidar Skogvoll — physicist, researcher, and science communicator based in Oslo.",
+      "no": "Vidar Skogvoll — fysiker, forsker og vitenskapsformidler bosatt i Oslo.",
+      "sv": "Vidar Skogvoll — fysiker, forskare och vetenskapskommunikatör baserad i Oslo."
+    },
+    "nav-home": { "en": "Home", "no": "Hjem", "sv": "Hem" },
+    "nav-apps": { "en": "Apps", "no": "Apper", "sv": "Appar" },
+    "nav-projects": { "en": "Projects", "no": "Prosjekter", "sv": "Projekt" },
+    "github-aria": { "en": "GitHub profile", "no": "GitHub-profil", "sv": "GitHub-profil" },
+    "hero-photo-caption": { "en": "Photo: Lin Stensrud", "no": "Foto: Lin Stensrud", "sv": "Foto: Lin Stensrud" },
+    "hero-tagline": { "en": "— physicist, researcher & science communicator", "no": "— fysiker, forsker og vitenskapsformidler", "sv": "— fysiker, forskare och vetenskapskommunikatör" },
+    "hero-sub": {
+      "en": "Senior lecturer at the University of Oslo's Faculty of Mathematics and Natural Sciences, researching phase-field modeling and how AI is reshaping the classroom.",
+      "no": "Førstelektor ved Det matematisk-naturvitenskapelige fakultet, Universitetet i Oslo, hvor jeg forsker på fasefeltmodellering og hvordan KI endrer klasserommet.",
+      "sv": "Universitetslektor vid Matematisk-naturvitenskapliga fakulteten, Universitetet i Oslo, med forskning om fasfältmodellering och hur AI förändrar klassrummet."
+    },
+    "hero-cta-primary": { "en": "Explore my apps", "no": "Utforsk appene mine", "sv": "Utforska mina appar" },
+    "hero-cta-secondary": { "en": "View projects", "no": "Se prosjekter", "sv": "Visa projekt" },
+    "book-eyebrow": { "en": "Forthcoming book", "no": "Kommende bok", "sv": "Kommande bok" },
+    "book-byline": {
+      "en": "Vidar Skogvoll & Andreas D. Haraldsrud — Universitetsforlaget, autumn 2026",
+      "no": "Vidar Skogvoll og Andreas D. Haraldsrud — Universitetsforlaget, høsten 2026",
+      "sv": "Vidar Skogvoll och Andreas D. Haraldsrud — Universitetsforlaget, hösten 2026"
+    },
+    "book-description": {
+      "en": "Written in Norwegian for teachers, the book draws on cognitive learning psychology to give a grounded account of what generative AI changes in the classroom — and what it doesn't.",
+      "no": "Boken, skrevet på norsk for lærere, bygger på kognitiv læringspsykologi og gir en grundig og jordnær framstilling av hva generativ KI faktisk endrer i klasserommet — og hva den ikke gjør.",
+      "sv": "Boken är skriven på norska för lärare och bygger på kognitiv inlärningspsykologi för att ge en jordnära bild av vad generativ AI faktiskt förändrar i klassrummet — och vad den inte gör."
+    },
+    "book-cta-primary": { "en": "Pre-order at Norli", "no": "Forhåndsbestill hos Norli", "sv": "Förhandsbeställ hos Norli" },
+    "book-cta-secondary": { "en": "More about the book", "no": "Mer om boken", "sv": "Mer om boken" },
+    "about-heading": { "en": "About me", "no": "Om meg", "sv": "Om mig" },
+    "about-p1": {
+      "en": "I'm a physicist based in Stockholm, currently a senior lecturer at the University of Oslo's Faculty of Mathematics and Natural Sciences. My PhD work was on phase-field modeling of crystal deformation and microplasticity — how grain boundaries move, and what that means for how a material yields.",
+      "no": "Jeg er fysiker bosatt i Stockholm, og for tiden førstelektor ved Det matematisk-naturvitenskapelige fakultet ved Universitetet i Oslo. Doktorgradsarbeidet mitt handlet om fasefeltmodellering av krystalldeformasjon og mikroplastisitet — hvordan korngrenser beveger seg, og hva det betyr for hvordan et materiale gir etter.",
+      "sv": "Jag är fysiker baserad i Stockholm och för närvarande universitetslektor vid Matematisk-naturvitenskapliga fakulteten vid Universitetet i Oslo. Min doktorsavhandling handlade om fasfältmodellering av kristalldeformation och mikroplasticitet — hur korngränser rör sig, och vad det betyder för hur ett material ger efter."
+    },
+    "about-quote": {
+      "en": "My current research looks at how AI shapes teaching and learning more broadly.",
+      "no": "Forskningen min nå ser på hvordan KI former undervisning og læring i et bredere perspektiv.",
+      "sv": "Min nuvarande forskning handlar om hur AI formar undervisning och lärande i ett bredare perspektiv."
+    },
+    "about-p2": {
+      "en": "Alongside research and teaching, I work in science communication: I co-host the podcast Under Kappa, appear regularly on NRK's Abels tårn, and give talks on AI and learning.",
+      "no": "Ved siden av forskning og undervisning jobber jeg med vitenskapsformidling: jeg er programleder for podkasten Under Kappa, opptrer jevnlig i NRKs Abels tårn, og holder foredrag om KI og læring.",
+      "sv": "Vid sidan av forskning och undervisning arbetar jag med vetenskapskommunikation: jag är programledare för podden Under Kappa, medverkar regelbundet i NRK:s Abels tårn och håller föreläsningar om AI och lärande."
+    },
+    "elsewhere-heading": { "en": "Elsewhere", "no": "Andre steder", "sv": "På andra ställen" },
+    "elsewhere-sub": { "en": "More of my work, in a few different places.", "no": "Mer av arbeidet mitt, på noen ulike steder.", "sv": "Mer av mitt arbete, på några olika ställen." },
+    "card-apps-title": { "en": "Apps", "no": "Apper", "sv": "Appar" },
+    "card-apps-desc": {
+      "en": "Small interactive tools — league tables, skill trees, and other side projects.",
+      "no": "Små interaktive verktøy — turneringstabeller, ferdighetstrær og andre sideprosjekter.",
+      "sv": "Små interaktiva verktyg — tabeller, kunskapsträd och andra sidoprojekt."
+    },
+    "card-apps-link": { "en": "Browse apps", "no": "Se apper", "sv": "Utforska appar" },
+    "card-projects-title": { "en": "Projects", "no": "Prosjekter", "sv": "Projekt" },
+    "card-projects-desc": {
+      "en": "Research on AI and learning, plus the Under Kappa podcast on the science of superheroes.",
+      "no": "Forskning på KI og læring, samt podkasten Under Kappa om superheltenes vitenskap.",
+      "sv": "Forskning om AI och lärande, samt podden Under Kappa om superhjältarnas vetenskap."
+    },
+    "card-projects-link": { "en": "See projects", "no": "Se prosjekter", "sv": "Se projekt" },
+    "card-github-desc": {
+      "en": "Code, experiments, and the source for this site.",
+      "no": "Kode, eksperimenter og kildekoden til denne siden.",
+      "sv": "Kod, experiment och källkoden till den här sidan."
+    },
+    "card-github-link": { "en": "Visit profile", "no": "Besøk profilen", "sv": "Besök profilen" }
+  }
+  </script>
 </head>
 <body>
 
@@ -28,17 +102,22 @@
         <span>Vidar Skogvoll</span>
       </a>
       <nav class="primary-nav" aria-label="Primary">
-        <a href="/" aria-current="page">Home</a>
-        <a href="/apps/">Apps</a>
-        <a href="/projects/">Projects</a>
+        <a href="/" aria-current="page" data-i18n="nav-home">Home</a>
+        <a href="/apps/" data-i18n="nav-apps">Apps</a>
+        <a href="/projects/" data-i18n="nav-projects">Projects</a>
       </nav>
-      <a class="nav-icon" href="https://github.com/vidarsko" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+      <a class="nav-icon" href="https://github.com/vidarsko" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" data-i18n-attr="aria-label:github-aria">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
       </a>
       <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
       </button>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="no">NO</button>
+        <button type="button" class="lang-btn" data-lang="sv">SV</button>
+      </div>
     </div>
   </header>
 
@@ -48,16 +127,16 @@
       <div class="hero-glow" aria-hidden="true"></div>
       <figure class="hero-photo reveal">
         <img src="/media/DSC_6349.JPG" alt="Vidar Skogvoll teaching a group class">
-        <figcaption>Photo: Lin Stensrud</figcaption>
+        <figcaption data-i18n="hero-photo-caption">Photo: Lin Stensrud</figcaption>
       </figure>
-      <h1 class="hero-headline reveal">Vidar Skogvoll <span class="muted">— physicist, researcher &amp; science communicator</span></h1>
-      <p class="hero-sub reveal">
+      <h1 class="hero-headline reveal">Vidar Skogvoll <span class="muted" data-i18n="hero-tagline">— physicist, researcher &amp; science communicator</span></h1>
+      <p class="hero-sub reveal" data-i18n="hero-sub">
         Senior lecturer at the University of Oslo's Faculty of Mathematics and Natural Sciences,
         researching phase-field modeling and how AI is reshaping the classroom.
       </p>
       <div class="hero-cta reveal">
-        <a class="btn-primary" href="/apps/">Explore my apps</a>
-        <a class="btn-outline" href="/projects/">View projects</a>
+        <a class="btn-primary" href="/apps/" data-i18n="hero-cta-primary">Explore my apps</a>
+        <a class="btn-outline" href="/projects/" data-i18n="hero-cta-secondary">View projects</a>
       </div>
     </section>
 
@@ -65,16 +144,16 @@
       <article class="panel book-panel">
         <img class="book-cover" src="/media/learning_with_ai_book_cover.jpg" alt="Cover of Lære med KI by Vidar Skogvoll and Andreas D. Haraldsrud">
         <div class="book-body">
-          <span class="eyebrow-badge">Forthcoming book</span>
+          <span class="eyebrow-badge" data-i18n="book-eyebrow">Forthcoming book</span>
           <h2 id="book-heading">Lære med KI</h2>
-          <span class="byline">Vidar Skogvoll &amp; Andreas D. Haraldsrud — Universitetsforlaget, autumn 2026</span>
-          <p class="description">
+          <span class="byline" data-i18n="book-byline">Vidar Skogvoll &amp; Andreas D. Haraldsrud — Universitetsforlaget, autumn 2026</span>
+          <p class="description" data-i18n="book-description">
             Written in Norwegian for teachers, the book draws on cognitive learning psychology to give a grounded
             account of what generative AI changes in the classroom — and what it doesn't.
           </p>
           <div class="panel-cta">
-            <a class="btn-outline-accent" href="https://www.norli.no/boker/fagboker/pedagogikk-og-psykologi/generell-pedagogikk/laere-med-ki-9788215076928" target="_blank" rel="noopener noreferrer">Pre-order at Norli</a>
-            <a class="link-arrow" href="/learning-with-ai/">More about the book</a>
+            <a class="btn-outline-accent" href="https://www.norli.no/boker/fagboker/pedagogikk-og-psykologi/generell-pedagogikk/laere-med-ki-9788215076928" target="_blank" rel="noopener noreferrer" data-i18n="book-cta-primary">Pre-order at Norli</a>
+            <a class="link-arrow" href="/learning-with-ai/" data-i18n="book-cta-secondary">More about the book</a>
           </div>
         </div>
       </article>
@@ -82,16 +161,16 @@
 
     <section class="about" aria-labelledby="about-heading">
       <div class="panel about-panel">
-        <h2 id="about-heading">About me</h2>
-        <p>
+        <h2 id="about-heading" data-i18n="about-heading">About me</h2>
+        <p data-i18n="about-p1">
           I'm a physicist based in Stockholm, currently a senior lecturer at the University of Oslo's Faculty of
           Mathematics and Natural Sciences. My PhD work was on phase-field modeling of crystal deformation and
           microplasticity — how grain boundaries move, and what that means for how a material yields.
         </p>
-        <blockquote class="pull-quote">
+        <blockquote class="pull-quote" data-i18n="about-quote">
           My current research looks at how AI shapes teaching and learning more broadly.
         </blockquote>
-        <p>
+        <p data-i18n="about-p2">
           Alongside research and teaching, I work in science communication: I co-host the podcast Under Kappa, appear
           regularly on NRK's Abels tårn, and give talks on AI and learning.
         </p>
@@ -100,33 +179,33 @@
 
     <section class="elsewhere" aria-labelledby="elsewhere-heading">
       <div class="section-heading">
-        <h2 id="elsewhere-heading">Elsewhere</h2>
-        <p>More of my work, in a few different places.</p>
+        <h2 id="elsewhere-heading" data-i18n="elsewhere-heading">Elsewhere</h2>
+        <p data-i18n="elsewhere-sub">More of my work, in a few different places.</p>
       </div>
       <div class="feature-grid">
         <a class="feature-card" href="/apps/">
           <span class="icon-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
           </span>
-          <h3>Apps</h3>
-          <p>Small interactive tools — league tables, skill trees, and other side projects.</p>
-          <span class="link-arrow">Browse apps</span>
+          <h3 data-i18n="card-apps-title">Apps</h3>
+          <p data-i18n="card-apps-desc">Small interactive tools — league tables, skill trees, and other side projects.</p>
+          <span class="link-arrow" data-i18n="card-apps-link">Browse apps</span>
         </a>
         <a class="feature-card" href="/projects/">
           <span class="icon-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>
           </span>
-          <h3>Projects</h3>
-          <p>Research on AI and learning, plus the Under Kappa podcast on the science of superheroes.</p>
-          <span class="link-arrow">See projects</span>
+          <h3 data-i18n="card-projects-title">Projects</h3>
+          <p data-i18n="card-projects-desc">Research on AI and learning, plus the Under Kappa podcast on the science of superheroes.</p>
+          <span class="link-arrow" data-i18n="card-projects-link">See projects</span>
         </a>
         <a class="feature-card" href="https://github.com/vidarsko" target="_blank" rel="noopener noreferrer">
           <span class="icon-badge" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
           </span>
           <h3>GitHub</h3>
-          <p>Code, experiments, and the source for this site.</p>
-          <span class="link-arrow">Visit profile</span>
+          <p data-i18n="card-github-desc">Code, experiments, and the source for this site.</p>
+          <span class="link-arrow" data-i18n="card-github-link">Visit profile</span>
         </a>
       </div>
     </section>
@@ -140,9 +219,9 @@
         <span>skogvoll.com</span>
       </a>
       <nav class="footer-nav" aria-label="Footer">
-        <a href="/">Home</a>
-        <a href="/apps/">Apps</a>
-        <a href="/projects/">Projects</a>
+        <a href="/" data-i18n="nav-home">Home</a>
+        <a href="/apps/" data-i18n="nav-apps">Apps</a>
+        <a href="/projects/" data-i18n="nav-projects">Projects</a>
       </nav>
       <p class="copyright">© 2026 Vidar Skogvoll</p>
     </div>

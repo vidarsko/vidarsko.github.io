@@ -4,7 +4,7 @@
   <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Learning with AI — Vidar Skogvoll</title>
+  <title data-i18n="title">Learning with AI — Vidar Skogvoll</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,6 +15,71 @@
   <link rel="stylesheet" href="/css/content.css">
   <script src="/js/analytics.js"></script>
   <script src="/js/theme.js" defer></script>
+  <script src="/js/i18n.js" defer></script>
+  <script type="application/json" id="i18n-dict">
+  {
+    "title": { "en": "Learning with AI — Vidar Skogvoll", "no": "Læring med KI — Vidar Skogvoll", "sv": "Lärande med AI — Vidar Skogvoll" },
+    "nav-home": { "en": "Home", "no": "Hjem", "sv": "Hem" },
+    "nav-apps": { "en": "Apps", "no": "Apper", "sv": "Appar" },
+    "nav-projects": { "en": "Projects", "no": "Prosjekter", "sv": "Projekt" },
+    "github-aria": { "en": "GitHub profile", "no": "GitHub-profil", "sv": "GitHub-profil" },
+    "page-h1": { "en": "Learning with AI", "no": "Læring med KI", "sv": "Lärande med AI" },
+    "page-sub": {
+      "en": "Research, teaching, and outreach on generative AI and learning.",
+      "no": "Forskning, undervisning og formidling om generativ KI og læring.",
+      "sv": "Forskning, undervisning och kommunikation om generativ AI och lärande."
+    },
+    "intro-p": {
+      "en": "Since 2023 I've worked across research, teaching, and public outreach on one question: how does generative AI change learning? This page collects the different threads of that work — a forthcoming book, a research article, a course for teachers, a blog, and a podcast.",
+      "no": "Siden 2023 har jeg jobbet på tvers av forskning, undervisning og formidling med ett spørsmål: hvordan endrer generativ KI læring? Denne siden samler de ulike trådene i det arbeidet — en kommende bok, en forskningsartikkel, et kurs for lærere, en blogg og en podkast.",
+      "sv": "Sedan 2023 har jag arbetat inom forskning, undervisning och kommunikation kring en fråga: hur förändrar generativ AI lärande? Den här sidan samlar de olika trådarna i det arbetet — en kommande bok, en forskningsartikel, en kurs för lärare, en blogg och en podd."
+    },
+    "book-heading": { "en": "Book", "no": "Bok", "sv": "Bok" },
+    "book-h3": {
+      "en": "Lære med KI (forthcoming, Universitetsforlaget)",
+      "no": "Lære med KI (kommer, Universitetsforlaget)",
+      "sv": "Lære med KI (kommande, Universitetsforlaget)"
+    },
+    "book-p": {
+      "en": "A Norwegian-language book on AI and learning, co-written with Andreas D. Haraldsrud, aimed at teachers. It draws on cognitive learning psychology — cognitive load, scaffolding, metacognition — to give a grounded, classroom-relevant account of what generative AI changes and what it doesn't.",
+      "no": "En norskspråklig bok om KI og læring, skrevet sammen med Andreas D. Haraldsrud, rettet mot lærere. Den bygger på kognitiv læringspsykologi — kognitiv belastning, stillasbygging, metakognisjon — og gir en jordnær og klasseromsrelevant framstilling av hva generativ KI endrer og hva den ikke gjør.",
+      "sv": "En norskspråkig bok om AI och lärande, skriven tillsammans med Andreas D. Haraldsrud, riktad till lärare. Den bygger på kognitiv inlärningspsykologi — kognitiv belastning, stöttning, metakognition — och ger en jordnära och klassrumsrelevant bild av vad generativ AI förändrar och vad den inte gör."
+    },
+    "book-figcaption": {
+      "en": "Lære med KI, forthcoming from Universitetsforlaget.",
+      "no": "Lære med KI, kommer fra Universitetsforlaget.",
+      "sv": "Lære med KI, kommande från Universitetsforlaget."
+    },
+    "book-img-alt": {
+      "en": "Cover of Lære med KI by Vidar Skogvoll and Andreas D. Haraldsrud",
+      "no": "Omslag til Lære med KI av Vidar Skogvoll og Andreas D. Haraldsrud",
+      "sv": "Omslag till Lære med KI av Vidar Skogvoll och Andreas D. Haraldsrud"
+    },
+    "book-link1": { "en": "Pre-order at Norli", "no": "Forhåndsbestill hos Norli", "sv": "Förhandsbeställ hos Norli" },
+    "book-link2": { "en": "See the book at Universitetsforlaget", "no": "Se boken hos Universitetsforlaget", "sv": "Se boken hos Universitetsforlaget" },
+    "research-heading": { "en": "Research", "no": "Forskning", "sv": "Forskning" },
+    "research-link": { "en": "Read the article", "no": "Les artikkelen", "sv": "Läs artikeln" },
+    "teaching-heading": { "en": "Teaching teachers", "no": "Undervisning av lærere", "sv": "Undervisning av lärare" },
+    "teaching-p": {
+      "en": "A four-part course for teachers, developed with Andreas Haraldsrud at KURT (UiO). Covers generative AI fundamentals, teaching activities and differentiation, programming with AI, and assessment. Run each semester since 2025, with strong participant feedback on its classroom relevance.",
+      "no": "Et firedelt kurs for lærere, utviklet sammen med Andreas Haraldsrud ved KURT (UiO). Dekker grunnlaget for generativ KI, undervisningsaktiviteter og tilpasset opplæring, programmering med KI, og vurdering. Gjennomført hvert semester siden 2025, med sterke tilbakemeldinger fra deltakerne på klasseromsrelevansen.",
+      "sv": "En fyrdelad kurs för lärare, utvecklad tillsammans med Andreas Haraldsrud vid KURT (UiO). Täcker grunderna i generativ AI, undervisningsaktiviteter och differentiering, programmering med AI, samt bedömning. Genomförs varje termin sedan 2025, med starkt deltagarengagemang kring dess relevans för klassrummet."
+    },
+    "blog-heading": { "en": "Blog", "no": "Blogg", "sv": "Blogg" },
+    "blog-p": {
+      "en": "A blog where I write, in Norwegian, about AI and learning — for teachers, in plain language.",
+      "no": "En blogg der jeg skriver, på norsk, om KI og læring — for lærere, i et enkelt språk.",
+      "sv": "En blogg där jag skriver, på norska, om AI och lärande — för lärare, i ett enkelt språk."
+    },
+    "blog-link": { "en": "Visit LæreMedKI.no", "no": "Besøk LæreMedKI.no", "sv": "Besök LæreMedKI.no" },
+    "podcast-heading": { "en": "Podcast", "no": "Podkast", "sv": "Podd" },
+    "podcast-p": {
+      "en": "A podcast where I talk to teachers who have actually tried something with AI in their own classroom — what worked, what didn't, and what they'd do differently.",
+      "no": "En podkast der jeg snakker med lærere som faktisk har prøvd noe med KI i sitt eget klasserom — hva som fungerte, hva som ikke gjorde det, og hva de ville gjort annerledes.",
+      "sv": "En podd där jag pratar med lärare som faktiskt har provat något med AI i sitt eget klassrum — vad som fungerade, vad som inte gjorde det, och vad de skulle gjort annorlunda."
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -27,30 +92,35 @@
         <span>Vidar Skogvoll</span>
       </a>
       <nav class="primary-nav" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/apps/">Apps</a>
-        <a href="/projects/">Projects</a>
+        <a href="/" data-i18n="nav-home">Home</a>
+        <a href="/apps/" data-i18n="nav-apps">Apps</a>
+        <a href="/projects/" data-i18n="nav-projects">Projects</a>
       </nav>
-      <a class="nav-icon" href="https://github.com/vidarsko" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+      <a class="nav-icon" href="https://github.com/vidarsko" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" data-i18n-attr="aria-label:github-aria">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
       </a>
       <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
       </button>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="no">NO</button>
+        <button type="button" class="lang-btn" data-lang="sv">SV</button>
+      </div>
     </div>
   </header>
 
   <main id="main">
 
     <div class="page-header reveal">
-      <h1>Learning with AI</h1>
-      <p>Research, teaching, and outreach on generative AI and learning.</p>
+      <h1 data-i18n="page-h1">Learning with AI</h1>
+      <p data-i18n="page-sub">Research, teaching, and outreach on generative AI and learning.</p>
     </div>
 
     <section>
       <div class="content-panel panel">
-        <p>
+        <p data-i18n="intro-p">
           Since 2023 I've worked across research, teaching, and public outreach on one question: how does generative AI change learning?
           This page collects the different threads of that work — a forthcoming book, a research article, a course for teachers, a blog, and a podcast.
         </p>
@@ -59,27 +129,27 @@
 
     <section>
       <div class="content-panel panel">
-        <h2>Book</h2>
-        <h3>Lære med KI (forthcoming, Universitetsforlaget)</h3>
-        <p>
+        <h2 data-i18n="book-heading">Book</h2>
+        <h3 data-i18n="book-h3">Lære med KI (forthcoming, Universitetsforlaget)</h3>
+        <p data-i18n="book-p">
           A Norwegian-language book on AI and learning, co-written with Andreas D. Haraldsrud, aimed at teachers. It draws on
           cognitive learning psychology — cognitive load, scaffolding, metacognition — to give a grounded, classroom-relevant
           account of what generative AI changes and what it doesn't.
         </p>
         <figure>
-          <img src="/media/learning_with_ai_book_cover.jpg" alt="Cover of Lære med KI by Vidar Skogvoll and Andreas D. Haraldsrud">
-          <figcaption>Lære med KI, forthcoming from Universitetsforlaget.</figcaption>
+          <img src="/media/learning_with_ai_book_cover.jpg" alt="Cover of Lære med KI by Vidar Skogvoll and Andreas D. Haraldsrud" data-i18n-attr="alt:book-img-alt">
+          <figcaption data-i18n="book-figcaption">Lære med KI, forthcoming from Universitetsforlaget.</figcaption>
         </figure>
         <div class="content-links">
-          <a href="https://www.norli.no/boker/fagboker/pedagogikk-og-psykologi/generell-pedagogikk/laere-med-ki-9788215076928" target="_blank" rel="noopener noreferrer">Pre-order at Norli</a>
-          <a href="https://www.universitetsforlaget.no/laere-med-ki" target="_blank" rel="noopener noreferrer">See the book at Universitetsforlaget</a>
+          <a href="https://www.norli.no/boker/fagboker/pedagogikk-og-psykologi/generell-pedagogikk/laere-med-ki-9788215076928" target="_blank" rel="noopener noreferrer" data-i18n="book-link1">Pre-order at Norli</a>
+          <a href="https://www.universitetsforlaget.no/laere-med-ki" target="_blank" rel="noopener noreferrer" data-i18n="book-link2">See the book at Universitetsforlaget</a>
         </div>
       </div>
     </section>
 
     <section>
       <div class="content-panel panel">
-        <h2>Research</h2>
+        <h2 data-i18n="research-heading">Research</h2>
         <h3>How Physics Professors Use and Frame Generative AI Tools</h3>
         <p>
           Skogvoll, V., &amp; Odden, T. O. (2026). Based on interviews with 12 physics professors at UiO, this study identifies
@@ -87,16 +157,16 @@
           <em>European Journal of Physics</em>, 47(2), 025713.
         </p>
         <div class="content-links">
-          <a href="https://doi.org/10.1088/1361-6404/ae55e0" target="_blank" rel="noopener noreferrer">Read the article</a>
+          <a href="https://doi.org/10.1088/1361-6404/ae55e0" target="_blank" rel="noopener noreferrer" data-i18n="research-link">Read the article</a>
         </div>
       </div>
     </section>
 
     <section>
       <div class="content-panel panel">
-        <h2>Teaching teachers</h2>
+        <h2 data-i18n="teaching-heading">Teaching teachers</h2>
         <h3>Profag KI-kurs</h3>
-        <p>
+        <p data-i18n="teaching-p">
           A four-part course for teachers, developed with Andreas Haraldsrud at KURT (UiO). Covers generative AI fundamentals,
           teaching activities and differentiation, programming with AI, and assessment. Run each semester since 2025, with
           strong participant feedback on its classroom relevance.
@@ -106,23 +176,23 @@
 
     <section>
       <div class="content-panel panel">
-        <h2>Blog</h2>
+        <h2 data-i18n="blog-heading">Blog</h2>
         <h3>LæreMedKI.no</h3>
-        <p>
+        <p data-i18n="blog-p">
           A blog where I write, in Norwegian, about AI and learning — for teachers, in plain language.
         </p>
         <!-- punycode href: æ in læremedki.no -->
         <div class="content-links">
-          <a href="https://xn--lremedki-j0a.no/" target="_blank" rel="noopener noreferrer">Visit LæreMedKI.no</a>
+          <a href="https://xn--lremedki-j0a.no/" target="_blank" rel="noopener noreferrer" data-i18n="blog-link">Visit LæreMedKI.no</a>
         </div>
       </div>
     </section>
 
     <section>
       <div class="content-panel panel">
-        <h2>Podcast</h2>
+        <h2 data-i18n="podcast-heading">Podcast</h2>
         <h3>KIosk</h3>
-        <p>
+        <p data-i18n="podcast-p">
           A podcast where I talk to teachers who have actually tried something with AI in their own classroom — what worked,
           what didn't, and what they'd do differently.
         </p>
@@ -139,9 +209,9 @@
         <span>skogvoll.com</span>
       </a>
       <nav class="footer-nav" aria-label="Footer">
-        <a href="/">Home</a>
-        <a href="/apps/">Apps</a>
-        <a href="/projects/">Projects</a>
+        <a href="/" data-i18n="nav-home">Home</a>
+        <a href="/apps/" data-i18n="nav-apps">Apps</a>
+        <a href="/projects/" data-i18n="nav-projects">Projects</a>
       </nav>
       <p class="copyright">© 2026 Vidar Skogvoll</p>
     </div>

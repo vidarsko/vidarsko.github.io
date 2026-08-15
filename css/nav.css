@@ -83,6 +83,31 @@
 html[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
 html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+  flex-shrink: 0;
+}
+
+.lang-btn {
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+.lang-btn:hover, .lang-btn:focus-visible { color: var(--text); }
+.lang-btn.active { background: var(--surface-hover); color: var(--text); }
+
 @media (max-width: 860px) {
   .primary-nav { display: none; }
 }
