@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drittpoeng – skogvoll.com</title>
+    <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/analytics.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="header-inner">
+            <nav>
+                <a href="/">Home</a>
+                <a href="/projects/">Projects</a>
+                <a href="/apps/">Apps</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h1>💩 Drittpoeng</h1>
+        <p>
+            Fordel husets gjøremål så rettferdig som mulig. Alle gir «drittpoeng» til hver oppgave
+            — et mål på hvor lite de har lyst til å gjøre den. Algoritmen fordeler oppgavene slik at
+            ingen sitter igjen med en unødvendig stor byrde, ut fra hva hver enkelt faktisk misliker mest.
+        </p>
+
+        <!-- ───────────────────────── SETUP ───────────────────────── -->
+        <section id="setup">
+            <h2>1. Hvem er med?</h2>
+            <form id="person-form" class="row-form">
+                <input type="text" id="person-name-input" placeholder="Navn" autocomplete="off">
+                <button type="submit">Legg til person</button>
+            </form>
+            <ul id="people-list" class="entry-list"></ul>
+
+            <h2>2. Hvilke oppgaver?</h2>
+            <form id="task-form" class="row-form">
+                <input type="text" id="task-name-input" placeholder="F.eks. støvsuge stua" autocomplete="off">
+                <button type="submit">Legg til oppgave</button>
+            </form>
+            <ul id="tasks-list" class="entry-list"></ul>
+
+            <p id="setup-hint" class="hint"></p>
+            <button id="start-btn" class="primary" disabled>Start poengfordeling</button>
+        </section>
+
+        <!-- ───────────────────────── HANDOFF ───────────────────────── -->
+        <section id="handoff" hidden>
+            <h2>Gi telefonen videre</h2>
+            <p>Nå er det <strong id="handoff-name"></strong> sin tur.</p>
+            <p class="hint">De andre bør ikke se poengene som blir satt nå.</p>
+            <button id="handoff-ready-btn" class="primary">Jeg er klar</button>
+        </section>
+
+        <!-- ───────────────────────── ALLOCATE ───────────────────────── -->
+        <section id="allocate" hidden>
+            <h2><span id="allocate-name"></span> sin tur</h2>
+            <p>
+                Du har <strong id="allocate-budget"></strong> poeng å fordele, gjennomsnitt skal bli 5 per oppgave.
+                0 betyr «jeg bryr meg ikke», høyt tall betyr «jeg vil helst slippe».
+            </p>
+            <ul id="allocate-list" class="task-points-list"></ul>
+            <p id="allocate-total" class="total-indicator"></p>
+            <button id="allocate-next-btn" class="primary" disabled>Neste</button>
+        </section>
+
+        <!-- ───────────────────────── RESULTS ───────────────────────── -->
+        <section id="results" hidden>
+            <h2>Resultat</h2>
+            <div id="results-list"></div>
+            <button id="reset-btn" class="secondary">Start på nytt</button>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <span class="mark" aria-hidden="true"></span>
+            <p>skogvoll.com</p>
+        </div>
+    </footer>
+
+    <script>
+        // ── State ───────────────────────────────────────────────────────────────
+
+        const STORAGE_KEY = 'drittpoeng-state';
+
+        function freshState() {
+            return {
+                people: [],   // { id, name }
+                tasks: [],    // { id, name }
+                points: {},   // personId -> { taskId: number }
+                phase: 'setup', // setup | handoff | allocate | results
+                currentIndex: 0
+            };
+        }
+
+        let state = load();
+
+        function load() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) return JSON.parse(raw);
+            } catch (e) { /* ignore corrupt state */ }
+            return freshState();
+        }
+
+        function save() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        function uid() {
+            return Math.random().toString(36).slice(2) + Date.now().toString(36);
+        }
+
+        // ── Setup phase ─────────────────────────────────────────────────────────
+
+        const peopleList = document.getElementById('people-list');
+        const tasksList = document.getElementById('tasks-list');
+        const startBtn = document.getElementById('start-btn');
+        const setupHint = document.getElementById('setup-hint');
+
+        document.getElementById('person-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const input = document.getElementById('person-name-input');
+            const name = input.value.trim();
+            if (!name) return;
+            state.people.push({ id: uid(), name });
+            input.value = '';
+            save();
+            renderSetup();
+        });
+
+        document.getElementById('task-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const input = document.getElementById('task-name-input');
+            const name = input.value.trim();
+            if (!name) return;
+            state.tasks.push({ id: uid(), name });
+            input.value = '';
+            save();
+            renderSetup();
+        });
+
+        function renderSetup() {
+            peopleList.innerHTML = '';
+            state.people.forEach(p => {
+                const li = document.createElement('li');
+                const span = document.createElement('span');
+                span.textContent = p.name;
+                const btn = document.createElement('button');
+                btn.textContent = '×';
+                btn.className = 'remove-btn';
+                btn.addEventListener('click', () => {
+                    state.people = state.people.filter(x => x.id !== p.id);
+                    save();
+                    renderSetup();
+                });
+                li.append(span, btn);
+                peopleList.appendChild(li);
+            });
+
+            tasksList.innerHTML = '';
+            state.tasks.forEach(t => {
+                const li = document.createElement('li');
+                const span = document.createElement('span');
+                span.textContent = t.name;
+                const btn = document.createElement('button');
+                btn.textContent = '×';
+                btn.className = 'remove-btn';
+                btn.addEventListener('click', () => {
+                    state.tasks = state.tasks.filter(x => x.id !== t.id);
+                    save();
+                    renderSetup();
+                });
+                li.append(span, btn);
+                tasksList.appendChild(li);
+            });
+
+            const ok = state.people.length >= 2 && state.tasks.length >= 1;
+            startBtn.disabled = !ok;
+            setupHint.textContent = ok
+                ? ''
+                : 'Legg til minst 2 personer og 1 oppgave for å starte.';
+        }
+
+        startBtn.addEventListener('click', () => {
+            state.phase = 'handoff';
+            state.currentIndex = 0;
+            state.points = {};
+            state.people.forEach(p => { state.points[p.id] = {}; });
+            save();
+            renderAll();
+        });
+
+        // ── Handoff + allocate phase ───────────────────────────────────────────
+
+        const handoffName = document.getElementById('handoff-name');
+        const allocateName = document.getElementById('allocate-name');
+        const allocateBudget = document.getElementById('allocate-budget');
+        const allocateList = document.getElementById('allocate-list');
+        const allocateTotal = document.getElementById('allocate-total');
+        const allocateNextBtn = document.getElementById('allocate-next-btn');
+
+        document.getElementById('handoff-ready-btn').addEventListener('click', () => {
+            state.phase = 'allocate';
+            save();
+            renderAll();
+        });
+
+        function currentPerson() {
+            return state.people[state.currentIndex];
+        }
+
+        function targetSum() {
+            return 5 * state.tasks.length;
+        }
+
+        function renderHandoff() {
+            handoffName.textContent = currentPerson().name;
+        }
+
+        function renderAllocate() {
+            const person = currentPerson();
+            allocateName.textContent = person.name;
+            const target = targetSum();
+            allocateBudget.textContent = target;
+
+            allocateList.innerHTML = '';
+            state.tasks.forEach(t => {
+                if (state.points[person.id][t.id] === undefined) {
+                    state.points[person.id][t.id] = 5;
+                }
+                const existing = state.points[person.id][t.id];
+
+                const li = document.createElement('li');
+
+                const topRow = document.createElement('div');
+                topRow.className = 'task-points-header';
+
+                const label = document.createElement('span');
+                label.className = 'task-name';
+                label.textContent = t.name;
+
+                const valueLabel = document.createElement('span');
+                valueLabel.className = 'points-value';
+                valueLabel.textContent = `${existing} 💩`;
+
+                topRow.append(label, valueLabel);
+
+                const slider = document.createElement('input');
+                slider.type = 'range';
+                slider.min = '0';
+                slider.max = String(target);
+                slider.step = '1';
+                slider.value = existing;
+                slider.className = 'points-slider';
+
+                slider.addEventListener('input', () => {
+                    const v = parseInt(slider.value, 10);
+                    state.points[person.id][t.id] = v;
+                    valueLabel.textContent = `${v} 💩`;
+                    updateAllocateTotal();
+                    save();
+                });
+
+                li.append(topRow, slider);
+                allocateList.appendChild(li);
+            });
+
+            updateAllocateTotal();
+
+            allocateNextBtn.textContent = (state.currentIndex === state.people.length - 1)
+                ? 'Fullfør'
+                : 'Neste';
+        }
+
+        function updateAllocateTotal() {
+            const person = currentPerson();
+            const target = targetSum();
+            const used = state.tasks.reduce((sum, t) => sum + (state.points[person.id][t.id] || 0), 0);
+            const diff = target - used;
+
+            if (diff === 0) {
+                allocateTotal.textContent = `Brukt: ${used} av ${target} poeng ✓`;
+                allocateTotal.className = 'total-indicator ok';
+                allocateNextBtn.disabled = false;
+            } else if (diff > 0) {
+                allocateTotal.textContent = `Brukt: ${used} av ${target} poeng — ${diff} igjen å fordele`;
+                allocateTotal.className = 'total-indicator';
+                allocateNextBtn.disabled = true;
+            } else {
+                allocateTotal.textContent = `Brukt: ${used} av ${target} poeng — fjern ${-diff}`;
+                allocateTotal.className = 'total-indicator';
+                allocateNextBtn.disabled = true;
+            }
+        }
+
+        allocateNextBtn.addEventListener('click', () => {
+            if (state.currentIndex === state.people.length - 1) {
+                state.phase = 'results';
+                save();
+                renderAll();
+            } else {
+                state.currentIndex += 1;
+                state.phase = 'handoff';
+                save();
+                renderAll();
+            }
+        });
+
+        // ── Assignment algorithm ───────────────────────────────────────────────
+        // Minimize (lexicographically) the highest burden any one person ends up
+        // with, then the total burden summed across everyone.
+
+        function computeCost(totals) {
+            const max = Math.max(...totals);
+            const sum = totals.reduce((a, b) => a + b, 0);
+            return max * 1e6 + sum;
+        }
+
+        function solveAssignment(people, tasks, points) {
+            const n = people.length;
+            const m = tasks.length;
+            // cost[p][t] = points person p gave task t
+            const cost = people.map(p => tasks.map(t => points[p.id][t.id] || 0));
+
+            // Greedy initial assignment: contentious tasks (high spread) first,
+            // each assigned to whoever keeps their running total lowest.
+            const order = [...Array(m).keys()].sort((a, b) => {
+                const spread = idx => Math.max(...cost.map(p => p[idx])) - Math.min(...cost.map(p => p[idx]));
+                return spread(b) - spread(a);
+            });
+
+            let assignment = new Array(m).fill(0);
+            let totals = new Array(n).fill(0);
+            for (const t of order) {
+                let best = 0, bestVal = Infinity;
+                for (let p = 0; p < n; p++) {
+                    const val = totals[p] + cost[p][t];
+                    if (val < bestVal) { bestVal = val; best = p; }
+                }
+                assignment[t] = best;
+                totals[best] += cost[best][t];
+            }
+
+            let bestAssignment = assignment.slice();
+            let bestTotals = totals.slice();
+            let bestCost = computeCost(totals);
+
+            let curAssignment = assignment.slice();
+            let curTotals = totals.slice();
+            let curCost = bestCost;
+
+            const iterations = 20000;
+            for (let it = 0; it < iterations; it++) {
+                let newAssignment, newTotals;
+
+                if (Math.random() < 0.5 || n < 2) {
+                    // Move one task to a different person
+                    const t = Math.floor(Math.random() * m);
+                    const oldP = curAssignment[t];
+                    let newP = Math.floor(Math.random() * n);
+                    if (newP === oldP) continue;
+
+                    newTotals = curTotals.slice();
+                    newTotals[oldP] -= cost[oldP][t];
+                    newTotals[newP] += cost[newP][t];
+                    newAssignment = curAssignment.slice();
+                    newAssignment[t] = newP;
+                } else {
+                    // Swap two tasks owned by different people
+                    const t1 = Math.floor(Math.random() * m);
+                    const t2 = Math.floor(Math.random() * m);
+                    const p1 = curAssignment[t1];
+                    const p2 = curAssignment[t2];
+                    if (p1 === p2) continue;
+
+                    newTotals = curTotals.slice();
+                    newTotals[p1] += cost[p1][t2] - cost[p1][t1];
+                    newTotals[p2] += cost[p2][t1] - cost[p2][t2];
+                    newAssignment = curAssignment.slice();
+                    newAssignment[t1] = p2;
+                    newAssignment[t2] = p1;
+                }
+
+                const newCost = computeCost(newTotals);
+                if (newCost <= curCost) {
+                    curAssignment = newAssignment;
+                    curTotals = newTotals;
+                    curCost = newCost;
+                    if (newCost < bestCost) {
+                        bestCost = newCost;
+                        bestAssignment = curAssignment.slice();
+                        bestTotals = curTotals.slice();
+                    }
+                }
+            }
+
+            return { assignment: bestAssignment, totals: bestTotals };
+        }
+
+        // ── Results phase ───────────────────────────────────────────────────────
+
+        function renderResults() {
+            const resultsList = document.getElementById('results-list');
+            resultsList.innerHTML = '';
+
+            const { assignment, totals } = solveAssignment(state.people, state.tasks, state.points);
+            const budget = targetSum();
+            const maxTotal = Math.max(...totals, 1);
+
+            state.people.forEach((person, pIdx) => {
+                const card = document.createElement('div');
+                card.className = 'result-card';
+
+                const h3 = document.createElement('h3');
+                h3.textContent = person.name;
+                card.appendChild(h3);
+
+                const bar = document.createElement('div');
+                bar.className = 'burden-bar';
+                const fill = document.createElement('div');
+                fill.className = 'burden-bar-fill';
+                fill.style.width = `${(totals[pIdx] / maxTotal) * 100}%`;
+                bar.appendChild(fill);
+                card.appendChild(bar);
+
+                const summary = document.createElement('p');
+                summary.className = 'hint';
+                const pct = Math.round((totals[pIdx] / budget) * 100);
+                summary.textContent = `${totals[pIdx]} 💩-poeng totalt (${pct}% av eget budsjett)`;
+                card.appendChild(summary);
+
+                const ul = document.createElement('ul');
+                ul.className = 'entry-list';
+                state.tasks.forEach((task, tIdx) => {
+                    if (assignment[tIdx] !== pIdx) return;
+                    const li = document.createElement('li');
+                    const span = document.createElement('span');
+                    span.textContent = task.name;
+                    const points = document.createElement('span');
+                    points.textContent = `${state.points[person.id][task.id]} 💩`;
+                    li.append(span, points);
+                    ul.appendChild(li);
+                });
+                card.appendChild(ul);
+
+                resultsList.appendChild(card);
+            });
+        }
+
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            state = freshState();
+            save();
+            renderAll();
+        });
+
+        // ── Master render ───────────────────────────────────────────────────────
+
+        function renderAll() {
+            document.getElementById('setup').hidden = state.phase !== 'setup';
+            document.getElementById('handoff').hidden = state.phase !== 'handoff';
+            document.getElementById('allocate').hidden = state.phase !== 'allocate';
+            document.getElementById('results').hidden = state.phase !== 'results';
+
+            if (state.phase === 'setup') renderSetup();
+            else if (state.phase === 'handoff') renderHandoff();
+            else if (state.phase === 'allocate') renderAllocate();
+            else if (state.phase === 'results') renderResults();
+        }
+
+        renderAll();
+    </script>
+
+    <style>
+        /* App-specific styles. Layout, typography, and colour variables come
+           from /css/style.css. */
+
+        .row-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .row-form input[type="text"] {
+            flex: 1;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: 'Lora', Georgia, serif;
+            font-size: 1rem;
+            background: #fff;
+            color: var(--text);
+        }
+
+        button {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: 1px solid var(--accent);
+            background: transparent;
+            color: var(--accent);
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        button:hover:not(:disabled) { background: var(--accent); color: #fff; }
+
+        button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        button.primary {
+            background: var(--accent);
+            color: #fff;
+            display: block;
+            margin-top: 1rem;
+        }
+
+        button.primary:hover:not(:disabled) { opacity: 0.85; }
+
+        button.secondary { margin-top: 1.5rem; }
+
+        .entry-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .entry-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0.75rem;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-bottom: 0.4rem;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .remove-btn {
+            border: none;
+            background: none;
+            color: var(--muted);
+            font-size: 1.1rem;
+            line-height: 1;
+            padding: 0 0.25rem;
+        }
+
+        .remove-btn:hover { color: #b33; background: none; }
+
+        .hint {
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .task-points-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        .task-points-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .task-points-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .task-name { font-size: 1rem; }
+
+        .points-value {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--accent);
+            min-width: 3.5rem;
+            text-align: right;
+        }
+
+        .points-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(128,128,128,0.2);
+            outline: none;
+        }
+
+        .points-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+
+        .points-slider::-moz-range-thumb {
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+
+        .points-slider::-moz-range-track {
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(128,128,128,0.2);
+        }
+
+        .total-indicator {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.9rem;
+            color: #b33;
+        }
+
+        .total-indicator.ok { color: var(--accent); }
+
+        .result-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .result-card h3 { margin-bottom: 0.5rem; }
+
+        .burden-bar {
+            height: 0.9rem;
+            border-radius: 999px;
+            background: rgba(128,128,128,0.15);
+            overflow: hidden;
+            margin-bottom: 0.4rem;
+        }
+
+        .burden-bar-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.4s ease;
+        }
+    </style>
+
+</body>
+</html>
