@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="/css/landing.css">
   <script src="/js/analytics.js"></script>
   <script src="/js/theme.js" defer></script>
+  <script src="/js/nav.js" defer></script>
   <script src="/js/i18n.js" defer></script>
   <script type="application/json" id="i18n-dict">
   {
@@ -27,13 +28,17 @@
     "nav-home": { "en": "Home", "no": "Hjem", "sv": "Hem" },
     "nav-apps": { "en": "Apps", "no": "Apper", "sv": "Appar" },
     "nav-projects": { "en": "Projects", "no": "Prosjekter", "sv": "Projekt" },
+    "nav-cv": { "en": "CV", "no": "CV", "sv": "CV" },
     "github-aria": { "en": "GitHub profile", "no": "GitHub-profil", "sv": "GitHub-profil" },
+    "linkedin-aria": { "en": "LinkedIn profile", "no": "LinkedIn-profil", "sv": "LinkedIn-profil" },
+    "instagram-aria": { "en": "Instagram profile", "no": "Instagram-profil", "sv": "Instagram-profil" },
+    "menu-aria": { "en": "Menu", "no": "Meny", "sv": "Meny" },
     "hero-photo-caption": { "en": "Photo: Lin Stensrud", "no": "Foto: Lin Stensrud", "sv": "Foto: Lin Stensrud" },
     "hero-tagline": { "en": "— physicist, researcher & science communicator", "no": "— fysiker, forsker og vitenskapsformidler", "sv": "— fysiker, forskare och vetenskapskommunikatör" },
     "hero-sub": {
-      "en": "Senior lecturer at the University of Oslo's Faculty of Mathematics and Natural Sciences, researching phase-field modeling and how AI is reshaping the classroom.",
-      "no": "Førstelektor ved Det matematisk-naturvitenskapelige fakultet, Universitetet i Oslo, hvor jeg forsker på fasefeltmodellering og hvordan KI endrer klasserommet.",
-      "sv": "Universitetslektor vid Matematisk-naturvitenskapliga fakulteten, Universitetet i Oslo, med forskning om fasfältmodellering och hur AI förändrar klassrummet."
+      "en": "Senior lecturer at the University of Oslo's Faculty of Mathematics and Natural Sciences, researching the use of AI in education — with a particular focus on science and mathematics teaching.",
+      "no": "Førstelektor ved Det matematisk-naturvitenskapelige fakultet, Universitetet i Oslo, hvor jeg forsker på bruk av KI i utdanning, med et særlig fokus på realfagsundervisning.",
+      "sv": "Universitetslektor vid Matematisk-naturvitenskapliga fakulteten, Universitetet i Oslo, med forskning om användning av AI i utbildning, med särskilt fokus på undervisning i naturvetenskap och matematik."
     },
     "hero-cta-primary": { "en": "Explore my apps", "no": "Utforsk appene mine", "sv": "Utforska mina appar" },
     "hero-cta-secondary": { "en": "View projects", "no": "Se prosjekter", "sv": "Visa projekt" },
@@ -57,15 +62,21 @@
       "sv": "Jag är fysiker baserad i Stockholm och för närvarande universitetslektor vid Matematisk-naturvitenskapliga fakulteten vid Universitetet i Oslo. Min doktorsavhandling handlade om fasfältmodellering av kristalldeformation och mikroplasticitet — hur korngränser rör sig, och vad det betyder för hur ett material ger efter."
     },
     "about-quote": {
-      "en": "My current research looks at how AI shapes teaching and learning more broadly.",
-      "no": "Forskningen min nå ser på hvordan KI former undervisning og læring i et bredere perspektiv.",
-      "sv": "Min nuvarande forskning handlar om hur AI formar undervisning och lärande i ett bredare perspektiv."
+      "en": "My current research looks at how AI is used in education, with a particular focus on science and mathematics teaching.",
+      "no": "Forskningen min nå ser på hvordan KI brukes i utdanning, med et særlig fokus på realfagsundervisning.",
+      "sv": "Min nuvarande forskning handlar om hur AI används i utbildning, med särskilt fokus på undervisning i naturvetenskap och matematik."
     },
     "about-p2": {
       "en": "Alongside research and teaching, I work in science communication: I co-host the podcast Under Kappa, appear regularly on NRK's Abels tårn, and give talks on AI and learning.",
       "no": "Ved siden av forskning og undervisning jobber jeg med vitenskapsformidling: jeg er programleder for podkasten Under Kappa, opptrer jevnlig i NRKs Abels tårn, og holder foredrag om KI og læring.",
       "sv": "Vid sidan av forskning och undervisning arbetar jag med vetenskapskommunikation: jag är programledare för podden Under Kappa, medverkar regelbundet i NRK:s Abels tårn och håller föreläsningar om AI och lärande."
     },
+    "about-p3": {
+      "en": "I started out as a physics and maths teacher in Oslo through the Teach First Norway leadership programme, before returning to research for a PhD in condensed matter physics. In 2025 I received the Norwegian Physical Society's outreach prize for Under Kappa.",
+      "no": "Jeg startet som fysikk- og mattelærer i Oslo gjennom lederprogrammet Teach First Norway, før jeg vendte tilbake til forskningen med en doktorgrad i kondenserte fasers fysikk. I 2025 mottok jeg Norsk Fysisk Selskaps formidlingspris for Under Kappa.",
+      "sv": "Jag började som fysik- och mattelärare i Oslo genom ledarprogrammet Teach First Norway, innan jag återvände till forskningen med en doktorsexamen i kondenserade materiens fysik. År 2025 fick jag Norska fysiksällskapets kommunikationspris för Under Kappa."
+    },
+    "about-cv-link": { "en": "View full CV", "no": "Se hele CV-en", "sv": "Se hela CV:t" },
     "elsewhere-heading": { "en": "Elsewhere", "no": "Andre steder", "sv": "På andra ställen" },
     "elsewhere-sub": { "en": "More of my work, in a few different places.", "no": "Mer av arbeidet mitt, på noen ulike steder.", "sv": "Mer av mitt arbete, på några olika ställen." },
     "card-apps-title": { "en": "Apps", "no": "Apper", "sv": "Appar" },
@@ -82,12 +93,13 @@
       "sv": "Forskning om AI och lärande, samt podden Under Kappa om superhjältarnas vetenskap."
     },
     "card-projects-link": { "en": "See projects", "no": "Se prosjekter", "sv": "Se projekt" },
-    "card-github-desc": {
-      "en": "Code, experiments, and the source for this site.",
-      "no": "Kode, eksperimenter og kildekoden til denne siden.",
-      "sv": "Kod, experiment och källkoden till den här sidan."
+    "card-cv-title": { "en": "CV", "no": "CV", "sv": "CV" },
+    "card-cv-desc": {
+      "en": "Education, positions, publications, and the full list of talks and outreach.",
+      "no": "Utdanning, stillinger, publikasjoner og den fullstendige listen over foredrag og formidling.",
+      "sv": "Utbildning, tjänster, publikationer och den fullständiga listan över föreläsningar och kommunikation."
     },
-    "card-github-link": { "en": "Visit profile", "no": "Besøk profilen", "sv": "Besök profilen" }
+    "card-cv-link": { "en": "View CV", "no": "Se CV", "sv": "Se CV" }
   }
   </script>
 </head>
@@ -105,19 +117,32 @@
         <a href="/" aria-current="page" data-i18n="nav-home">Home</a>
         <a href="/apps/" data-i18n="nav-apps">Apps</a>
         <a href="/projects/" data-i18n="nav-projects">Projects</a>
+        <a href="/cv/" data-i18n="nav-cv">CV</a>
       </nav>
-      <a class="nav-icon" href="https://github.com/vidarsko" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" data-i18n-attr="aria-label:github-aria">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
-      </a>
-      <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
-      </button>
-      <div class="lang-switch" role="group" aria-label="Language">
-        <button type="button" class="lang-btn" data-lang="en">EN</button>
-        <button type="button" class="lang-btn" data-lang="no">NO</button>
-        <button type="button" class="lang-btn" data-lang="sv">SV</button>
+      <div class="nav-controls">
+        <a class="nav-icon" href="https://github.com/vidarsko" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" data-i18n-attr="aria-label:github-aria">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+        </a>
+        <a class="nav-icon" href="https://www.linkedin.com/in/vidarsko/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" data-i18n-attr="aria-label:linkedin-aria">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a class="nav-icon" href="https://www.instagram.com/fysikkvidar/" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile" data-i18n-attr="aria-label:instagram-aria">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+        </a>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+        </button>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="no">NO</button>
+          <button type="button" class="lang-btn" data-lang="sv">SV</button>
+        </div>
       </div>
+      <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" data-i18n-attr="aria-label:menu-aria">
+        <svg class="icon-bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
   </header>
 
@@ -174,6 +199,12 @@
           Alongside research and teaching, I work in science communication: I co-host the podcast Under Kappa, appear
           regularly on NRK's Abels tårn, and give talks on AI and learning.
         </p>
+        <p data-i18n="about-p3">
+          I started out as a physics and maths teacher in Oslo through the Teach First Norway leadership programme,
+          before returning to research for a PhD in condensed matter physics. In 2025 I received the Norwegian
+          Physical Society's outreach prize for Under Kappa.
+        </p>
+        <a class="link-arrow" href="/cv/" data-i18n="about-cv-link">View full CV</a>
       </div>
     </section>
 
@@ -199,13 +230,13 @@
           <p data-i18n="card-projects-desc">Research on AI and learning, plus the Under Kappa podcast on the science of superheroes.</p>
           <span class="link-arrow" data-i18n="card-projects-link">See projects</span>
         </a>
-        <a class="feature-card" href="https://github.com/vidarsko" target="_blank" rel="noopener noreferrer">
+        <a class="feature-card" href="/cv/">
           <span class="icon-badge" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l4 4v14a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M16 3v4h4"/><path d="M9 13h6M9 17h6M9 9h2"/></svg>
           </span>
-          <h3>GitHub</h3>
-          <p data-i18n="card-github-desc">Code, experiments, and the source for this site.</p>
-          <span class="link-arrow" data-i18n="card-github-link">Visit profile</span>
+          <h3 data-i18n="card-cv-title">CV</h3>
+          <p data-i18n="card-cv-desc">Education, positions, publications, and the full list of talks and outreach.</p>
+          <span class="link-arrow" data-i18n="card-cv-link">View CV</span>
         </a>
       </div>
     </section>
@@ -222,6 +253,7 @@
         <a href="/" data-i18n="nav-home">Home</a>
         <a href="/apps/" data-i18n="nav-apps">Apps</a>
         <a href="/projects/" data-i18n="nav-projects">Projects</a>
+        <a href="/cv/" data-i18n="nav-cv">CV</a>
       </nav>
       <p class="copyright">© 2026 Vidar Skogvoll</p>
     </div>

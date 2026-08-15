@@ -1,0 +1,137 @@
+/* CV page: timeline-style entries within content panels. */
+
+.cv-intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 1.4rem 2.4rem;
+}
+
+.cv-intro .content-links { margin-top: 0; }
+
+.cv-intro-right {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-shrink: 0;
+}
+
+.print-btn svg { width: 16px; height: 16px; }
+
+.cv-item {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 0.4rem 1.6rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.cv-item:first-of-type { border-top: none; padding-top: 0; }
+
+.cv-date {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  padding-top: 0.15rem;
+}
+
+.cv-item-body h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.cv-item-body .cv-org {
+  display: block;
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+}
+
+.cv-item-body p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin-top: 0.5rem;
+  max-width: 82ch;
+}
+
+.cv-item-body p + p { margin-top: 0.5rem; }
+
+.cv-note {
+  margin-top: 1.2rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* publications */
+.pub-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pub-list li {
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.pub-list li:first-child { border-top: none; padding-top: 0; }
+
+.pub-list .pub-title { color: var(--text); font-weight: 600; }
+
+.pub-list a { color: var(--accent); }
+.pub-list a:hover, .pub-list a:focus-visible { color: var(--text); }
+
+/* skills */
+.skill-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+}
+
+.skill-pill {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.skill-pill span {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 620px) {
+  .cv-item { grid-template-columns: 1fr; gap: 0.2rem; }
+  .cv-date { color: var(--text-muted); }
+  .cv-intro { flex-direction: column; align-items: flex-start; padding: 1.4rem 1.6rem; }
+  .cv-intro-right { width: 100%; justify-content: space-between; }
+}
+
+/* ---------- print ---------- */
+
+@media print {
+  .site-nav, footer, .skip-link, .print-btn { display: none; }
+  body { background: #fff; color: #111; }
+  main { max-width: 100%; padding: 0; }
+  .panel { border: 1px solid #ccc; background: #fff; break-inside: avoid; }
+  .content-panel { padding: 1rem 0; }
+  .cv-item { break-inside: avoid; }
+  a { color: #111; text-decoration: underline; }
+  .badge, .skill-pill { border-color: #999; color: #111; }
+}

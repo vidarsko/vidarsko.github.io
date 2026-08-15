@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="/css/content.css">
   <script src="/js/analytics.js"></script>
   <script src="/js/theme.js" defer></script>
+  <script src="/js/nav.js" defer></script>
   <script src="/js/i18n.js" defer></script>
   <script type="application/json" id="i18n-dict">
   {
@@ -22,22 +23,82 @@
     "nav-home": { "en": "Home", "no": "Hjem", "sv": "Hem" },
     "nav-apps": { "en": "Apps", "no": "Apper", "sv": "Appar" },
     "nav-projects": { "en": "Projects", "no": "Prosjekter", "sv": "Projekt" },
+    "nav-cv": { "en": "CV", "no": "CV", "sv": "CV" },
     "github-aria": { "en": "GitHub profile", "no": "GitHub-profil", "sv": "GitHub-profil" },
+    "linkedin-aria": { "en": "LinkedIn profile", "no": "LinkedIn-profil", "sv": "LinkedIn-profil" },
+    "instagram-aria": { "en": "Instagram profile", "no": "Instagram-profil", "sv": "Instagram-profil" },
+    "menu-aria": { "en": "Menu", "no": "Meny", "sv": "Meny" },
     "page-h1": { "en": "Projects", "no": "Prosjekter", "sv": "Projekt" },
     "page-sub": {
-      "en": "Overview of my work in research and science communication.",
-      "no": "Oversikt over arbeidet mitt innen forskning og vitenskapsformidling.",
-      "sv": "Översikt över mitt arbete inom forskning och vetenskapskommunikation."
+      "en": "Research, teaching, and science communication — the different threads of my work.",
+      "no": "Forskning, undervisning og vitenskapsformidling — de ulike trådene i arbeidet mitt.",
+      "sv": "Forskning, undervisning och vetenskapskommunikation — de olika trådarna i mitt arbete."
     },
+
     "research-heading": { "en": "Research", "no": "Forskning", "sv": "Forskning" },
-    "learning-with-ai-link": { "en": "Learning with AI", "no": "Læring med KI", "sv": "Lärande med AI" },
-    "scicomm-heading": { "en": "Science communication", "no": "Vitenskapsformidling", "sv": "Vetenskapskommunikation" },
-    "scicomm-desc": {
-      "en": "Under Kappa — a podcast about the physics and biology of superheroes (in Norwegian).",
-      "no": "Under Kappa — en podkast om fysikken og biologien til superhelter (på norsk).",
-      "sv": "Under Kappa — en podd om superhjältars fysik och biologi (på norska)."
+    "learning-with-ai-h3": { "en": "Learning with AI", "no": "Læring med KI", "sv": "Lärande med AI" },
+    "learning-with-ai-p": {
+      "en": "My current research programme: the use of AI in education, with a particular focus on science and mathematics teaching — a forthcoming book, a peer-reviewed study of how physics professors use generative AI, a course for teachers, a blog, and a podcast.",
+      "no": "Mitt nåværende forskningsprogram: bruk av KI i utdanning, med et særlig fokus på realfagsundervisning — en kommende bok, en fagfellevurdert studie av hvordan fysikkprofessorer bruker generativ KI, et kurs for lærere, en blogg og en podkast.",
+      "sv": "Mitt nuvarande forskningsprogram: användning av AI i utbildning, med särskilt fokus på undervisning i naturvetenskap och matematik — en kommande bok, en kollegialt granskad studie av hur fysikprofessorer använder generativ AI, en kurs för lärare, en blogg och en podd."
     },
-    "underkappa-link": { "en": "Visit Under Kappa", "no": "Besøk Under Kappa", "sv": "Besök Under Kappa" }
+    "learning-with-ai-link": { "en": "Explore this project", "no": "Utforsk prosjektet", "sv": "Utforska projektet" },
+    "comfit-h3": { "en": "ComFiT — a field-theory simulation library", "no": "ComFiT — et bibliotek for feltteorisimulering", "sv": "ComFiT — ett bibliotek för fältteorisimulering" },
+    "comfit-p": {
+      "en": "During my PhD I worked with field theories containing topological defects; my co-PhD student Jonas Rønning worked on related theories. After finishing, we built ComFiT together — an open-source Python library for simulating computational field theory with topological defects, with full documentation and test coverage, published in the Journal of Open Source Software.",
+      "no": "Under doktorgraden jobbet jeg med feltteorier som inneholder topologiske defekter; medstipendiat Jonas Rønning jobbet med beslektede teorier. Etter at vi var ferdige, bygde vi sammen ComFiT — et åpen kildekode Python-bibliotek for å simulere feltteori med topologiske defekter, med full dokumentasjon og testdekning, publisert i Journal of Open Source Software.",
+      "sv": "Under doktorandtiden arbetade jag med fältteorier som innehåller topologiska defekter; min medstipendiat Jonas Rønning arbetade med besläktade teorier. Efter avslutad doktorandtid byggde vi tillsammans ComFiT — ett öppen källkod-bibliotek i Python för att simulera fältteori med topologiska defekter, med fullständig dokumentation och testtäckning, publicerat i Journal of Open Source Software."
+    },
+    "comfit-link1": { "en": "Read the paper", "no": "Les artikkelen", "sv": "Läs artikeln" },
+    "comfit-link2": { "en": "View on GitHub", "no": "Se på GitHub", "sv": "Visa på GitHub" },
+
+    "teaching-heading": { "en": "Teaching teachers", "no": "Undervisning av lærere", "sv": "Undervisning av lärare" },
+    "profag-h3": { "en": "Profag KI-kurs", "no": "Profag KI-kurs", "sv": "Profag KI-kurs" },
+    "profag-p": {
+      "en": "A four-module professional-development programme on AI in teaching, built with Andreas Haraldsrud at KURT (UiO): generative-AI foundations and prompt design, teaching activities and differentiation, programming with AI, and assessment. Run for teacher groups across several Norwegian counties each semester since 2025.",
+      "no": "Et firedelt etterutdanningsprogram om KI i undervisningen, utviklet sammen med Andreas Haraldsrud ved KURT (UiO): grunnlag for generativ KI og instruksutforming, undervisningsaktiviteter og tilpasset opplæring, programmering med KI, og vurdering. Gjennomført for lærergrupper i flere norske fylker hvert semester siden 2025.",
+      "sv": "Ett fyrdelat kompetensutvecklingsprogram om AI i undervisningen, utvecklat tillsammans med Andreas Haraldsrud vid KURT (UiO): grunder i generativ AI och promptdesign, undervisningsaktiviteter och differentiering, programmering med AI, samt bedömning. Genomförs för lärargrupper i flera norska fylken varje termin sedan 2025."
+    },
+    "profag-quote": {
+      "en": "“Balanced — it looks at both the advantages and disadvantages of AI, and doesn't sweep the challenges under the rug.” — course participant, spring 2025",
+      "no": "«Balansert — ser på både fordeler og ulemper med KI, uten at utfordringene blir feid under teppet.» — kursdeltaker, våren 2025",
+      "sv": "”Balanserad — tittar på både fördelar och nackdelar med AI, utan att utmaningarna sopas under mattan.” — kursdeltagare, våren 2025"
+    },
+    "phd-supervision-h3": { "en": "Co-supervisor — student projects", "no": "Bi-veileder — studentprosjekter", "sv": "Bihandledare — studentprojekt" },
+    "phd-supervision-p": {
+      "en": "Currently co-supervising two students at the University of Oslo, working with computational field-theory methods built on the ComFiT framework.",
+      "no": "For tiden bi-veileder for to studenter ved Universitetet i Oslo, som jobber med beregningsmessige feltteorimetoder bygget på ComFiT-rammeverket.",
+      "sv": "För närvarande bihandledare för två studenter vid Universitetet i Oslo, som arbetar med beräkningsmässiga fältteorimetoder byggda på ComFiT-ramverket."
+    },
+
+    "podcasts-heading": { "en": "Podcasts", "no": "Podkaster", "sv": "Poddar" },
+    "underkappa-h3": { "en": "Under Kappa", "no": "Under Kappa", "sv": "Under Kappa" },
+    "underkappa-p": {
+      "en": "A bi-weekly science communication podcast, co-founded and co-hosted with Even Garvang, analyzing the scientific plausibility of superheroes — physics, biology, and everything in between. Close to 70 episodes since April 2023, national TV and radio coverage, and the Norwegian Physical Society's 2025 outreach prize.",
+      "no": "En podkast annenhver uke, grunnlagt og drevet sammen med Even Garvang, som analyserer den vitenskapelige plausibiliteten til superhelter — fysikk, biologi og alt derimellom. Nesten 70 episoder siden april 2023, dekning på riksdekkende TV og radio, og Norsk Fysisk Selskaps formidlingspris 2025.",
+      "sv": "En podd varannan vecka, grundad och driven tillsammans med Even Garvang, som analyserar den vetenskapliga trovärdigheten hos superhjältar — fysik, biologi och allt däremellan. Nästan 70 avsnitt sedan april 2023, riksomfattande TV- och radiotäckning, samt Norska fysiksällskapets kommunikationspris 2025."
+    },
+    "underkappa-link": { "en": "Visit Under Kappa", "no": "Besøk Under Kappa", "sv": "Besök Under Kappa" },
+    "reallaering-h3": { "en": "REAL læring", "no": "REAL læring", "sv": "REAL læring" },
+    "reallaering-p": {
+      "en": "A podcast made as senior lecturer at KURT (UiO) about the learning sciences in higher education — seasons on ChatGPT and learning, the different institutes at the MN faculty, and teaching formats such as compulsory assignments and group sessions. A new season on generative AI is in production.",
+      "no": "En podkast laget som førstelektor ved KURT (UiO) om læringsvitenskap i høyere utdanning — sesonger om ChatGPT og læring, de ulike instituttene ved MN-fakultetet, og undervisningsformer som obliger og gruppeøvelser. En ny sesong om generativ KI er under produksjon.",
+      "sv": "En podd gjord som universitetslektor vid KURT (UiO) om lärandevetenskap i högre utbildning — säsonger om ChatGPT och lärande, de olika instituten vid MN-fakulteten, samt undervisningsformer som obligatoriska uppgifter och gruppövningar. En ny säsong om generativ AI är under produktion."
+    },
+    "kiosk-h3": { "en": "KIosk", "no": "KIosk", "sv": "KIosk" },
+    "kiosk-p": {
+      "en": "A podcast where I talk to teachers who have actually tried something with AI in their own classroom — what worked, what didn't, and what they'd do differently.",
+      "no": "En podkast der jeg snakker med lærere som faktisk har prøvd noe med KI i sitt eget klasserom — hva som fungerte, hva som ikke gjorde det, og hva de ville gjort annerledes.",
+      "sv": "En podd där jag pratar med lärare som faktiskt har provat något med AI i sitt eget klassrum — vad som fungerade, vad som inte gjorde det, och vad de skulle gjort annorlunda."
+    },
+
+    "media-heading": { "en": "Talks & media", "no": "Foredrag og media", "sv": "Föreläsningar och media" },
+    "media-p": {
+      "en": "Recurring panelist on NRK's Abels tårn (P2) since 2022, repeat guest on Andreas Wahl's podcast Jøss?, and occasional science expert for TV2 — plus talks and teacher workshops on AI and physics across Norway and the Nordics. The full, dated list lives on the CV page.",
+      "no": "Fast panelist i NRKs Abels tårn (P2) siden 2022, tilbakevendende gjest i Andreas Wahls podkast Jøss?, og av og til vitenskapsekspert for TV2 — i tillegg til foredrag og lærerkurs om KI og fysikk over hele Norge og Norden. Den fullstendige, daterte listen ligger på CV-siden.",
+      "sv": "Återkommande panelist i NRKs Abels tårn (P2) sedan 2022, återkommande gäst i Andreas Wahls podd Jøss?, och ibland vetenskapsexpert för TV2 — utöver föreläsningar och lärarkurser om AI och fysik runt om i Norge och Norden. Den fullständiga, daterade listan finns på CV-sidan."
+    },
+    "media-link": { "en": "See the full CV", "no": "Se hele CV-en", "sv": "Se hela CV:t" }
   }
   </script>
 </head>
@@ -55,43 +116,131 @@
         <a href="/" data-i18n="nav-home">Home</a>
         <a href="/apps/" data-i18n="nav-apps">Apps</a>
         <a href="/projects/" aria-current="page" data-i18n="nav-projects">Projects</a>
+        <a href="/cv/" data-i18n="nav-cv">CV</a>
       </nav>
-      <a class="nav-icon" href="https://github.com/vidarsko" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" data-i18n-attr="aria-label:github-aria">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
-      </a>
-      <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
-      </button>
-      <div class="lang-switch" role="group" aria-label="Language">
-        <button type="button" class="lang-btn" data-lang="en">EN</button>
-        <button type="button" class="lang-btn" data-lang="no">NO</button>
-        <button type="button" class="lang-btn" data-lang="sv">SV</button>
+      <div class="nav-controls">
+        <a class="nav-icon" href="https://github.com/vidarsko" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" data-i18n-attr="aria-label:github-aria">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+        </a>
+        <a class="nav-icon" href="https://www.linkedin.com/in/vidarsko/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" data-i18n-attr="aria-label:linkedin-aria">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a class="nav-icon" href="https://www.instagram.com/fysikkvidar/" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile" data-i18n-attr="aria-label:instagram-aria">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+        </a>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+        </button>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="no">NO</button>
+          <button type="button" class="lang-btn" data-lang="sv">SV</button>
+        </div>
       </div>
+      <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" data-i18n-attr="aria-label:menu-aria">
+        <svg class="icon-bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
   </header>
 
   <main id="main">
     <div class="page-header reveal">
       <h1 data-i18n="page-h1">Projects</h1>
-      <p data-i18n="page-sub">Overview of my work in research and science communication.</p>
+      <p data-i18n="page-sub">Research, teaching, and science communication — the different threads of my work.</p>
     </div>
 
     <section>
       <div class="content-panel panel">
         <h2 data-i18n="research-heading">Research</h2>
+
+        <h3 data-i18n="learning-with-ai-h3">Learning with AI</h3>
+        <p data-i18n="learning-with-ai-p">
+          My current research programme: a forthcoming book, a peer-reviewed study of how physics professors use
+          generative AI, a course for teachers, a blog, and a podcast.
+        </p>
         <div class="content-links">
-          <a href="/learning-with-ai/" data-i18n="learning-with-ai-link">Learning with AI</a>
+          <a href="/learning-with-ai/" data-i18n="learning-with-ai-link">Explore this project</a>
         </div>
+
+        <h3 data-i18n="comfit-h3">ComFiT — a field-theory simulation library</h3>
+        <p data-i18n="comfit-p">
+          During my PhD I worked with field theories containing topological defects; my co-PhD student Jonas Rønning
+          worked on related theories. After finishing, we built ComFiT together — an open-source Python library for
+          simulating computational field theory with topological defects, with full documentation and test coverage,
+          published in the Journal of Open Source Software.
+        </p>
+        <div class="content-links">
+          <a href="https://doi.org/10.21105/joss.06599" target="_blank" rel="noopener noreferrer" data-i18n="comfit-link1">Read the paper</a>
+          <a href="https://github.com/vidarsko/ComFiT" target="_blank" rel="noopener noreferrer" data-i18n="comfit-link2">View on GitHub</a>
+        </div>
+
       </div>
     </section>
 
     <section>
       <div class="content-panel panel">
-        <h2 data-i18n="scicomm-heading">Science communication</h2>
-        <p data-i18n="scicomm-desc">Under Kappa — a podcast about the physics and biology of superheroes (in Norwegian).</p>
+        <h2 data-i18n="teaching-heading">Teaching teachers</h2>
+
+        <h3 data-i18n="profag-h3">Profag KI-kurs</h3>
+        <p data-i18n="profag-p">
+          A four-module professional-development programme on AI in teaching, built with Andreas Haraldsrud at KURT
+          (UiO): generative-AI foundations and prompt design, teaching activities and differentiation, programming
+          with AI, and assessment. Run for teacher groups across several Norwegian counties each semester since 2025.
+        </p>
+        <p data-i18n="profag-quote" style="font-style: italic;">
+          "Balanced — it looks at both the advantages and disadvantages of AI, and doesn't sweep the challenges under
+          the rug." — course participant, spring 2025
+        </p>
+
+        <h3 data-i18n="phd-supervision-h3">Co-supervisor — student projects</h3>
+        <p data-i18n="phd-supervision-p">
+          Currently co-supervising two students at the University of Oslo, working with computational field-theory
+          methods built on the ComFiT framework.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="content-panel panel">
+        <h2 data-i18n="podcasts-heading">Podcasts</h2>
+
+        <h3 data-i18n="underkappa-h3">Under Kappa</h3>
+        <p data-i18n="underkappa-p">
+          A bi-weekly science communication podcast, co-founded and co-hosted with Even Garvang, analyzing the
+          scientific plausibility of superheroes — physics, biology, and everything in between. Close to 70 episodes
+          since April 2023, national TV and radio coverage, and the Norwegian Physical Society's 2025 outreach prize.
+        </p>
         <div class="content-links">
           <a href="https://www.underkappa.no/" target="_blank" rel="noopener noreferrer" data-i18n="underkappa-link">Visit Under Kappa</a>
+        </div>
+
+        <h3 data-i18n="reallaering-h3">REAL læring</h3>
+        <p data-i18n="reallaering-p">
+          A podcast made as senior lecturer at KURT (UiO) about the learning sciences in higher education — seasons
+          on ChatGPT and learning, the different institutes at the MN faculty, and teaching formats such as
+          compulsory assignments and group sessions. A new season on generative AI is in production.
+        </p>
+
+        <h3 data-i18n="kiosk-h3">KIosk</h3>
+        <p data-i18n="kiosk-p">
+          A podcast where I talk to teachers who have actually tried something with AI in their own classroom — what
+          worked, what didn't, and what they'd do differently.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="content-panel panel">
+        <h2 data-i18n="media-heading">Talks &amp; media</h2>
+        <p data-i18n="media-p">
+          Recurring panelist on NRK's Abels tårn (P2) since 2022, repeat guest on Andreas Wahl's podcast Jøss?, and
+          occasional science expert for TV2 — plus talks and teacher workshops on AI and physics across Norway and
+          the Nordics. The full, dated list lives on the CV page.
+        </p>
+        <div class="content-links">
+          <a href="/cv/" data-i18n="media-link">See the full CV</a>
         </div>
       </div>
     </section>
@@ -107,6 +256,7 @@
         <a href="/" data-i18n="nav-home">Home</a>
         <a href="/apps/" data-i18n="nav-apps">Apps</a>
         <a href="/projects/" data-i18n="nav-projects">Projects</a>
+        <a href="/cv/" data-i18n="nav-cv">CV</a>
       </nav>
       <p class="copyright">© 2026 Vidar Skogvoll</p>
     </div>

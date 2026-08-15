@@ -48,7 +48,7 @@
   color: var(--text-muted);
   line-height: 1.75;
   font-size: 1.02rem;
-  max-width: 68ch;
+  max-width: 88ch;
 }
 
 .content-panel p + p { margin-top: 1rem; }
