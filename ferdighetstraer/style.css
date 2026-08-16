@@ -4,11 +4,14 @@
    loaded before this file. */
 
 :root {
-  --begrep-bg: rgba(20, 16, 10, 0.04);
-  --begrep-border: rgba(20, 16, 10, 0.22);
+  /* Node backgrounds are opaque (blended into --bg via color-mix, not layered
+     as translucent rgba) so the edge lines behind a node never show through
+     its card - only rgba here would let them bleed through the fill. */
+  --begrep-bg: color-mix(in srgb, var(--bg) 92%, #5E6E96 8%);
+  --begrep-border: rgba(94, 110, 150, 0.5);
 
-  --ferdighet-bg: rgba(20, 16, 10, 0.06);
-  --ferdighet-border: rgba(232, 161, 94, 0.55);
+  --ferdighet-bg: color-mix(in srgb, var(--bg) 93%, #C1710B 7%);
+  --ferdighet-border: rgba(193, 113, 11, 0.5);
 
   --locked-opacity: 0.45;
 
@@ -20,10 +23,11 @@
 }
 
 html[data-theme="dark"] {
-  --begrep-bg: rgba(255, 255, 255, 0.055);
-  --begrep-border: rgba(255, 255, 255, 0.32);
+  --begrep-bg: color-mix(in srgb, var(--bg) 86%, #93A5D6 14%);
+  --begrep-border: rgba(147, 165, 214, 0.5);
 
-  --ferdighet-bg: rgba(255, 255, 255, 0.09);
+  --ferdighet-bg: color-mix(in srgb, var(--bg) 86%, #E8A15E 14%);
+  --ferdighet-border: rgba(232, 161, 94, 0.55);
 
   --column-alt: rgba(255, 255, 255, 0.06);
   --danger-soft: #FCA5A5;
@@ -397,6 +401,7 @@ main {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -431,6 +436,11 @@ main {
   color: var(--text-muted);
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border);
+}
+
+#nodes-layer {
+  position: relative;
+  z-index: 2;
 }
 
 .node-box {
