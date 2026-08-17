@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spareutvikling – skogvoll.com</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/tokens.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/content.css">
+  <script src="/js/analytics.js"></script>
+  <script src="/js/theme.js" defer></script>
+  <script src="/js/nav.js" defer></script>
+</head>
+<body>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-nav">
+        <div class="nav-inner">
+            <a class="brand" href="/">
+                <span class="brand-mark" aria-hidden="true">V</span>
+                <span>Vidar Skogvoll</span>
+            </a>
+            <nav class="primary-nav" aria-label="Primary">
+                <a href="/">Home</a>
+                <a href="/apps/" aria-current="page">Apps</a>
+                <a href="/projects/">Projects</a>
+                <a href="/cv/">CV</a>
+            </nav>
+            <div class="nav-controls">
+                <a class="nav-icon" href="https://github.com/vidarsko" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+                </a>
+                <a class="nav-icon" href="https://www.linkedin.com/in/vidarsko/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
+                <a class="nav-icon" href="https://www.instagram.com/fysikkvidar/" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+                </a>
+                <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+                </button>
+            </div>
+            <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+                <svg class="icon-bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="page-header reveal">
+            <h1>Spareutvikling</h1>
+            <p>Fast beløp hver måned mot alt på én gang — se effekten på tvers av fire markedsforløp.</p>
+        </div>
+
+        <section class="panel content-panel" id="app-panel">
+            <div class="block">
+                <div class="scenario-grid" id="scenarioGrid"></div>
+            </div>
+
+            <div class="block controls-row">
+                <div class="toggle" id="strategyToggle">
+                    <button data-strategy="dca" class="active">Hver måned</button>
+                    <button data-strategy="lump">Én gang</button>
+                </div>
+                <div class="amount-control">
+                    <span>Totalt</span>
+                    <input type="range" id="amountSlider" min="500" max="5000" step="250" value="2000">
+                    <span class="amount-val" id="amountVal"></span>
+                </div>
+            </div>
+
+            <div class="block">
+                <div class="panel-head-row">
+                    <h2 id="chartTitle">Krakk og gjeninnhenting</h2>
+                    <div class="chart-legend" id="chartLegend"></div>
+                </div>
+                <svg class="chart" id="marketChart" viewBox="0 0 1000 300" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+
+            <div class="block">
+                <div class="stats-grid" id="statsGrid"></div>
+                <p class="hint">Syntetisk illustrasjon, ikke historiske data eller en prognose.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <a class="brand" href="/">
+                <span class="brand-mark" aria-hidden="true">V</span>
+                <span>skogvoll.com</span>
+            </a>
+            <nav class="footer-nav" aria-label="Footer">
+                <a href="/">Home</a>
+                <a href="/apps/">Apps</a>
+                <a href="/projects/">Projects</a>
+            </nav>
+            <p class="copyright">© 2026 Vidar Skogvoll</p>
+        </div>
+    </footer>
+
+    <script>
+        /* ============================= DATA MODEL ============================= */
+
+        const NUM_MONTHS = 12;
+
+        const SCENARIOS = {
+            bear: {
+                id:'bear', name:'Bjørnemarked', desc:'Jevnt fallende marked gjennom hele perioden.',
+                keyframes: [[0,100],[3,88],[6,76],[9,63],[12,52]], seed: 1.7
+            },
+            crash_recover: {
+                id:'crash_recover', name:'Krakk og gjeninnhenting', desc:'Kraftig fall etterfulgt av sterk oppgang.',
+                keyframes: [[0,100],[2,84],[4,55],[7,78],[9,108],[12,138]], seed: 4.2
+            },
+            boom_bust: {
+                id:'boom_bust', name:'Boble og brist', desc:'Sterk oppgang etterfulgt av en korreksjon.',
+                keyframes: [[0,100],[3,126],[5,158],[7,132],[9,103],[12,84]], seed: 2.9
+            },
+            bull: {
+                id:'bull', name:'Oksemarked', desc:'Jevnt stigende marked med små svingninger.',
+                keyframes: [[0,100],[3,115],[5,108],[8,138],[10,152],[12,172]], seed: 6.1
+            }
+        };
+
+        function interp(keyframes, x){
+            for(let i=0;i<keyframes.length-1;i++){
+                const [x0,y0]=keyframes[i], [x1,y1]=keyframes[i+1];
+                if(x>=x0 && x<=x1){
+                    const t=(x-x0)/(x1-x0);
+                    return y0+(y1-y0)*t;
+                }
+            }
+            return keyframes[keyframes.length-1][1];
+        }
+        function noise(i, seed){
+            return Math.sin(i*1.31+seed)*1.3 + Math.sin(i*0.53+seed*3.1)*1.7 + Math.sin(i*2.7+seed*0.7)*0.7;
+        }
+        function buildSeries(keyframes, seed){
+            const prices=[];
+            for(let m=0;m<=NUM_MONTHS;m++){
+                let p = interp(keyframes,m) + (m>0 && m<NUM_MONTHS ? noise(m,seed) : 0);
+                prices.push(Math.max(15,p));
+            }
+            prices[0]=keyframes[0][1];
+            return prices;
+        }
+        Object.values(SCENARIOS).forEach(s=>{ s.prices = buildSeries(s.keyframes, s.seed); });
+
+        function computeDCA(prices, monthlyAmount){
+            const finalPrice = prices[NUM_MONTHS];
+            const invests = [];
+            for(let m=0;m<NUM_MONTHS;m++){
+                const price = prices[m];
+                const units = monthlyAmount/price;
+                const valueNow = units*finalPrice;
+                const returnPct = (finalPrice/price - 1)*100;
+                invests.push({month:m, price, units, valueNow, returnPct, invested: monthlyAmount});
+            }
+            const totalInvested = monthlyAmount*NUM_MONTHS;
+            const totalValue = invests.reduce((s,x)=>s+x.valueNow,0);
+            return {invests, totalInvested, totalValue};
+        }
+
+        function computeLump(prices, totalAmount){
+            const units = totalAmount/prices[0];
+            const totalValue = units*prices[NUM_MONTHS];
+            return {totalInvested: totalAmount, totalValue, units};
+        }
+
+        /* ============================= STATE ============================= */
+
+        const state = { scenario: 'crash_recover', strategy: 'dca', monthly: 2000 };
+
+        /* ============================= FORMAT HELPERS ============================= */
+
+        function fmtKr(x){ return Math.round(x).toLocaleString('nb-NO') + ' kr'; }
+        function fmtPct(x){ return (x>=0?'+':'') + x.toFixed(1) + ' %'; }
+
+        /* ============================= SVG HELPERS ============================= */
+
+        const NS = 'http://www.w3.org/2000/svg';
+        function el(tag, attrs){
+            const e = document.createElementNS(NS, tag);
+            for(const k in attrs) e.setAttribute(k, attrs[k]);
+            return e;
+        }
+        function makeScale(d0,d1,r0,r1){ return v => r0 + (v-d0)/(d1-d0)*(r1-r0); }
+
+        function sparkline(prices, w, h, color){
+            const svg = el('svg', {width:w, height:h, viewBox:`0 0 ${w} ${h}`});
+            const min = Math.min(...prices), max = Math.max(...prices);
+            const x = makeScale(0,NUM_MONTHS, 3, w-3);
+            const y = makeScale(min,max, h-4, 4);
+            let d = '';
+            prices.forEach((p,i)=>{ d += (i===0?'M':'L') + x(i).toFixed(1) + ' ' + y(p).toFixed(1) + ' '; });
+            svg.appendChild(el('path',{d, fill:'none', stroke:color, 'stroke-width':2, 'stroke-linecap':'round', 'stroke-linejoin':'round'}));
+            return svg;
+        }
+
+        /* ============================= RENDER: SCENARIO GRID ============================= */
+
+        function renderScenarioGrid(){
+            const grid = document.getElementById('scenarioGrid');
+            grid.innerHTML = '';
+            Object.values(SCENARIOS).forEach(s=>{
+                const btn = document.createElement('button');
+                btn.className = 'scenario-btn' + (s.id===state.scenario ? ' active' : '');
+                btn.title = s.desc;
+                btn.appendChild(sparkline(s.prices, 100, 30, s.id===state.scenario ? 'var(--accent)' : 'var(--text-muted)'));
+                const name = document.createElement('div'); name.className='scenario-name'; name.textContent = s.name;
+                btn.appendChild(name);
+                btn.addEventListener('click', ()=>{ state.scenario = s.id; renderAll(); });
+                grid.appendChild(btn);
+            });
+        }
+
+        /* ============================= RENDER: MARKET CHART ============================= */
+        /*
+         * Every point is placed directly on the market-index line: x = month,
+         * y = the same scale used to draw the price curve at that month. That
+         * way a point always sits exactly where the curve passes through, and
+         * hovering highlights the stretch of curve from the investment month
+         * to month 12 so you can see how that particular contribution rode
+         * the market.
+         */
+
+        function renderMarketChart(prices, dca, lump){
+            const svg = document.getElementById('marketChart');
+            svg.innerHTML = '';
+            const W=1000, H=300, padL=46, padR=20, padT=16, padB=28;
+
+            const min = Math.min(...prices), max = Math.max(...prices);
+            const pad = (max-min)*0.15 || 5;
+            const yMin = Math.max(0, min-pad), yMax = max+pad;
+            const x = makeScale(0,NUM_MONTHS, padL, W-padR);
+            const y = makeScale(yMin,yMax, H-padB, padT);
+
+            const points = state.strategy === 'dca'
+                ? dca.invests.map(inv => ({
+                    month: inv.month, price: prices[inv.month], valueNow: inv.valueNow, invested: inv.invested,
+                    returnPct: inv.returnPct, label: `Måned ${inv.month+1}`
+                }))
+                : [{
+                    month: 0, price: prices[0], valueNow: lump.totalValue, invested: lump.totalInvested,
+                    returnPct: (lump.totalValue/lump.totalInvested-1)*100, label: 'Alt på én gang (måned 1)'
+                }];
+
+            /* gridlines + y labels */
+            const steps = 4;
+            for(let i=0;i<=steps;i++){
+                const val = yMin + (yMax-yMin)*i/steps;
+                const yy = y(val);
+                svg.appendChild(el('line',{x1:padL,x2:W-padR,y1:yy,y2:yy,class:'gridline'}));
+                const t = el('text',{x:padL-8,y:yy+4,'text-anchor':'end',class:'axis-label'});
+                t.textContent = Math.round(val);
+                svg.appendChild(t);
+            }
+            /* x axis labels */
+            for(let m=0;m<=NUM_MONTHS;m++){
+                if(m % 2 !== 0 && m !== NUM_MONTHS) continue;
+                const t = el('text',{x:x(m),y:H-10,'text-anchor':'middle',class:'axis-label'});
+                t.textContent = m===0?'Start':m;
+                svg.appendChild(t);
+            }
+
+            /* area + line for the market index */
+            const defs = el('defs',{}); svg.appendChild(defs);
+            let areaD = `M ${x(0)} ${y(prices[0])} `;
+            prices.forEach((p,i)=>{ if(i>0) areaD += `L ${x(i)} ${y(p)} `; });
+            areaD += `L ${x(NUM_MONTHS)} ${H-padB} L ${x(0)} ${H-padB} Z`;
+            const grad = el('linearGradient',{id:'idxGrad',x1:'0',y1:'0',x2:'0',y2:'1'});
+            grad.appendChild(el('stop',{offset:'0%','stop-color':'var(--text-muted)','stop-opacity':'0.22'}));
+            grad.appendChild(el('stop',{offset:'100%','stop-color':'var(--text-muted)','stop-opacity':'0'}));
+            defs.appendChild(grad);
+            svg.appendChild(el('path',{d:areaD, fill:'url(#idxGrad)', stroke:'none'}));
+
+            const linePts = prices.map((p,i)=>({x:x(i), y:y(p)}));
+            let lineD = '';
+            linePts.forEach((pt,i)=>{ lineD += (i===0?'M':'L') + pt.x + ' ' + pt.y + ' '; });
+            svg.appendChild(el('path',{d:lineD, fill:'none', stroke:'var(--border-strong)', 'stroke-width':2.25, 'stroke-linejoin':'round'}));
+
+            /* ---- hover layer: highlighted stretch of the line + tooltip ---- */
+            const hoverLayer = el('g', {opacity:'0', style:'pointer-events:none; transition: opacity .12s ease;'});
+            const hoverSegment = el('path', {fill:'none', 'stroke-width':3.5, 'stroke-linecap':'round', 'stroke-linejoin':'round'});
+            const hoverArrow = el('text', {'text-anchor':'middle', 'font-size':'14', 'font-weight':'700'});
+            const hoverTipBg = el('rect', {rx:8, fill:'var(--surface)', stroke:'var(--border-strong)'});
+            const hoverTipLine1 = el('text', {class:'tooltip-text', fill:'var(--text)', x:0, y:0});
+            const hoverTipLine2 = el('text', {class:'tooltip-text small', fill:'var(--text-muted)', x:0, y:0});
+            const hoverTipLine3 = el('text', {class:'tooltip-text', x:0, y:0});
+            hoverLayer.appendChild(hoverSegment);
+            hoverLayer.appendChild(hoverTipBg);
+            hoverLayer.appendChild(hoverTipLine1);
+            hoverLayer.appendChild(hoverTipLine2);
+            hoverLayer.appendChild(hoverTipLine3);
+            hoverLayer.appendChild(hoverArrow);
+
+            function showHover(p){
+                const px = x(p.month), py = y(p.price);
+                const gain = p.valueNow >= p.invested;
+                const color = gain ? 'var(--success)' : 'var(--danger)';
+
+                /* highlight the actual curve from the investment month to month 12 */
+                let segD = '';
+                linePts.slice(p.month).forEach((pt,idx)=>{ segD += (idx===0?'M':'L') + pt.x + ' ' + pt.y + ' '; });
+                hoverSegment.setAttribute('d', segD);
+                hoverSegment.setAttribute('stroke', color);
+
+                hoverArrow.setAttribute('x', px);
+                hoverArrow.setAttribute('y', gain ? py - 13 : py + 22);
+                hoverArrow.setAttribute('fill', color);
+                hoverArrow.textContent = gain ? '▲' : '▼';
+
+                const lines = [
+                    p.label,
+                    `Investert: ${fmtKr(p.invested)}`,
+                    `Verdi nå: ${fmtKr(p.valueNow)}  (${fmtPct(p.returnPct)})`
+                ];
+                hoverTipLine1.textContent = lines[0];
+                hoverTipLine2.textContent = lines[1];
+                hoverTipLine3.textContent = lines[2];
+                hoverTipLine3.setAttribute('fill', color);
+
+                let tipX = px + 14;
+                let tipY = py - 60;
+                if(tipX > W - 210) tipX = px - 214;
+                if(tipY < padT) tipY = py + 18;
+
+                hoverTipLine1.setAttribute('x', tipX+12); hoverTipLine1.setAttribute('y', tipY+18);
+                hoverTipLine2.setAttribute('x', tipX+12); hoverTipLine2.setAttribute('y', tipY+34);
+                hoverTipLine3.setAttribute('x', tipX+12); hoverTipLine3.setAttribute('y', tipY+50);
+                hoverTipBg.setAttribute('x', tipX); hoverTipBg.setAttribute('y', tipY);
+                hoverTipBg.setAttribute('width', 200); hoverTipBg.setAttribute('height', 60);
+
+                hoverLayer.setAttribute('opacity','1');
+            }
+            function hideHover(){ hoverLayer.setAttribute('opacity','0'); }
+
+            /* ---- points, sitting directly on the index line ---- */
+            const pointsGroup = el('g', {});
+            points.forEach(p=>{
+                const px = x(p.month), py = y(p.price);
+                const gain = p.valueNow >= p.invested;
+                const color = gain ? 'var(--success)' : 'var(--danger)';
+                const dot = el('circle', {cx:px, cy:py, r:5, fill:color, stroke:'var(--surface)', 'stroke-width':2});
+                const hit = el('circle', {cx:px, cy:py, r:14, fill:'transparent', class:'point-hit'});
+                hit.addEventListener('mouseenter', ()=>showHover(p));
+                hit.addEventListener('mouseleave', hideHover);
+                hit.addEventListener('click', (ev)=>{ ev.stopPropagation(); showHover(p); });
+                const titleEl = el('title', {});
+                titleEl.textContent = `${p.label}: investert ${fmtKr(p.invested)}, verdt ${fmtKr(p.valueNow)} (${fmtPct(p.returnPct)})`;
+                hit.appendChild(titleEl);
+                pointsGroup.appendChild(dot);
+                pointsGroup.appendChild(hit);
+            });
+            svg.appendChild(pointsGroup);
+            svg.appendChild(hoverLayer);
+            svg.addEventListener('click', hideHover);
+
+            /* legend */
+            const legend = document.getElementById('chartLegend');
+            legend.innerHTML = `
+                <span><span class="dot" style="background:var(--border-strong)"></span>Indeks</span>
+                <span><span class="dot" style="background:var(--success)"></span>Gevinst</span>
+                <span><span class="dot" style="background:var(--danger)"></span>Tap</span>
+            `;
+        }
+
+        /* ============================= RENDER: STATS ============================= */
+
+        function renderStats(dca, lump){
+            const grid = document.getElementById('statsGrid');
+            const active = state.strategy==='dca' ? dca : lump;
+            const activeReturn = (active.totalValue/active.totalInvested - 1)*100;
+
+            const cards = [
+                { label:'Investert', value: fmtKr(active.totalInvested) },
+                { label:'Verdi nå', value: fmtKr(active.totalValue) },
+                { label:'Avkastning', value: fmtPct(activeReturn), cls: activeReturn>=0?'gain':'loss' },
+            ];
+
+            grid.innerHTML = '';
+            cards.forEach(c=>{
+                const card = document.createElement('div'); card.className='stat-card';
+                card.innerHTML = `
+                    <div class="stat-label">${c.label}</div>
+                    <div class="stat-value ${c.cls||''}">${c.value}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        /* ============================= MAIN RENDER ============================= */
+
+        function renderAll(){
+            renderScenarioGrid();
+            const prices = SCENARIOS[state.scenario].prices;
+            const dca = computeDCA(prices, state.monthly);
+            const lump = computeLump(prices, state.monthly*NUM_MONTHS);
+
+            document.getElementById('chartTitle').textContent = SCENARIOS[state.scenario].name;
+            renderMarketChart(prices, dca, lump);
+            renderStats(dca, lump);
+
+            document.querySelectorAll('.toggle button').forEach(b=>{
+                b.classList.toggle('active', b.dataset.strategy===state.strategy);
+            });
+            document.getElementById('amountVal').textContent = fmtKr(state.monthly) + '/mnd';
+        }
+
+        /* ============================= EVENTS ============================= */
+
+        document.getElementById('strategyToggle').addEventListener('click', (e)=>{
+            const btn = e.target.closest('button[data-strategy]');
+            if(!btn) return;
+            state.strategy = btn.dataset.strategy;
+            renderAll();
+        });
+        document.getElementById('amountSlider').addEventListener('input', (e)=>{
+            state.monthly = Number(e.target.value);
+            renderAll();
+        });
+
+        renderAll();
+    </script>
+
+    <style>
+        /* App-specific styles. Layout, typography, and colour variables come
+           from /css/tokens.css, /css/nav.css, /css/footer.css, /css/components.css. */
+
+        /* Everything lives in one panel so switching a control and seeing the
+           effect on the chart never involves scrolling between boxes. */
+        main > section { margin: 1.6rem 0; }
+        #app-panel { padding: 1.4rem 1.6rem 1.6rem; }
+
+        .block { padding-top: 1.1rem; margin-top: 1.1rem; border-top: 1px solid var(--border); }
+        .block:first-child { padding-top: 0; margin-top: 0; border-top: none; }
+
+        .hint { color: var(--text-muted); font-size: 0.8rem; margin-top: 0.7rem; }
+
+        .panel-head-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 0.6rem;
+        }
+        .panel-head-row h2 { font-size: 1rem; font-weight: 700; }
+
+        /* ---------- scenario grid ---------- */
+
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .scenario-btn {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 10px 10px 8px;
+            text-align: left;
+            cursor: pointer;
+            color: var(--text);
+            font-family: inherit;
+            transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+        }
+        .scenario-btn:hover { border-color: var(--border-strong); transform: translateY(-1px); }
+        .scenario-btn.active {
+            background: var(--surface-hover);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent) inset;
+        }
+        .scenario-btn svg { display: block; margin-bottom: 6px; }
+        .scenario-name { font-weight: 600; font-size: 0.85rem; }
+
+        /* ---------- strategy + amount controls ---------- */
+
+        .controls-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .toggle {
+            display: inline-flex;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-pill);
+            padding: 4px;
+            gap: 4px;
+        }
+        .toggle button {
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.5rem 1.1rem;
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .toggle button.active { background: var(--accent-grad); color: #14100A; }
+
+        .amount-control { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: var(--text-muted); }
+        .amount-control input[type=range] { width: 150px; accent-color: var(--accent); }
+        .amount-val { color: var(--text); font-weight: 600; min-width: 100px; }
+
+        /* ---------- chart ---------- */
+
+        .chart-legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.8rem; color: var(--text-muted); }
+        .chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+        .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+
+        svg.chart { width: 100%; height: auto; display: block; overflow: visible; }
+        .axis-label { font-size: 10.5px; fill: var(--text-muted); }
+        .gridline { stroke: var(--border); stroke-width: 1; }
+        .point-hit { cursor: pointer; }
+        .tooltip-text { font-size: 12px; font-weight: 600; }
+        .tooltip-text.small { font-weight: 400; font-size: 11px; }
+
+        /* ---------- stats ---------- */
+
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; }
+        .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 4px; }
+        .stat-value { font-size: 1.2rem; font-weight: 700; }
+        .stat-value.gain { color: var(--success); }
+        .stat-value.loss { color: var(--danger); }
+
+        @media (max-width: 720px) {
+            .scenario-grid { grid-template-columns: repeat(2, 1fr); }
+            .controls-row { flex-direction: column; align-items: flex-start; gap: 14px; }
+        }
+        @media (max-width: 560px) {
+            .scenario-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+</body>
+</html>
