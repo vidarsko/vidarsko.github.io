@@ -23,6 +23,7 @@
     "nav-home": { "en": "Home", "no": "Hjem", "sv": "Hem" },
     "nav-apps": { "en": "Apps", "no": "Apper", "sv": "Appar" },
     "nav-projects": { "en": "Projects", "no": "Prosjekter", "sv": "Projekt" },
+    "nav-publications": { "en": "Publications", "no": "Publikasjoner", "sv": "Publikationer" },
     "nav-cv": { "en": "CV", "no": "CV", "sv": "CV" },
     "github-aria": { "en": "GitHub profile", "no": "GitHub-profil", "sv": "GitHub-profil" },
     "linkedin-aria": { "en": "LinkedIn profile", "no": "LinkedIn-profil", "sv": "LinkedIn-profil" },
@@ -43,14 +44,13 @@
       "sv": "Jag forskar för närvarande om användning av AI i utbildning, med särskilt fokus på undervisning i naturvetenskap och matematik — en kommande bok, en kollegialt granskad studie av hur fysikprofessorer använder generativ AI, en kurs för lärare, en blogg och en podd."
     },
     "learning-with-ai-link": { "en": "Explore this project", "no": "Utforsk prosjektet", "sv": "Utforska projektet" },
-    "comfit-h3": { "en": "ComFiT — a field-theory simulation library", "no": "ComFiT — et bibliotek for feltteorisimulering", "sv": "ComFiT — ett bibliotek för fältteorisimulering" },
-    "comfit-p": {
-      "en": "During my PhD I worked with field theories containing topological defects; my co-PhD student Jonas Rønning worked on related theories. After finishing, we built ComFiT together — an open-source Python library for simulating computational field theory with topological defects, with full documentation and test coverage, published in the Journal of Open Source Software.",
-      "no": "Under doktorgraden jobbet jeg med feltteorier som inneholder topologiske defekter; medstipendiat Jonas Rønning jobbet med beslektede teorier. Etter at vi var ferdige, bygde vi sammen ComFiT — et åpen kildekode Python-bibliotek for å simulere feltteori med topologiske defekter, med full dokumentasjon og testdekning, publisert i Journal of Open Source Software.",
-      "sv": "Under doktorandtiden arbetade jag med fältteorier som innehåller topologiska defekter; min medstipendiat Jonas Rønning arbetade med besläktade teorier. Efter avslutad doktorandtid byggde vi tillsammans ComFiT — ett öppen källkod-bibliotek i Python för att simulera fältteori med topologiska defekter, med fullständig dokumentation och testtäckning, publicerat i Journal of Open Source Software."
+    "pfc-h3": { "en": "Phase-Field Crystal Research", "no": "Fasefelt-krystallforskning", "sv": "Fasfältskristallforskning" },
+    "pfc-p": {
+      "en": "In my PhD, I worked on phase-field crystal modeling of crystal deformation and microplasticity — how grain boundaries move and dislocations nucleate, and what that means for how a material yields. That thread continues through the open-source ComFiT simulation library and my current co-supervision of two students.",
+      "no": "I doktorgraden jobbet jeg med fasefelt-krystallmodellering av krystalldeformasjon og mikroplastisitet — hvordan korngrenser beveger seg og dislokasjoner nukleerer, og hva det betyr for hvordan et materiale gir etter. Den tråden fortsetter gjennom det åpen kildekode simuleringsbiblioteket ComFiT og min nåværende bi-veiledning av to studenter.",
+      "sv": "I doktorandtiden arbetade jag med fasfältskristallmodellering av kristalldeformation och mikroplasticitet — hur korngränser rör sig och dislokationer nukleerar, och vad det betyder för hur ett material ger efter. Den tråden fortsätter genom det öppna källkod-simuleringsbiblioteket ComFiT och min nuvarande bihandledning av två studenter."
     },
-    "comfit-link1": { "en": "Read the paper", "no": "Les artikkelen", "sv": "Läs artikeln" },
-    "comfit-link2": { "en": "View on GitHub", "no": "Se på GitHub", "sv": "Visa på GitHub" },
+    "pfc-link": { "en": "Explore this project", "no": "Utforsk prosjektet", "sv": "Utforska projektet" },
 
     "teaching-heading": { "en": "Teaching teachers", "no": "Undervisning av lærere", "sv": "Undervisning av lärare" },
     "profag-h3": { "en": "Profag KI-kurs", "no": "Profag KI-kurs", "sv": "Profag KI-kurs" },
@@ -116,6 +116,7 @@
         <a href="/" data-i18n="nav-home">Home</a>
         <a href="/apps/" data-i18n="nav-apps">Apps</a>
         <a href="/projects/" aria-current="page" data-i18n="nav-projects">Projects</a>
+        <a href="/publications/" data-i18n="nav-publications">Publications</a>
         <a href="/cv/" data-i18n="nav-cv">CV</a>
       </nav>
       <div class="nav-controls">
@@ -165,16 +166,14 @@
           <a href="/learning-with-ai/" data-i18n="learning-with-ai-link">Explore this project</a>
         </div>
 
-        <h3 data-i18n="comfit-h3">ComFiT — a field-theory simulation library</h3>
-        <p data-i18n="comfit-p">
-          During my PhD I worked with field theories containing topological defects; my co-PhD student Jonas Rønning
-          worked on related theories. After finishing, we built ComFiT together — an open-source Python library for
-          simulating computational field theory with topological defects, with full documentation and test coverage,
-          published in the Journal of Open Source Software.
+        <h3 data-i18n="pfc-h3">Phase-Field Crystal Research</h3>
+        <p data-i18n="pfc-p">
+          In my PhD, I worked on phase-field crystal modeling of crystal deformation and microplasticity — how grain
+          boundaries move and dislocations nucleate, and what that means for how a material yields. That thread
+          continues through the open-source ComFiT simulation library and my current co-supervision of two students.
         </p>
         <div class="content-links">
-          <a href="https://doi.org/10.21105/joss.06599" target="_blank" rel="noopener noreferrer" data-i18n="comfit-link1">Read the paper</a>
-          <a href="https://github.com/vidarsko/ComFiT" target="_blank" rel="noopener noreferrer" data-i18n="comfit-link2">View on GitHub</a>
+          <a href="/phase-field-crystals/" data-i18n="pfc-link">Explore this project</a>
         </div>
 
       </div>
@@ -259,6 +258,7 @@
         <a href="/" data-i18n="nav-home">Home</a>
         <a href="/apps/" data-i18n="nav-apps">Apps</a>
         <a href="/projects/" data-i18n="nav-projects">Projects</a>
+        <a href="/publications/" data-i18n="nav-publications">Publications</a>
         <a href="/cv/" data-i18n="nav-cv">CV</a>
       </nav>
       <p class="copyright">© 2026 Vidar Skogvoll</p>

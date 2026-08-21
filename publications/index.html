@@ -4,7 +4,7 @@
   <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title data-i18n="title">Apps — Vidar Skogvoll</title>
+  <title data-i18n="title">Publications — Vidar Skogvoll</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,13 +13,16 @@
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/components.css">
   <link rel="stylesheet" href="/css/content.css">
+  <link rel="stylesheet" href="/css/publications.css">
   <script src="/js/analytics.js"></script>
   <script src="/js/theme.js" defer></script>
   <script src="/js/nav.js" defer></script>
   <script src="/js/i18n.js" defer></script>
+  <script src="/publications/data.js" defer></script>
+  <script src="/js/publications.js" defer></script>
   <script type="application/json" id="i18n-dict">
   {
-    "title": { "en": "Apps — Vidar Skogvoll", "no": "Apper — Vidar Skogvoll", "sv": "Appar — Vidar Skogvoll" },
+    "title": { "en": "Publications — Vidar Skogvoll", "no": "Publikasjoner — Vidar Skogvoll", "sv": "Publikationer — Vidar Skogvoll" },
     "nav-home": { "en": "Home", "no": "Hjem", "sv": "Hem" },
     "nav-apps": { "en": "Apps", "no": "Apper", "sv": "Appar" },
     "nav-projects": { "en": "Projects", "no": "Prosjekter", "sv": "Projekt" },
@@ -29,11 +32,11 @@
     "linkedin-aria": { "en": "LinkedIn profile", "no": "LinkedIn-profil", "sv": "LinkedIn-profil" },
     "instagram-aria": { "en": "Instagram profile", "no": "Instagram-profil", "sv": "Instagram-profil" },
     "menu-aria": { "en": "Menu", "no": "Meny", "sv": "Meny" },
-    "page-h1": { "en": "Apps", "no": "Apper", "sv": "Appar" },
+    "page-h1": { "en": "Publications", "no": "Publikasjoner", "sv": "Publikationer" },
     "page-sub": {
-      "en": "Small interactive tools — league tables, skill trees, and other side projects.",
-      "no": "Små interaktive verktøy — turneringstabeller, ferdighetstrær og andre sideprosjekter.",
-      "sv": "Små interaktiva verktyg — tabeller, kunskapsträd och andra sidoprojekt."
+      "en": "Peer-reviewed papers, preprints, and theses — with a plain-language summary alongside the technical abstract for each.",
+      "no": "Fagfellevurderte artikler, preprint og avhandlinger — med et sammendrag på klarspråk ved siden av det tekniske sammendraget for hver av dem.",
+      "sv": "Kollegialt granskade artiklar, preprint och avhandlingar — med en sammanfattning på klarspråk vid sidan av den tekniska sammanfattningen för var och en."
     }
   }
   </script>
@@ -50,9 +53,9 @@
       </a>
       <nav class="primary-nav" aria-label="Primary">
         <a href="/" data-i18n="nav-home">Home</a>
-        <a href="/apps/" aria-current="page" data-i18n="nav-apps">Apps</a>
+        <a href="/apps/" data-i18n="nav-apps">Apps</a>
         <a href="/projects/" data-i18n="nav-projects">Projects</a>
-        <a href="/publications/" data-i18n="nav-publications">Publications</a>
+        <a href="/publications/" aria-current="page" data-i18n="nav-publications">Publications</a>
         <a href="/cv/" data-i18n="nav-cv">CV</a>
       </nav>
       <div class="nav-controls">
@@ -84,18 +87,12 @@
 
   <main id="main">
     <div class="page-header reveal">
-      <h1 data-i18n="page-h1">Apps</h1>
-      <p data-i18n="page-sub">Small interactive tools — league tables, skill trees, and other side projects.</p>
+      <h1 data-i18n="page-h1">Publications</h1>
+      <p data-i18n="page-sub">Peer-reviewed papers, preprints, and theses — with a plain-language summary alongside the technical abstract for each.</p>
     </div>
 
     <section>
-      <div class="link-grid">
-        <a class="link-tile" href="/ukrangering/">Ukrangering</a>
-        <a class="link-tile" href="/ukturnering/">Ukturnering</a>
-        <a class="link-tile" href="/drittpoeng/">Drittpoeng</a>
-        <a class="link-tile" href="/ferdighetstraer/">Ferdighetstrær</a>
-        <a class="link-tile" href="/spareutvikling/">Spareutvikling</a>
-      </div>
+      <div class="content-panel panel" data-pub-list></div>
     </section>
   </main>
 

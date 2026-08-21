@@ -69,29 +69,6 @@
   font-style: italic;
 }
 
-/* publications */
-.pub-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.pub-list li {
-  padding: 0.9rem 0;
-  border-top: 1px solid var(--border);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--text-muted);
-}
-
-.pub-list li:first-child { border-top: none; padding-top: 0; }
-
-.pub-list .pub-title { color: var(--text); font-weight: 600; }
-
-.pub-list a { color: var(--accent); }
-.pub-list a:hover, .pub-list a:focus-visible { color: var(--text); }
-
 /* skills */
 .skill-pills {
   display: flex;

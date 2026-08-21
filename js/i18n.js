@@ -52,6 +52,8 @@
       buttons[b].classList.toggle('active', isActive);
       buttons[b].setAttribute('aria-pressed', isActive ? 'true' : 'false');
     }
+
+    document.dispatchEvent(new CustomEvent('langchange', { detail: { lang: lang } }));
   }
 
   var dict = loadDict();

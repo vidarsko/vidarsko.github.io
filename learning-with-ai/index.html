@@ -13,16 +13,20 @@
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/components.css">
   <link rel="stylesheet" href="/css/content.css">
+  <link rel="stylesheet" href="/css/publications.css">
   <script src="/js/analytics.js"></script>
   <script src="/js/theme.js" defer></script>
   <script src="/js/nav.js" defer></script>
   <script src="/js/i18n.js" defer></script>
+  <script src="/publications/data.js" defer></script>
+  <script src="/js/publications.js" defer></script>
   <script type="application/json" id="i18n-dict">
   {
     "title": { "en": "Learning with AI — Vidar Skogvoll", "no": "Læring med KI — Vidar Skogvoll", "sv": "Lärande med AI — Vidar Skogvoll" },
     "nav-home": { "en": "Home", "no": "Hjem", "sv": "Hem" },
     "nav-apps": { "en": "Apps", "no": "Apper", "sv": "Appar" },
     "nav-projects": { "en": "Projects", "no": "Prosjekter", "sv": "Projekt" },
+    "nav-publications": { "en": "Publications", "no": "Publikasjoner", "sv": "Publikationer" },
     "nav-cv": { "en": "CV", "no": "CV", "sv": "CV" },
     "github-aria": { "en": "GitHub profile", "no": "GitHub-profil", "sv": "GitHub-profil" },
     "linkedin-aria": { "en": "LinkedIn profile", "no": "LinkedIn-profil", "sv": "LinkedIn-profil" },
@@ -63,7 +67,6 @@
     "book-link1": { "en": "Pre-order at Norli", "no": "Forhåndsbestill hos Norli", "sv": "Förhandsbeställ hos Norli" },
     "book-link2": { "en": "See the book at Universitetsforlaget", "no": "Se boken hos Universitetsforlaget", "sv": "Se boken hos Universitetsforlaget" },
     "research-heading": { "en": "Research", "no": "Forskning", "sv": "Forskning" },
-    "research-link": { "en": "Read the article", "no": "Les artikkelen", "sv": "Läs artikeln" },
     "teaching-heading": { "en": "Teaching teachers", "no": "Undervisning av lærere", "sv": "Undervisning av lärare" },
     "teaching-p": {
       "en": "Together with Andreas Haraldsrud at KURT (UiO), I developed a four-part course for teachers. It covers generative AI fundamentals, teaching activities and differentiation, programming with AI, and assessment. I've run it each semester since 2025, with strong participant feedback on its classroom relevance.",
@@ -100,6 +103,7 @@
         <a href="/" data-i18n="nav-home">Home</a>
         <a href="/apps/" data-i18n="nav-apps">Apps</a>
         <a href="/projects/" data-i18n="nav-projects">Projects</a>
+        <a href="/publications/" data-i18n="nav-publications">Publications</a>
         <a href="/cv/" data-i18n="nav-cv">CV</a>
       </nav>
       <div class="nav-controls">
@@ -168,15 +172,7 @@
     <section>
       <div class="content-panel panel">
         <h2 data-i18n="research-heading">Research</h2>
-        <h3>How Physics Professors Use and Frame Generative AI Tools</h3>
-        <p>
-          Skogvoll, V., &amp; Odden, T. O. (2026). Based on interviews with 12 physics professors at UiO, I identified
-          19 distinct practices for using AI in teaching and research, organized into epistemic frames. Published in
-          <em>European Journal of Physics</em>, 47(2), 025713.
-        </p>
-        <div class="content-links">
-          <a href="https://doi.org/10.1088/1361-6404/ae55e0" target="_blank" rel="noopener noreferrer" data-i18n="research-link">Read the article</a>
-        </div>
+        <div data-pub-boxes="physics-professors-genai, laere-med-ki-mnt, laere-fysikk-sprakmodeller"></div>
       </div>
     </section>
 
@@ -230,6 +226,7 @@
         <a href="/" data-i18n="nav-home">Home</a>
         <a href="/apps/" data-i18n="nav-apps">Apps</a>
         <a href="/projects/" data-i18n="nav-projects">Projects</a>
+        <a href="/publications/" data-i18n="nav-publications">Publications</a>
         <a href="/cv/" data-i18n="nav-cv">CV</a>
       </nav>
       <p class="copyright">© 2026 Vidar Skogvoll</p>
