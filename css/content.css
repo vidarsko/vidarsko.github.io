@@ -127,6 +127,75 @@
 }
 .link-tile:hover::after, .link-tile:focus-visible::after { color: var(--accent); transform: translateX(2px); }
 
+/* ---------- subject cards (ferdighetstraer index) ---------- */
+
+.subgroup + .subgroup { margin-top: 2.4rem; }
+
+.subgroup-heading {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.subject-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--subject-color, var(--accent));
+  border-radius: var(--radius);
+  padding: 1.2rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.subject-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.subject-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.subject-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid color-mix(in srgb, var(--subject-color) 45%, transparent);
+  color: var(--subject-color);
+  background: color-mix(in srgb, var(--subject-color) 12%, transparent);
+  transition: background 0.2s, transform 0.15s ease;
+}
+
+a.subject-link:hover, a.subject-link:focus-visible {
+  background: color-mix(in srgb, var(--subject-color) 22%, transparent);
+  transform: translateY(-1px);
+}
+
+.subject-link.is-disabled {
+  color: var(--text-muted);
+  border-color: var(--border);
+  background: transparent;
+  font-weight: 500;
+}
+
 @media (max-width: 560px) {
   .page-header { padding: 2.5rem 0 0.5rem; }
   .page-header h1 { font-size: 2rem; }
