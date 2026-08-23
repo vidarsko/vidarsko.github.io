@@ -9,6 +9,10 @@
 window.FT_CONFIG = {
   storageKey: 's2-ferdighetstre-fullfort',
 
+  // Viser «Hvorfor skal jeg lære matte?»-knappen øverst i header (kun
+  // matematikkfagene, se ferdighetstraer/instruks.md).
+  showMotivationButton: true,
+
   // Rekkefølge på emne-kolonnene i kartet, venstre til høyre. Utledet fra en
   // gjennomgang av kompetansemålene for S2 og to eksamenssett (H25/V26).
   // Rekker og rekursjon/programmering står først fordi flere senere emner

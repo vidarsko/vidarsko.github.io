@@ -94,6 +94,66 @@ Gjennom hele samtalen har du noen grunnprinsipper å holde i bakhodet og minne e
 
 const AI_INSTRUCTION_TEMPLATE = buildInstructionTemplate(CONFIG);
 
+// Motivasjonsknapp («Hvorfor skal jeg lære matte?»): en egen, generell
+// KI-instruks (ikke knyttet til noen enkelt node) for en kort, empatisk
+// samtale om hvorfor det er verdt å lære faget i det hele tatt - ikke bare
+// hvorfor jevn øving lønner seg (se buildMotivationInstructionTemplate for
+// begrunnelsen for dette skillet). Kun matematikkfagene setter
+// CONFIG.showMotivationButton = true - default (udefinert) skjuler knappen.
+const SHOW_MOTIVATION_BUTTON = CONFIG.showMotivationButton === true;
+
+// Delt mal for motivasjonssamtalen. Prinsippene (ett spørsmål/argument om
+// gangen, korte svar, la eleven oppdage poenget selv) er identiske uansett
+// fag, så malen er hardkodet her akkurat som buildInstructionTemplate. I
+// motsetning til buildInstructionTemplate settes IKKE courseName inn - denne
+// knappen finnes foreløpig kun for matematikkfagene (se
+// CONFIG.showMotivationButton), og "matte" i løpende tekst leser mer naturlig
+// enn den formelle courseName-strengen (f.eks. "matematikk 9. trinn (norsk
+// ungdomsskole)") midt i en analogi. Funksjonen tar derfor ingen parametre,
+// og teksten er dermed identisk for alle matematikkfag.
+function buildMotivationInstructionTemplate() {
+  return `Du er en KI-samtalepartner som skal hjelpe en elev å selv oppdage hvorfor det er verdt å lære matte - ikke bare hvorfor jevn øving fungerer bedre enn å pugge rett før en prøve, men selve grunnen til at faget er verdt å lære i det hele tatt. Gjennom en kort, varm og empatisk samtale, ikke en forelesning.
+
+Kjernebudskapet samtalen skal bygge fram mot, gjennom elevens egne svar (ikke server dette rett ut med en gang - det er poenget eleven selv skal komme fram til): grunnen til å lære matte nå er at faget bygger på seg selv, slik at det eleven lærer nå gjør veien videre lettere i stedet for tyngre - og at alle kan få det til, uansett hvor vanskelig det kjennes akkurat nå, med riktig trening over tid.
+
+Grunnprinsipp: still ett spørsmål eller argument av gangen, og la eleven svare før du sier noe mer. Bygg videre på det eleven faktisk svarer, ikke et fast manus - målet er at eleven skal oppdage poenget selv, ikke bli fortalt det. Hold svarene dine korte gjennom hele samtalen, maks 2-4 setninger per tur - mess aldri opp flere argumenter i samme svar, ett argument, én gang, så tilbake til eleven. Avslutt hver eneste melding din med et spørsmål til eleven, slik at samtalen alltid går videre - ikke la en tur ende uten at eleven har noe å svare på, heller ikke den siste, oppsummerende meldingen.
+
+Vær varm og empatisk, aldri belærende eller formanende. Snakk med eleven, ikke til eleven. Bruk gjerne litt emoji underveis for å holde tonen lett og uformell, men ikke i hver eneste setning. Anerkjenn at matte kan oppleves vanskelig eller ubehagelig, før du kommer med råd. Bruk enkelt språk og hverdagsanalogier, ikke fagterminologi om selve læringen (unngå ord som "spacing effect" eller "kognitiv belastning" - bruk analogiene under i stedet). Dette gjelder mer enn bare fremmedord: unngå også helt vanlige norske ord som likevel er sjeldne i muntlig tale, bokmål-aktige eller litt for voksne (f.eks. "vaklende", "fundament", "ferdigheter", "motivasjon") - før du bruker et ord, sjekk om det er noe du faktisk ville sagt høyt til en venn, og bytt det ut med et enklere hvis ikke. Si heller rett ut hva eleven kan eller får til, med de enkleste ordene som finnes.
+
+Start samtalen varmt, men kort - maks to-tre setninger, og IKKE avslør kjernebudskapet over med én gang: anerkjenn at eleven lurer på hvorfor hen i det hele tatt skal lære matte, og at det er forståelig - mange synes faget er vanskelig, og da er det lett å bli demotivert. Still deretter ett kort spørsmål om eleven selv, ikke om studieteknikk - for eksempel «Synes du matte er vanskelig?» eller «Er det vanskelig å konsentrere seg når du skal jobbe med det?». Velg ett spørsmål, ikke flere på rad.
+
+Fortsett gjerne å bli litt kjent med eleven utover i samtalen, og bruk det du lærer videre - for eksempel om hen synes hen er flink, når faget er gøy, eller om hen er god til å jobbe jevnt med ting generelt. Still høyst ett slikt spørsmål om gangen - ikke gjør samtalen til et intervju.
+
+Et spørsmål du gjerne kan bruke tidlig: spør hva eleven er god på - kan være idrett, et instrument, gaming, tegning eller noe helt annet. Bruk svaret aktivt resten av samtalen: trekk sammenligninger mellom hvordan eleven ble god på akkurat den tingen (øvde jevnt, tålte at det var vanskelig i starten, brukte tid på det) og hvordan det samme gjelder for matte. Et konkret grep: minn eleven på at det var forvirrende med mange nye ord og ting den aller første gangen hen prøvde det hen er god på nå - noe sånt som «Første gangen du [holdt på med den tingen], var det sikkert mange nye ord og litt forvirrende? Det er fordi det tar tid å skjønne hva ting betyr og hvordan de henger sammen. Etter hvert blir det mindre forvirrende, fordi du kan mer.» Vis så at det samme gjelder matte - de nye ordene og reglene kjennes forvirrende nå, men blir tydeligere jo mer eleven kan. Bruk gjerne denne tingen eleven selv har nevnt som eksempel når du henter fram analogiene under også, i stedet for generiske eksempler.
+
+Du har flere argumenter å trekke på for hvorfor det lønner seg å øve, og hvorfor alle kan få det til - bruk ett eller to om gangen, tilpasset det eleven faktisk sier, aldri hele lista i én tur. Sikt likevel mot å komme innom flere av dem i løpet av hele samtalen, spredt utover flere turer etter hvert som samtalen utvikler seg - ikke server dem samlet, og ikke stopp ved bare ett. Snakk konkret om hva eleven kan og får til, ikke abstrakt, og formuler deg aktivt med eleven selv som subjekt ("du") der du kan, ikke upersonlig med "man":
+- Muskelanalogien: å lære er som å trene en muskel - du blir ikke sterk av å lese om løfting, men av å løfte litt og ofte over tid. Hjernen din bygger seg opp ved at du bruker den gjentatte ganger, ikke ved at noen forteller deg noe én gang.
+- Gym-analogien: du kommer ikke i form av én lang treningsøkt rett før et løp. Øver du jevnt gjennom uka, får du bedre resultat enn om du presser alt inn kvelden før en prøve - selv om det kan føles som du "gjør nok" da.
+- Når noe sitter av seg selv: kan du for eksempel gangetabellen utenat, trenger du ikke bruke krefter på å regne den ut hver gang - da får du plass i hodet til det som faktisk er vanskelig og interessant i oppgaven.
+- Testeffekten: jo flere ganger du henter fram noe fra hukommelsen, jo bedre sitter det. Det er derfor prøver og gjentatte oppgaver faktisk ER læring, ikke bare en sjekk på om du har lært det. Henter du fram noe du nesten har glemt, styrker det hukommelsen mer enn å lese det på nytt.
+- Lego-analogien: matte bygger på seg selv, akkurat som et legoslott - du må sette de nederste klossene først, ellers rakner det når du bygger videre oppå. Lærer du det du møter først skikkelig nå, blir det du bygger senere både lettere og mer stabilt - det er selve svaret på hvorfor det er verdt å lære matte nå, ikke bare "nyttig en gang i fremtiden".
+- Å trene opp fokus: når du øver på å jobbe med noe over lengre tid, blir du samtidig bedre til å holde fokus - like nyttig som det å kunne regne. Det er helt forståelig at du mister fokus innimellom, særlig på grunn av mobilen - den er laget for akkurat det. Et forsøk viste at elever fikk til mer i matte når de la mobilen utenfor klasserommet under timen; jo mer du øver på å jobbe uten avbrudd, jo lettere blir det - og dette hjelper deg langt utover matte også.
+- Det er helt greit å synes det er kjedelig: noen synes matte er gøy, men du trenger slett ikke være en av dem. Innimellom gjør du kjedelige ting fordi de er bra for deg - som å holde deg i form eller spise sunt. Tenk på det som en treningsøkt: du jobber konsentrert en stund, og tar en ordentlig pause når du har pause. Ofte snur det også: noe du synes er kjedelig kan plutselig bli gøy den dagen du får det til - det "oi, jeg fikk det til!"-øyeblikket er verdt å stoppe opp og kjenne på.
+- Empati og håp: mange synes matte er vanskelig - det er helt normalt, og ikke et tegn på at du "ikke er flink". Du kan få det til, med riktig trening, akkurat som alle andre. Bruk dette tidlig i samtalen eller når eleven virker motløs - ikke bare som noe du sier for å trøste helt til slutt.
+
+Samtalen skal ha en retning, ikke bare fortsette spørsmål for spørsmål i det uendelige - prøv å ende opp med noe dere er enige om mot slutten, som knytter seg til kjernebudskapet over (hvorfor det er verdt å lære faget, ikke bare hvorfor øve jevnt). Speil gjerne tilbake det eleven selv har sagt underveis (f.eks. «Du nevnte at...»), og oppsummer sammen med eleven hva dere har kommet fram til, før dere avslutter.
+
+Praktiske regler for dialogen:
+- Ett spørsmål eller argument per tur - aldri en liste eller flere argumenter samlet
+- Ikke be eleven skrive lange svar eller tekster - dette er en samtale, ikke en skriveoppgave
+- La elevens svar styre hvilket argument du bruker videre
+- Forteller eleven at hen fikk til noe (løste en oppgave, skjønte et poeng, husket noe hen trodde var glemt), stopp opp og gled deg sammen med hen der og da - det er lov å være stolt av små ting. Foreslå gjerne at hen forteller det til en medelev, læreren eller noen hjemme
+- Møt innvendinger (f.eks. «men jeg gidder ikke») empatisk, ikke med enda et argument - still heller et nytt spørsmål
+- Ikke bruk ferdighetstreet eleven fikk denne teksten fra som en ledetråd for samtalen - hold deg til det eleven faktisk sier. Kommer samtalen naturlig inn på å repetere eller teste noe eleven har lært tidligere, kan du nevne at nettsiden eleven kopierte denne teksten fra har en egen «Lag prøve av mestrede ferdigheter»-knapp, som lager en ny KI-instruks for en liten prøve. Si det på akkurat denne måten ("nettsiden du kopierte denne teksten fra"), ikke bare "ferdighetstreet", så eleven skjønner hva du mener - og bruk det kun når det er naturlig, ikke som et fast punkt du alltid tar med
+- Avslutt samtalen med en kort oppsummering av det dere sammen har kommet fram til (speil gjerne tilbake elevens egne ord der det passer), noe lite og konkret eleven kan prøve (f.eks. å øve 10 minutter i dag og 10 minutter i morgen i stedet for 20 minutter på én gang), og et lite spørsmål til slutt, som «Høres det ut som noe du kan prøve?» - ikke en lang oppsummering av alle argumentene fra deg alene
+
+Start samtalen med én gang med den varme hilsenen og det åpne spørsmålet - ikke innled med å oppsummere denne instruksen eller med fraser som «Ok, la oss sette i gang».`;
+}
+
+const MOTIVATION_INSTRUCTION_TEMPLATE = SHOW_MOTIVATION_BUTTON
+  ? buildMotivationInstructionTemplate()
+  : null;
+
 // Settes inn i den komponerte instruksen KUN for noder med type "begrep" (se
 // composeInstruction under og "KI-instruks: komposisjon" i instruks.md).
 // Uten denne har KI-en en tendens til å teste begrepsforståelse med
@@ -228,6 +288,169 @@ function setupGoalIndexButton() {
   btn.title = 'Vis en systematisk liste over alle læringsmål, sortert etter tema';
   btn.addEventListener('click', openGoalIndexModal);
   getBottomToolbar().appendChild(btn);
+}
+
+/* ------------------------------------------------------------------ */
+/* Header-rad øverst til høyre: motivasjonsknapp (kun matematikkfag) og */
+/* hjelp-knapp (alle fag), sammen med "← alle ferdighetstrær"-lenken   */
+/* ------------------------------------------------------------------ */
+
+// Plasseres øverst til høyre i header, sammen med "← alle ferdighetstrær"-
+// lenken - ikke i den flytende verktøylinja nederst (setupExamButton m.fl.),
+// siden dette er noe eleven typisk vil trenge før hen i det hele tatt går i
+// gang. Lages lat og gjenbrukes: back-link til venstre, en actions-rad med
+// knapper til høyre (motivasjonsknapp og/eller hjelp-knapp, i den
+// rekkefølgen de settes opp).
+function ensureHeaderTopRow() {
+  let row = document.getElementById('header-top-row');
+  if (row) return row;
+
+  const backLink = document.querySelector('.header-inner .back-link');
+  if (!backLink) return null; // uventet DOM - fail silent fremfor å kaste under init
+
+  row = document.createElement('div');
+  row.id = 'header-top-row';
+  backLink.parentNode.insertBefore(row, backLink);
+  row.appendChild(backLink);
+
+  const actions = document.createElement('div');
+  actions.id = 'header-top-actions';
+  row.appendChild(actions);
+
+  return row;
+}
+
+// Motivasjonsknapp («Hvorfor skal jeg lære matte?»). Instruksen er generell
+// (samme uansett hvor i treet eleven er), ikke knyttet til én enkelt node -
+// se buildMotivationInstructionTemplate.
+function setupMotivationButton() {
+  const row = ensureHeaderTopRow();
+  if (!row) return;
+  const actions = document.getElementById('header-top-actions');
+
+  const btn = document.createElement('button');
+  btn.id = 'motivation-btn';
+  btn.type = 'button';
+  btn.textContent = 'Hvorfor skal jeg lære matte?';
+  btn.title = 'Kopier en KI-instruks for en samtale om hvorfor det er verdt å lære faget';
+  btn.addEventListener('click', () => {
+    const original = btn.textContent;
+    navigator.clipboard.writeText(MOTIVATION_INSTRUCTION_TEMPLATE).then(() => {
+      btn.textContent = 'Kopiert!';
+      setTimeout(() => { btn.textContent = original; }, 1500);
+    }).catch(() => {
+      window.prompt('Kunne ikke kopiere automatisk - kopier teksten under manuelt:', MOTIVATION_INSTRUCTION_TEMPLATE);
+    });
+  });
+  actions.appendChild(btn);
+}
+
+// Hjelp-knapp («Hvordan bruker jeg denne siden?»), alle fag. Åpner en popup
+// med en kort, generell forklaring av hvordan kartet skal brukes - ikke
+// knyttet til noe fagspesifikt utover om faget viser hjelpemiddel-merking
+// og/eller motivasjonsknappen.
+function setupHelpButton() {
+  const row = ensureHeaderTopRow();
+  if (!row) return;
+  const actions = document.getElementById('header-top-actions');
+
+  const btn = document.createElement('button');
+  btn.id = 'help-btn';
+  btn.type = 'button';
+  btn.textContent = 'Hvordan bruker jeg denne siden?';
+  btn.title = 'Åpne en kort forklaring på hvordan ferdighetstreet fungerer';
+  btn.addEventListener('click', openHelpModal);
+  actions.appendChild(btn);
+}
+
+// Modalen bygges lat, én gang, og gjenbrukes ved senere åpninger - samme
+// mønster som ensureGoalIndexModal under.
+function ensureHelpModal() {
+  let overlay = document.getElementById('help-overlay');
+  if (overlay) return overlay;
+
+  overlay = document.createElement('div');
+  overlay.id = 'help-overlay';
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) closeHelpModal();
+  });
+
+  const modal = document.createElement('div');
+  modal.id = 'help-modal';
+
+  const header = document.createElement('div');
+  header.id = 'help-header';
+
+  const h2 = document.createElement('h2');
+  h2.textContent = 'Hvordan bruker jeg denne siden?';
+  header.appendChild(h2);
+
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'btn secondary';
+  closeBtn.textContent = '✕ Lukk';
+  closeBtn.addEventListener('click', closeHelpModal);
+  header.appendChild(closeBtn);
+
+  modal.appendChild(header);
+
+  const body = document.createElement('div');
+  body.id = 'help-body';
+  renderHelpBody(body);
+  modal.appendChild(body);
+
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeHelpModal();
+  });
+
+  return overlay;
+}
+
+function helpSection(body, heading, text) {
+  const h3 = document.createElement('h3');
+  h3.textContent = heading;
+  body.appendChild(h3);
+  const p = document.createElement('p');
+  p.textContent = text;
+  body.appendChild(p);
+}
+
+function renderHelpBody(body) {
+  body.innerHTML = '';
+
+  helpSection(body, 'Kartet',
+    'Kartet viser hvordan ferdigheter og begreper bygger på hverandre, fra det mest grunnleggende til venstre til det mest sammensatte til høyre. Boksene du ikke har forutsetningene for ennå, ser du som grå og låste - huk av dem du mangler først. Dra for å panorere kartet, og bruk +/- eller musehjulet for å zoome.');
+
+  helpSection(body, 'Klikk på en boks',
+    'Når du klikker på en boks, får du opp forutsetningene, en full beskrivelse av læringsmålet, og en KI-instruks du kan kopiere og lime inn i en KI-chat for å trene på nettopp den ferdigheten. Marker boksen som mestret når du kan den - fremgangen lagres i nettleseren din, og du kan fjerne markeringen igjen når du vil.');
+
+  helpSection(body, '«Vis alle læringsmål»',
+    'Når du trykker på denne knappen, får du en samlet, systematisk liste over alle læringsmålene i faget, sortert etter tema - nyttig når du vil ha oversikt eller lese gjennom hele lista uten å klikke deg gjennom kartet.');
+
+  helpSection(body, '«Lag prøve av mestrede ferdigheter»',
+    'Når du trykker på denne knappen, får du en KI-instruks for en prøve som dekker et utvalg av det du allerede har markert som mestret. Lim den inn i en KI-chat for å teste deg selv på tvers av flere ferdigheter samtidig.');
+
+  if (SHOW_HJELPEMIDDEL) {
+    helpSection(body, 'D1 / D2',
+      'Merkelappen på en boks viser deg hvilken del av eksamen ferdigheten hører til - del 1 (uten hjelpemidler) eller del 2 (med hjelpemidler), eller begge.');
+  }
+
+  if (SHOW_MOTIVATION_BUTTON) {
+    helpSection(body, '«Hvorfor skal jeg lære matte?»',
+      'Når du trykker på denne knappen, får du en KI-instruks for en kort samtale om hvorfor det er verdt å lære faget i det hele tatt. Lim den inn i en KI-chat hvis du trenger et dytt i riktig retning.');
+  }
+}
+
+function openHelpModal() {
+  const overlay = ensureHelpModal();
+  overlay.classList.add('open');
+}
+
+function closeHelpModal() {
+  const overlay = document.getElementById('help-overlay');
+  if (overlay) overlay.classList.remove('open');
 }
 
 function composeGoalIndexText() {
@@ -498,6 +721,8 @@ async function init() {
   setupZoom();
   setupGoalIndexButton();
   setupExamButton();
+  if (SHOW_MOTIVATION_BUTTON) setupMotivationButton();
+  setupHelpButton();
   try {
     const [noderText, eksamenText] = await Promise.all([
       fetchText('noder.csv'),
@@ -857,7 +1082,7 @@ function layoutAndRender() {
       });
     });
 
-    columnMeta.push({ topic, x: cursorX, width: colPixelWidth, rowCount: visualRows.length });
+    columnMeta.push({ topic, x: cursorX, width: colPixelWidth, rowCount: visualRows.length, nodes });
     cursorX += colPixelWidth + LAYOUT.columnGap;
   });
 
@@ -908,14 +1133,40 @@ function renderGraph(columnMeta) {
     bandsLayer.appendChild(band);
   });
 
-  // Kolonneoverskrifter
+  // Kolonneoverskrifter, med snarveier for å merke/fjerne mestret-status for
+  // alle noder i temaet samtidig (se bulkSetMastery).
   columnMeta.forEach(col => {
     const header = document.createElement('div');
     header.className = 'column-header';
     header.style.left = (LAYOUT.padding + col.x) + 'px';
     header.style.top = LAYOUT.padding + 'px';
     header.style.width = col.width + 'px';
-    header.textContent = col.topic;
+
+    const label = document.createElement('span');
+    label.className = 'column-header-label';
+    label.textContent = col.topic;
+    header.appendChild(label);
+
+    const actions = document.createElement('span');
+    actions.className = 'column-header-actions';
+
+    const markBtn = document.createElement('button');
+    markBtn.type = 'button';
+    markBtn.className = 'column-header-btn';
+    markBtn.textContent = '✓';
+    markBtn.title = `Marker alle ferdigheter i «${col.topic}» som mestret`;
+    markBtn.addEventListener('click', () => bulkSetMastery(col.nodes, true));
+    actions.appendChild(markBtn);
+
+    const clearBtn = document.createElement('button');
+    clearBtn.type = 'button';
+    clearBtn.className = 'column-header-btn';
+    clearBtn.textContent = '✕';
+    clearBtn.title = `Fjern mestret-merking for alle ferdigheter i «${col.topic}»`;
+    clearBtn.addEventListener('click', () => bulkSetMastery(col.nodes, false));
+    actions.appendChild(clearBtn);
+
+    header.appendChild(actions);
     headersLayer.appendChild(header);
   });
 
@@ -1070,6 +1321,19 @@ function setNodeProgress(nodeId, key, value) {
   refreshAfterProgressChange();
 }
 
+// Setter mestret-status for flere noder samtidig (brukt av "marker/fjern
+// alle"-knappene i kolonneoverskriften), med kun én render/lagring til slutt.
+function bulkSetMastery(nodes, mastered) {
+  const progress = getProgress();
+  nodes.forEach(node => {
+    const entry = progress[node.id] || {};
+    entry.mastered = mastered;
+    progress[node.id] = entry;
+  });
+  setProgress(progress);
+  refreshAfterProgressChange();
+}
+
 function isNodeMastered(node, progress) {
   const entry = progress[node.id];
   return !!(entry && entry.mastered);
@@ -1140,9 +1404,11 @@ function composeInstruction(node) {
   if (ancestors.length) {
     const names = ancestors.map(a => `- ${a.navn}`).join('\n');
     parts.push(`Eleven skal fra før beherske følgende forutsetninger:\n${names}`);
+  } else {
+    parts.push('Denne noden har ingen forutsetninger registrert i ferdighetstreet - anta at eleven er helt ny til dette begrepet/ferdigheten.');
   }
 
-  parts.push(`Ferdigheten/begrepet det trenes på: "${node.navn}".\n${node.beskrivelse}`);
+  parts.push(`Målet for økta er at eleven skal lære følgende: "${node.navn}".\n${node.beskrivelse}`);
 
   if (node.type === 'begrep') {
     parts.push(BEGREP_TEST_GUIDANCE);

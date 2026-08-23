@@ -9,6 +9,10 @@
 window.FT_CONFIG = {
   storageKey: 'r2-ferdighetstre-fullfort',
 
+  // Viser «Hvorfor skal jeg lære matte?»-knappen øverst i header (kun
+  // matematikkfagene, se ferdighetstraer/instruks.md).
+  showMotivationButton: true,
+
   // Rekkefølge på emne-kolonnene i kartet, venstre til høyre. Utledet fra en
   // gjennomgang av kompetansemålene for R2 og fem eksamenssett (V24, H24,
   // V25, H25, V26). Rekker/rekursjon og trigonometri kommer først fordi de

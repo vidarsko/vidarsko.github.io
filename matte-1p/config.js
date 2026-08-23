@@ -9,6 +9,10 @@
 window.FT_CONFIG = {
   storageKey: '1p-ferdighetstre-fullfort',
 
+  // Viser «Hvorfor skal jeg lære matte?»-knappen øverst i header (kun
+  // matematikkfagene, se ferdighetstraer/instruks.md).
+  showMotivationButton: true,
+
   // Rekkefølge på emne-kolonnene i kartet, venstre til høyre. Utledet fra en
   // gjennomgang av kompetansemålene for 1P og fem eksamenssett (V24, H24,
   // V25, H25, V26) - merk at 1P (til forskjell fra gamle læreplaner) ikke har

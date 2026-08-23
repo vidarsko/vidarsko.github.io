@@ -9,6 +9,10 @@
 window.FT_CONFIG = {
   storageKey: '1t-ferdighetstre-fullfort',
 
+  // Viser «Hvorfor skal jeg lære matte?»-knappen øverst i header (kun
+  // matematikkfagene, se ferdighetstraer/instruks.md).
+  showMotivationButton: true,
+
   // Rekkefølge på emne-kolonnene i kartet, venstre til høyre. Følger den
   // naturlige oppbyggingen i 1T: algebraisk grunnlag først, deretter de ulike
   // funksjonstypene, derivasjon, trigonometri, og til slutt tallfølger/

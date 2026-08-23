@@ -9,6 +9,10 @@
 window.FT_CONFIG = {
   storageKey: '2p-ferdighetstre-fullfort',
 
+  // Viser «Hvorfor skal jeg lære matte?»-knappen øverst i header (kun
+  // matematikkfagene, se ferdighetstraer/instruks.md).
+  showMotivationButton: true,
+
   // Rekkefølge på emne-kolonnene i kartet, venstre til høyre. Emner som finnes
   // i noder.csv men ikke i denne listen havner til slutt (alfabetisk).
   topicOrder: [

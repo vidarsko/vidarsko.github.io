@@ -9,6 +9,10 @@
 window.FT_CONFIG = {
   storageKey: 'r1-ferdighetstre-fullfort',
 
+  // Viser «Hvorfor skal jeg lære matte?»-knappen øverst i header (kun
+  // matematikkfagene, se ferdighetstraer/instruks.md).
+  showMotivationButton: true,
+
   // Rekkefølge på emne-kolonnene i kartet, venstre til høyre. Utledet fra en
   // gjennomgang av kompetansemålene for R1 og to eksamenssett (H25/V26).
   // "Utforskende arbeid med data" (kompetansemål 1, det selvstendige
