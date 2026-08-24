@@ -36,7 +36,7 @@ const LAYOUT = Object.assign({
   columnGap: 56,
   columnLabelHeight: 44,
   maxNodesPerRow: 3, // bryt en emne-rad i flere rader nedover når den blir bredere enn dette
-  padding: 40,
+  padding: 20,
   barycenterPasses: 4,
 }, CONFIG.layoutOverrides || {});
 
@@ -247,8 +247,9 @@ function setupZoom() {
   const btn = document.createElement('button');
   btn.id = 'fit-view-btn';
   btn.type = 'button';
-  btn.innerHTML = '⤢ Vis hele treet<br>Ctrl+scroll for å zoome';
-  btn.title = 'Zoom ut for å se alle kategoriene i treet';
+  btn.textContent = '⤢';
+  btn.setAttribute('aria-label', 'Vis hele treet');
+  btn.title = 'Vis hele treet (Ctrl+scroll for å zoome)';
   btn.addEventListener('click', fitToView);
   group.appendChild(btn);
 
@@ -264,8 +265,8 @@ function setupZoom() {
   getBottomToolbar().appendChild(group);
 }
 
-// Flytende verktøylinje nederst til venstre - deler plass mellom
-// "vis hele treet"-knappen og prøve-generatoren, se setupExamButton().
+// Flytende verktøylinje nederst til venstre - holder kun zoom-kontrollene
+// (se setupZoom), siden disse brukes aktivt mens man utforsker kartet.
 function getBottomToolbar() {
   let toolbar = document.getElementById('bottom-toolbar');
   if (!toolbar) {
@@ -281,52 +282,120 @@ function getBottomToolbar() {
 /* ------------------------------------------------------------------ */
 
 function setupGoalIndexButton() {
+  const panel = ensureActionMenu();
+  if (!panel) return;
+
   const btn = document.createElement('button');
   btn.id = 'goal-index-btn';
   btn.type = 'button';
   btn.textContent = 'Vis alle læringsmål';
   btn.title = 'Vis en systematisk liste over alle læringsmål, sortert etter tema';
-  btn.addEventListener('click', openGoalIndexModal);
-  getBottomToolbar().appendChild(btn);
+  btn.addEventListener('click', () => {
+    closeActionMenu();
+    openGoalIndexModal();
+  });
+  panel.appendChild(btn);
 }
 
 /* ------------------------------------------------------------------ */
-/* Header-rad øverst til høyre: motivasjonsknapp (kun matematikkfag) og */
-/* hjelp-knapp (alle fag), sammen med "← alle ferdighetstrær"-lenken   */
+/* Flytende meny-knapp nederst til venstre, ved siden av zoom-knappene:    */
+/* samler ALT som før lå i den synlige headeren - tilbake-lenke,           */
+/* dag/natt-knapp, fremdriftslinje, tittel/undertekst - og de sjeldnere    */
+/* brukte knappene (hjelp, læringsmål-liste, prøvegenerator, motivasjon)   */
+/* bak ett trekkspill-panel. Selve <header> tømmes for innhold og skjules  */
+/* i CSS. Ligger bevisst nederst til venstre og IKKE øverst til høyre - i  */
+/* det hjørnet endte den nesten oppå tilbake-knappen i detaljpanelet når   */
+/* det er åpent på mobil.                                                 */
 /* ------------------------------------------------------------------ */
 
-// Plasseres øverst til høyre i header, sammen med "← alle ferdighetstrær"-
-// lenken - ikke i den flytende verktøylinja nederst (setupExamButton m.fl.),
-// siden dette er noe eleven typisk vil trenge før hen i det hele tatt går i
-// gang. Lages lat og gjenbrukes: back-link til venstre, en actions-rad med
-// knapper til høyre (motivasjonsknapp og/eller hjelp-knapp, i den
-// rekkefølgen de settes opp).
-function ensureHeaderTopRow() {
-  let row = document.getElementById('header-top-row');
-  if (row) return row;
+// Lages lat og gjenbrukes: én flytende meny-knapp som slår ut/inn et panel
+// med alt navigasjons- og statusinnhold pluss de sjeldnere brukte knappene.
+// Selve panelet fylles videre av setupMotivationButton/setupHelpButton/
+// setupGoalIndexButton/setupExamButton, i den rekkefølgen de kalles fra
+// init().
+function ensureActionMenu() {
+  let panel = document.getElementById('action-menu-panel');
+  if (panel) return panel;
 
-  const backLink = document.querySelector('.header-inner .back-link');
-  if (!backLink) return null; // uventet DOM - fail silent fremfor å kaste under init
+  const headerInner = document.querySelector('.header-inner');
+  if (!headerInner) return null; // uventet DOM - fail silent fremfor å kaste under init
 
-  row = document.createElement('div');
-  row.id = 'header-top-row';
-  backLink.parentNode.insertBefore(row, backLink);
-  row.appendChild(backLink);
+  // Venstre for zoom-knappene i samme flytende verktøylinje nederst til
+  // venstre - IKKE øverst til høyre, der den nesten overlappet
+  // tilbake-knappen i detaljpanelet på mobil (begge endte i samme hjørne).
+  const toolbar = getBottomToolbar();
+  const wrap = document.createElement('div');
+  wrap.id = 'menu-wrap';
+  toolbar.insertBefore(wrap, toolbar.firstChild);
 
-  const actions = document.createElement('div');
-  actions.id = 'header-top-actions';
-  row.appendChild(actions);
+  const toggle = document.createElement('button');
+  toggle.id = 'menu-toggle-btn';
+  toggle.type = 'button';
+  toggle.setAttribute('aria-label', 'Meny');
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.title = 'Meny';
+  toggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+  toggle.addEventListener('click', toggleActionMenu);
+  wrap.appendChild(toggle);
 
-  return row;
+  panel = document.createElement('div');
+  panel.id = 'action-menu-panel';
+  wrap.appendChild(panel);
+
+  // Tilbake-lenke + dag/natt-knapp på samme rad øverst i panelet - akkurat
+  // som de lå side om side i den gamle headeren.
+  const navRow = document.createElement('div');
+  navRow.id = 'menu-nav-row';
+  const backLink = headerInner.querySelector('.back-link');
+  const themeToggle = headerInner.querySelector('.theme-toggle');
+  if (backLink) navRow.appendChild(backLink);
+  if (themeToggle) navRow.appendChild(themeToggle);
+  if (navRow.children.length) panel.appendChild(navRow);
+
+  // Fremdriftslinje, sidetittel og undertekst er alle statisk/status-
+  // informasjon (samme eller sjelden-endret hver gang man besøker siden) -
+  // flytt dem inn i panelet i stedet for å ta plass over grafen hele tiden.
+  const progressRow = headerInner.querySelector('.progress-row');
+  if (progressRow) panel.appendChild(progressRow);
+  const heading = headerInner.querySelector('h1');
+  const tagline = headerInner.querySelector('p.tagline');
+  if (heading) panel.appendChild(heading);
+  if (tagline) panel.appendChild(tagline);
+
+  document.addEventListener('click', e => {
+    if (!panel.classList.contains('open')) return;
+    if (wrap.contains(e.target)) return;
+    closeActionMenu();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && panel.classList.contains('open')) closeActionMenu();
+  });
+
+  return panel;
+}
+
+function toggleActionMenu() {
+  const panel = document.getElementById('action-menu-panel');
+  const toggle = document.getElementById('menu-toggle-btn');
+  if (!panel || !toggle) return;
+  const open = panel.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', String(open));
+}
+
+function closeActionMenu() {
+  const panel = document.getElementById('action-menu-panel');
+  const toggle = document.getElementById('menu-toggle-btn');
+  if (!panel) return;
+  panel.classList.remove('open');
+  if (toggle) toggle.setAttribute('aria-expanded', 'false');
 }
 
 // Motivasjonsknapp («Hvorfor skal jeg lære matte?»). Instruksen er generell
 // (samme uansett hvor i treet eleven er), ikke knyttet til én enkelt node -
 // se buildMotivationInstructionTemplate.
 function setupMotivationButton() {
-  const row = ensureHeaderTopRow();
-  if (!row) return;
-  const actions = document.getElementById('header-top-actions');
+  const actions = ensureActionMenu();
+  if (!actions) return;
 
   const btn = document.createElement('button');
   btn.id = 'motivation-btn';
@@ -350,16 +419,18 @@ function setupMotivationButton() {
 // knyttet til noe fagspesifikt utover om faget viser hjelpemiddel-merking
 // og/eller motivasjonsknappen.
 function setupHelpButton() {
-  const row = ensureHeaderTopRow();
-  if (!row) return;
-  const actions = document.getElementById('header-top-actions');
+  const actions = ensureActionMenu();
+  if (!actions) return;
 
   const btn = document.createElement('button');
   btn.id = 'help-btn';
   btn.type = 'button';
   btn.textContent = 'Hvordan bruker jeg denne siden?';
   btn.title = 'Åpne en kort forklaring på hvordan ferdighetstreet fungerer';
-  btn.addEventListener('click', openHelpModal);
+  btn.addEventListener('click', () => {
+    closeActionMenu();
+    openHelpModal();
+  });
   actions.appendChild(btn);
 }
 
@@ -562,6 +633,9 @@ function closeGoalIndexModal() {
 /* ------------------------------------------------------------------ */
 
 function setupExamButton() {
+  const actions = ensureActionMenu();
+  if (!actions) return;
+
   const widget = document.createElement('div');
   widget.id = 'exam-widget';
 
@@ -608,7 +682,7 @@ function setupExamButton() {
     });
   });
 
-  getBottomToolbar().appendChild(widget);
+  actions.appendChild(widget);
 }
 
 function hjelpemiddelKort(value) {
@@ -719,10 +793,10 @@ function setupPanning() {
 async function init() {
   setupPanning();
   setupZoom();
+  setupHelpButton();
   setupGoalIndexButton();
   setupExamButton();
   if (SHOW_MOTIVATION_BUTTON) setupMotivationButton();
-  setupHelpButton();
   try {
     const [noderText, eksamenText] = await Promise.all([
       fetchText('noder.csv'),
@@ -1278,15 +1352,18 @@ function makeHjelpemiddelBadge(value) {
   return span;
 }
 
+// Begrep/Ferdighet/Låst er utelatt her - det fremgår allerede av selve
+// noden (form/opasitet/badge-type), og trenger ingen egen forklaring.
 function renderLegend() {
   const legend = document.getElementById('legend');
-  const hjelpemiddelItems = SHOW_HJELPEMIDDEL ? `
-    <span class="legend-item"><span class="legend-swatch" style="background:var(--del1);border-radius:3px;"></span>Del 1</span>
-    <span class="legend-item"><span class="legend-swatch" style="background:var(--del2);border-radius:3px;"></span>Del 2</span>` : '';
+  if (!SHOW_HJELPEMIDDEL) {
+    legend.innerHTML = '';
+    legend.style.display = 'none';
+    return;
+  }
   legend.innerHTML = `
-    <span class="legend-item"><span class="legend-swatch" style="background:var(--begrep-bg);border:1.5px solid var(--begrep-border);border-radius:7px;"></span>Begrep</span>
-    <span class="legend-item"><span class="legend-swatch" style="background:var(--ferdighet-bg);border:1.5px solid var(--ferdighet-border);"></span>Ferdighet</span>${hjelpemiddelItems}
-    <span class="legend-item"><span class="legend-swatch" style="opacity:.45;background:var(--begrep-bg);border:1.5px solid var(--begrep-border);border-radius:7px;"></span>Låst (forutsetninger ikke oppfylt)</span>
+    <span class="legend-item"><span class="legend-swatch" style="background:var(--del1);border-radius:3px;"></span>Del 1</span>
+    <span class="legend-item"><span class="legend-swatch" style="background:var(--del2);border-radius:3px;"></span>Del 2</span>
   `;
 }
 

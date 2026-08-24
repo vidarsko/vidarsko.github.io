@@ -37,22 +37,17 @@ html, body { height: 100%; }
 
 a { color: var(--accent); }
 
+/* Den opprinnelige <header> er tømt av ensureActionMenu() (se engine.js) -
+   ALT innholdet dens (tilbake-lenke, dag/natt-knapp, fremdriftslinje,
+   tittel, undertekst) flyttes inn i #action-menu-panel, slik at grafen kan
+   fylle hele skjermhøyden. Skjules derfor unconditionally her i CSS (ikke
+   bare via JS) for å unngå et glimt av den gamle headeren før JS rekker å
+   flytte innholdet. */
 header {
-  padding: 2.2rem 2rem 1.4rem;
-  border-bottom: 1px solid var(--border);
-  width: 100%;
-}
-
-header .header-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
+  display: none;
 }
 
 .theme-toggle {
-  position: absolute;
-  top: 0;
-  right: 0;
   width: 38px;
   height: 38px;
   border-radius: var(--radius-pill);
@@ -74,7 +69,6 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 
 .back-link {
   display: inline-block;
-  margin-bottom: 0.9rem;
   font-size: 0.85rem;
   color: var(--text-muted);
   text-decoration: none;
@@ -87,77 +81,117 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
   border-bottom-color: var(--accent);
 }
 
-/* Rad satt sammen av engine.js (ensureHeaderTopRow) - back-link til
-   venstre, en actions-rad med knapper til høyre (motivasjonsknapp for
-   matematikkfag og/eller hjelp-knapp for alle fag). padding-right holder
-   knappene klar av den absolutt posisjonerte .theme-toggle i hjørnet over. */
-#header-top-row {
+/* Meny-knapp nederst til venstre, til venstre for zoom-knappene i
+   #bottom-toolbar (se setupZoom/getBottomToolbar i engine.js) - IKKE øverst
+   til høyre, siden den da nesten overlappet tilbake-knappen i detaljpanelet
+   når det er åpent på mobil (begge endte i samme hjørne). Slår ut
+   #action-menu-panel, som ensureActionMenu() (engine.js) fyller med ALT som
+   før lå i headeren: tilbake-lenke + dag/natt-knapp (#menu-nav-row),
+   fremdriftslinje, tittel/undertekst, og til slutt de sjeldnere brukte
+   knappene (hjelp, læringsmål-liste, prøvegenerator, motivasjon). Selve
+   #menu-wrap er bare et ankerpunkt for panelet - #bottom-toolbar (fixed)
+   gir selve den flytende posisjoneringen. */
+#menu-wrap {
+  position: relative;
+}
+
+#menu-toggle-btn {
+  width: 2.6rem;
+  height: 2.6rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.8rem;
-  margin-bottom: 0.9rem;
-  padding-right: 3rem;
-}
-
-#header-top-row .back-link {
-  margin-bottom: 0;
-}
-
-#header-top-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-#motivation-btn, #help-btn {
-  flex-shrink: 0;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  padding: 0.5rem 1rem;
+  justify-content: center;
   border-radius: var(--radius-pill);
   border: 1px solid var(--border);
   background: var(--surface);
   color: var(--text);
   cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-#motivation-btn:hover, #help-btn:hover {
+#menu-toggle-btn svg { width: 18px; height: 18px; }
+
+#menu-toggle-btn:hover, #menu-toggle-btn[aria-expanded="true"] {
   border-color: var(--border-strong);
   background: var(--surface-hover);
-  transform: translateY(-1px);
 }
 
-@media (max-width: 720px) {
-  #header-top-row { flex-wrap: wrap; row-gap: 0.6rem; }
-  #header-top-actions { justify-content: flex-start; }
-  #motivation-btn, #help-btn { white-space: normal; text-align: left; }
+#action-menu-panel {
+  display: none;
+  flex-direction: column;
+  gap: 0.6rem;
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 0;
+  z-index: 30;
+  width: min(320px, calc(100vw - 2.4rem));
+  max-height: calc(100vh - 5rem);
+  overflow-y: auto;
+  padding: 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
 
-header h1 {
-  font-size: 1.9rem;
+#action-menu-panel.open { display: flex; }
+
+#menu-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+
+#action-menu-panel h1 {
+  font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.2;
 }
 
-header p.tagline {
-  margin-top: 0.5rem;
+#action-menu-panel p.tagline {
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
   color: var(--text-muted);
-  font-size: 1rem;
-  max-width: 60ch;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+#action-menu-panel #motivation-btn,
+#action-menu-panel #help-btn,
+#action-menu-panel #goal-index-btn {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 0.55rem 0.9rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  white-space: normal;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+#action-menu-panel #motivation-btn:hover,
+#action-menu-panel #help-btn:hover,
+#action-menu-panel #goal-index-btn:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
 }
 
 .progress-row {
-  margin-top: 1.3rem;
   display: flex;
   align-items: center;
   gap: 0.9rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
 }
 
 .progress-bar {
@@ -205,7 +239,11 @@ main {
   flex: 1;
   min-width: 0;
   overflow: auto;
-  padding: 2.4rem 2rem;
+  /* Lite padding-top - headeren er borte (se ensureActionMenu), så det er
+     ikke lenger noe å holde grafen klar av der. Resten av avstanden til
+     første kolonneoverskrift kommer fra LAYOUT.padding i selve
+     layout-algoritmen (se computeGlobalRowStarts/layoutColumn). */
+  padding: 0.75rem 2rem 2.4rem;
   position: relative;
   cursor: grab;
 }
@@ -221,16 +259,19 @@ main {
   transform-origin: 0 0;
 }
 
+/* Flytende verktøylinje for zoom - eneste innhold igjen i bottom-toolbar
+   etter at "vis alle læringsmål" og prøvegeneratoren flyttet inn i
+   #action-menu-panel (se ensureActionMenu i engine.js). Disse knappene
+   brukes aktivt mens man utforsker kartet, så de forblir synlige i stedet
+   for gjemt bak et trekkspill. */
 #bottom-toolbar {
   position: fixed;
   left: 1.6rem;
   bottom: 1.6rem;
   z-index: 15;
   display: flex;
-  align-items: stretch;
+  align-items: center;
   gap: 0.7rem;
-  flex-wrap: wrap;
-  max-width: calc(100vw - 3.2rem);
 }
 
 #zoom-controls {
@@ -239,35 +280,11 @@ main {
   gap: 0.5rem;
 }
 
-#fit-view-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.15rem;
-  text-align: center;
-  line-height: 1.3;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  padding: 0.5rem 1.1rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text);
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
-}
-
-#fit-view-btn:hover {
-  border-color: var(--border-strong);
-  background: var(--surface-hover);
-  transform: translateY(-1px);
-}
-
-#zoom-in-btn, #zoom-out-btn {
+/* Ikon-only knapper (+/−/⤢), ingen tekst - holder knappene små også på
+   mobil, se prosjektnotat om at knappene var for store der. */
+#zoom-in-btn, #zoom-out-btn, #fit-view-btn {
   width: 2.6rem;
+  height: 2.6rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -283,24 +300,20 @@ main {
   transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 
-#zoom-in-btn:hover, #zoom-out-btn:hover {
+#zoom-in-btn:hover, #zoom-out-btn:hover, #fit-view-btn:hover {
   border-color: var(--border-strong);
   background: var(--surface-hover);
   transform: translateY(-1px);
 }
 
+/* Prøvegenerator-widget - nå inne i #action-menu-panel, se der for
+   panel-spesifikk styling av knappen selv. */
 #exam-widget {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.6rem;
-  padding: 0.5rem 0.7rem 0.5rem 1rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--border);
-  background: var(--surface);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
-  font-size: 0.82rem;
   flex-wrap: wrap;
+  font-size: 0.82rem;
 }
 
 #exam-count-label {
@@ -321,54 +334,28 @@ main {
   color: var(--text);
 }
 
-#exam-btn {
+#action-menu-panel #exam-btn {
+  flex: 1 1 auto;
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.01em;
-  padding: 0.5rem 1rem;
+  padding: 0.55rem 0.9rem;
   border-radius: var(--radius-pill);
   border: none;
   background: var(--accent-grad);
   color: #14100A;
   cursor: pointer;
-  white-space: nowrap;
+  white-space: normal;
   transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
-#exam-btn:hover {
+#action-menu-panel #exam-btn:hover {
   transform: translateY(-1px);
   opacity: 0.92;
 }
 
-#goal-index-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  padding: 0.6rem 1.1rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text);
-  cursor: pointer;
-  white-space: nowrap;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
-}
-
-#goal-index-btn:hover {
-  border-color: var(--border-strong);
-  background: var(--surface-hover);
-  transform: translateY(-1px);
-}
-
 @media (max-width: 720px) {
-  #bottom-toolbar { left: 1rem; bottom: 1rem; right: 1rem; }
-  #fit-view-btn { padding: 0.55rem 0.9rem; }
-  #goal-index-btn { padding: 0.55rem 0.9rem; }
-  #exam-widget { flex: 1 1 100%; justify-content: space-between; }
+  #bottom-toolbar { left: 1rem; bottom: 1rem; }
 }
 
 /* "Vis alle læringsmål"-vindu */
