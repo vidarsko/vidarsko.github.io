@@ -1469,7 +1469,7 @@ function composeInstruction(node) {
     parts.push('Denne noden har ingen forutsetninger registrert i ferdighetstreet - anta at eleven er helt ny til dette begrepet/ferdigheten.');
   }
 
-  parts.push(`Målet for økta er at eleven skal lære følgende: "${node.navn}".\n${node.beskrivelse}`);
+  parts.push(`Målet for økta er at eleven skal lære følgende: "${node.navn}". Teksten under beskriver hva det vil si å mestre noden - det er målet for økta, ikke noe eleven kan fra før:\n${node.beskrivelse}`);
 
   if (node.type === 'begrep') {
     parts.push(BEGREP_TEST_GUIDANCE);
