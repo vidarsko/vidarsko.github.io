@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Math – skogvoll.com</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/tokens.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/content.css">
+  <script src="/js/analytics.js"></script>
+  <script src="/js/theme.js" defer></script>
+  <script src="/js/nav.js" defer></script>
+</head>
+<body>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-nav">
+        <div class="nav-inner">
+            <a class="brand" href="/">
+                <span class="brand-mark" aria-hidden="true">V</span>
+                <span>Vidar Skogvoll</span>
+            </a>
+            <nav class="primary-nav" aria-label="Primary">
+                <a href="/">Home</a>
+                <a href="/apps/" aria-current="page">Apps</a>
+                <a href="/projects/">Projects</a>
+                <a href="/publications/">Publications</a>
+                <a href="/cv/">CV</a>
+            </nav>
+            <div class="nav-controls">
+                <a class="nav-icon" href="https://github.com/vidarsko" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+                </a>
+                <a class="nav-icon" href="https://www.linkedin.com/in/vidarsko/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
+                <a class="nav-icon" href="https://www.instagram.com/fysikkvidar/" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+                </a>
+                <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+                </button>
+            </div>
+            <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+                <svg class="icon-bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="page-header reveal">
+            <h1>🚀 Space Math</h1>
+            <p>
+                Shoot down the aliens by solving the math problem above the frontmost ship before
+                it reaches yours. Problems start out very easy and get gradually harder the longer
+                you survive.
+            </p>
+        </div>
+
+        <section class="panel game-panel">
+            <div class="hud">
+                <div class="hud-item">
+                    <span class="hud-label">Score</span>
+                    <span id="hud-score">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">Lives</span>
+                    <span id="hud-lives" class="hearts">
+                        <span class="heart" data-life="1">❤</span><span class="heart" data-life="2">❤</span><span class="heart" data-life="3">❤</span>
+                    </span>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">Streak</span>
+                    <span id="hud-streak">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">Level</span>
+                    <span id="hud-tier">Cadet</span>
+                </div>
+            </div>
+
+            <div class="game-stage">
+                <canvas id="game-canvas" width="800" height="500" aria-label="Space Math game area"></canvas>
+
+                <div id="start-overlay" class="stage-overlay">
+                    <h2>Ready for the mission?</h2>
+                    <p>
+                        Solve the math problem to shoot down the alien closest to your ship. You
+                        have three lives — you lose one when an alien reaches the bottom, not for
+                        a wrong answer.
+                    </p>
+                    <button id="start-btn" class="primary">Start game</button>
+                </div>
+
+                <div id="gameover-overlay" class="stage-overlay" hidden>
+                    <h2>Game over</h2>
+                    <p id="gameover-summary"></p>
+                    <form id="save-score-form" class="row-form">
+                        <input type="text" id="player-name-input" maxlength="24" placeholder="Your name" autocomplete="off">
+                        <button type="submit" class="primary">Save score</button>
+                    </form>
+                    <p id="save-score-confirm" class="hint" hidden>Score saved!</p>
+                    <button id="restart-btn" class="secondary">Play again</button>
+                </div>
+            </div>
+
+            <p id="current-problem" class="current-problem" aria-live="polite">Click &quot;Start game&quot; to begin</p>
+
+            <form id="answer-form" class="answer-row">
+                <input type="text" inputmode="numeric" autocomplete="off" id="answer-input" placeholder="Answer…" aria-label="Type the answer to the math problem" disabled>
+                <button type="submit" class="primary" disabled>Fire</button>
+            </form>
+            <p id="feedback-msg" class="hint" aria-live="polite">&nbsp;</p>
+        </section>
+
+        <section class="panel content-panel leaderboard-panel">
+            <h2>Leaderboard (this device)</h2>
+            <p class="hint" style="margin-bottom: 1rem;">Scores are stored locally in this browser only.</p>
+            <ol id="leaderboard-list" class="leaderboard-list"></ol>
+            <p id="leaderboard-empty" class="hint">No scores yet — be the first!</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <a class="brand" href="/">
+                <span class="brand-mark" aria-hidden="true">V</span>
+                <span>skogvoll.com</span>
+            </a>
+            <nav class="footer-nav" aria-label="Footer">
+                <a href="/">Home</a>
+                <a href="/apps/">Apps</a>
+                <a href="/projects/">Projects</a>
+                <a href="/publications/">Publications</a>
+            </nav>
+            <p class="copyright">© 2026 Vidar Skogvoll</p>
+        </div>
+    </footer>
+
+    <script>
+        // ── Config ──────────────────────────────────────────────────────────────
+
+        const LOGICAL_W = 800;
+        const LOGICAL_H = 500;
+        const SHIP_Y = LOGICAL_H - 46;
+        const INVASION_Y = LOGICAL_H - 66;
+        const STORAGE_SCORES = 'spacemath-leaderboard';
+        const STORAGE_NAME = 'spacemath-playername';
+
+        const TIER_NAMES = ['Cadet', 'Ensign', 'Lieutenant', 'Captain', 'Major', 'Colonel', 'Admiral', 'Legend'];
+
+        // ── Math problem generation ─────────────────────────────────────────────
+
+        function randInt(min, max) {
+            return min + Math.floor(Math.random() * (max - min + 1));
+        }
+
+        function tierForCount(n) {
+            if (n < 5) return 0;
+            if (n < 12) return 1;
+            if (n < 20) return 2;
+            if (n < 30) return 3;
+            if (n < 42) return 4;
+            if (n < 56) return 5;
+            if (n < 72) return 6;
+            return 7;
+        }
+
+        function generateProblem(destroyedCount) {
+            const tier = tierForCount(destroyedCount);
+            let a, b, c, text, answer;
+            const r = Math.random();
+
+            switch (tier) {
+                case 0: {
+                    a = randInt(1, 5); b = randInt(1, 5);
+                    text = `${a} + ${b}`; answer = a + b;
+                    break;
+                }
+                case 1: {
+                    if (r < 0.5) {
+                        a = randInt(5, 10); b = randInt(1, 10);
+                        text = `${a} + ${b}`; answer = a + b;
+                    } else {
+                        a = randInt(5, 15); b = randInt(1, a);
+                        text = `${a} − ${b}`; answer = a - b;
+                    }
+                    break;
+                }
+                case 2: {
+                    if (r < 0.4) {
+                        a = randInt(10, 20); b = randInt(1, 20);
+                        text = `${a} + ${b}`; answer = a + b;
+                    } else if (r < 0.8) {
+                        a = randInt(10, 30); b = randInt(1, a);
+                        text = `${a} − ${b}`; answer = a - b;
+                    } else {
+                        a = randInt(1, 10); b = randInt(1, 10); c = randInt(1, 10);
+                        text = `${a} + ${b} + ${c}`; answer = a + b + c;
+                    }
+                    break;
+                }
+                case 3: {
+                    if (r < 0.4) {
+                        a = randInt(2, 5); b = randInt(1, 10);
+                        text = `${a} × ${b}`; answer = a * b;
+                    } else if (r < 0.7) {
+                        a = randInt(10, 30); b = randInt(1, a);
+                        text = `${a} − ${b}`; answer = a - b;
+                    } else {
+                        a = randInt(10, 25); b = randInt(1, 15);
+                        text = `${a} + ${b}`; answer = a + b;
+                    }
+                    break;
+                }
+                case 4: {
+                    if (r < 0.5) {
+                        a = randInt(2, 10); b = randInt(2, 10);
+                        text = `${a} × ${b}`; answer = a * b;
+                    } else {
+                        a = randInt(20, 50); b = randInt(1, a);
+                        text = `${a} − ${b}`; answer = a - b;
+                    }
+                    break;
+                }
+                case 5: {
+                    if (r < 0.4) {
+                        b = randInt(2, 10); c = randInt(2, 10); a = b * c;
+                        text = `${a} ÷ ${b}`; answer = c;
+                    } else if (r < 0.7) {
+                        a = randInt(2, 12); b = randInt(2, 12);
+                        text = `${a} × ${b}`; answer = a * b;
+                    } else {
+                        a = randInt(20, 60); b = randInt(1, a);
+                        text = `${a} − ${b}`; answer = a - b;
+                    }
+                    break;
+                }
+                case 6: {
+                    if (r < 0.35) {
+                        a = randInt(2, 10); b = randInt(2, 10); c = randInt(1, 20);
+                        text = `${a} × ${b} + ${c}`; answer = a * b + c;
+                    } else if (r < 0.7) {
+                        a = randInt(1, 20); b = randInt(2, 10); c = randInt(2, 10);
+                        text = `${a} + ${b} × ${c}`; answer = a + b * c;
+                    } else if (r < 0.85) {
+                        b = randInt(2, 12); c = randInt(2, 12); a = b * c;
+                        text = `${a} ÷ ${b}`; answer = c;
+                    } else {
+                        a = randInt(2, 12); b = randInt(2, 12);
+                        text = `${a} × ${b}`; answer = a * b;
+                    }
+                    break;
+                }
+                default: {
+                    const extra = Math.min(destroyedCount - 72, 40);
+                    const maxMul = Math.min(16, 12 + Math.floor(extra / 10));
+                    if (r < 0.3) {
+                        a = randInt(2, maxMul); b = randInt(2, maxMul);
+                        text = `${a} × ${b}`; answer = a * b;
+                    } else if (r < 0.55) {
+                        a = randInt(50, 100 + extra); b = randInt(1, a);
+                        text = `${a} − ${b}`; answer = a - b;
+                    } else if (r < 0.75) {
+                        b = randInt(2, maxMul); c = randInt(2, maxMul); a = b * c;
+                        text = `${a} ÷ ${b}`; answer = c;
+                    } else if (r < 0.9) {
+                        a = randInt(2, 10); b = randInt(2, 10); c = randInt(1, 30 + extra);
+                        text = `${a} × ${b} + ${c}`; answer = a * b + c;
+                    } else {
+                        a = randInt(1, 30 + extra); b = randInt(2, 10); c = randInt(2, 10);
+                        text = `${a} + ${b} × ${c}`; answer = a + b * c;
+                    }
+                }
+            }
+
+            return { text: `${text} = ?`, answer, tier };
+        }
+
+        function spawnSpeed(tier) {
+            return 30 + tier * 7 + randInt(-4, 4);
+        }
+
+        function maxConcurrent(tier) {
+            if (tier >= 6) return 3;
+            if (tier >= 4) return 2;
+            return 1;
+        }
+
+        function spawnIntervalMs(tier) {
+            return Math.max(1100, 2600 - tier * 180);
+        }
+
+        // ── Canvas setup ────────────────────────────────────────────────────────
+
+        const canvas = document.getElementById('game-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function setupCanvasResolution() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = LOGICAL_W * dpr;
+            canvas.height = LOGICAL_H * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        setupCanvasResolution();
+        window.addEventListener('resize', setupCanvasResolution);
+
+        function roundRect(x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.arcTo(x + w, y, x + w, y + h, r);
+            ctx.arcTo(x + w, y + h, x, y + h, r);
+            ctx.arcTo(x, y + h, x, y, r);
+            ctx.arcTo(x, y, x + w, y, r);
+            ctx.closePath();
+        }
+
+        // ── Game state ──────────────────────────────────────────────────────────
+
+        let stars = [];
+        for (let i = 0; i < 90; i++) {
+            stars.push({
+                x: Math.random() * LOGICAL_W,
+                y: Math.random() * LOGICAL_H,
+                r: Math.random() * 1.6 + 0.4,
+                speed: Math.random() * 18 + 6,
+                phase: Math.random() * Math.PI * 2
+            });
+        }
+
+        function freshGame() {
+            return {
+                state: 'start', // start | playing | gameover
+                lives: 3,
+                score: 0,
+                streak: 0,
+                destroyedCount: 0,
+                aliens: [],
+                effects: [],
+                shipX: LOGICAL_W / 2,
+                lastSpawn: 0,
+                elapsed: 0,
+                scoreSaved: false
+            };
+        }
+
+        let game = freshGame();
+
+        let alienUid = 0;
+        function spawnAlien() {
+            const problem = generateProblem(game.destroyedCount);
+            game.aliens.push({
+                id: ++alienUid,
+                x: randInt(70, LOGICAL_W - 70),
+                y: -30,
+                speed: spawnSpeed(problem.tier),
+                problem,
+                spawnTime: performance.now()
+            });
+        }
+
+        function activeAlien() {
+            if (game.aliens.length === 0) return null;
+            let best = game.aliens[0];
+            for (const al of game.aliens) if (al.y > best.y) best = al;
+            return best;
+        }
+
+        // ── DOM refs ────────────────────────────────────────────────────────────
+
+        const hudScore = document.getElementById('hud-score');
+        const hudStreak = document.getElementById('hud-streak');
+        const hudTier = document.getElementById('hud-tier');
+        const hearts = document.querySelectorAll('#hud-lives .heart');
+        const startOverlay = document.getElementById('start-overlay');
+        const gameoverOverlay = document.getElementById('gameover-overlay');
+        const gameoverSummary = document.getElementById('gameover-summary');
+        const currentProblemEl = document.getElementById('current-problem');
+        const answerForm = document.getElementById('answer-form');
+        const answerInput = document.getElementById('answer-input');
+        const answerBtn = answerForm.querySelector('button');
+        const feedbackMsg = document.getElementById('feedback-msg');
+        const startBtn = document.getElementById('start-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const saveScoreForm = document.getElementById('save-score-form');
+        const playerNameInput = document.getElementById('player-name-input');
+        const saveScoreConfirm = document.getElementById('save-score-confirm');
+
+        function updateHud() {
+            hudScore.textContent = game.score;
+            hudStreak.textContent = game.streak;
+            const al = activeAlien();
+            const tier = al ? al.problem.tier : tierForCount(game.destroyedCount);
+            hudTier.textContent = TIER_NAMES[tier];
+            hearts.forEach((h, i) => h.classList.toggle('lost', i >= game.lives));
+        }
+
+        function updateProblemDisplay() {
+            if (game.state !== 'playing') return;
+            const al = activeAlien();
+            currentProblemEl.textContent = al ? al.problem.text : '…';
+        }
+
+        // ── Starting / restarting ──────────────────────────────────────────────
+
+        function startGame() {
+            game = freshGame();
+            game.state = 'playing';
+            startOverlay.hidden = true;
+            gameoverOverlay.hidden = true;
+            answerInput.disabled = false;
+            answerBtn.disabled = false;
+            answerInput.value = '';
+            feedbackMsg.textContent = ' ';
+            spawnAlien();
+            game.lastSpawn = performance.now();
+            updateHud();
+            updateProblemDisplay();
+            answerInput.focus();
+        }
+
+        startBtn.addEventListener('click', startGame);
+        restartBtn.addEventListener('click', startGame);
+
+        function endGame() {
+            game.state = 'gameover';
+            answerInput.disabled = true;
+            answerBtn.disabled = true;
+            gameoverOverlay.hidden = false;
+            const tier = tierForCount(game.destroyedCount);
+            gameoverSummary.textContent =
+                `You reached level "${TIER_NAMES[tier]}" with ${game.score} points, shooting down ${game.destroyedCount} aliens.`;
+            const savedName = localStorage.getItem(STORAGE_NAME) || '';
+            playerNameInput.value = savedName;
+            saveScoreConfirm.hidden = true;
+            saveScoreForm.hidden = false;
+        }
+
+        // ── Answer handling ─────────────────────────────────────────────────────
+
+        answerForm.addEventListener('submit', e => {
+            e.preventDefault();
+            if (game.state !== 'playing') return;
+            const al = activeAlien();
+            if (!al) return;
+
+            const raw = answerInput.value.trim();
+            if (raw === '') return;
+            const value = Number(raw);
+
+            if (Number.isInteger(value) && value === al.problem.answer) {
+                handleCorrect(al);
+            } else {
+                handleWrong();
+            }
+            answerInput.value = '';
+            answerInput.focus();
+        });
+
+        function handleCorrect(al) {
+            const secondsTaken = (performance.now() - al.spawnTime) / 1000;
+            const base = 10 + al.problem.tier * 10;
+            const speedBonus = Math.max(0, Math.round(8 - secondsTaken));
+            let points = base + speedBonus;
+
+            game.streak += 1;
+            let comboMsg = '';
+            if (game.streak > 0 && game.streak % 5 === 0) {
+                points += 30;
+                comboMsg = ` Combo x${game.streak}! +30 bonus!`;
+            }
+
+            game.score += points;
+            game.destroyedCount += 1;
+            game.aliens = game.aliens.filter(a => a.id !== al.id);
+
+            game.effects.push({
+                type: 'blast',
+                x: al.x, y: al.y,
+                fromX: game.shipX, fromY: SHIP_Y,
+                t: 0, duration: 0.35
+            });
+
+            feedbackMsg.textContent = `Correct! +${points} points.${comboMsg}`;
+            feedbackMsg.className = 'hint feedback-ok';
+            updateHud();
+            updateProblemDisplay();
+        }
+
+        function handleWrong() {
+            game.streak = 0;
+            feedbackMsg.textContent = 'Wrong answer, try again!';
+            feedbackMsg.className = 'hint feedback-bad';
+            answerInput.classList.remove('shake');
+            void answerInput.offsetWidth;
+            answerInput.classList.add('shake');
+            updateHud();
+        }
+
+        function invadeLife(al) {
+            game.lives -= 1;
+            game.streak = 0;
+            game.aliens = game.aliens.filter(a => a.id !== al.id);
+            game.effects.push({ type: 'flash', t: 0, duration: 0.4 });
+            updateHud();
+            if (game.lives <= 0) {
+                endGame();
+            } else {
+                feedbackMsg.textContent = 'An alien reached your ship! You lost a life.';
+                feedbackMsg.className = 'hint feedback-bad';
+                updateProblemDisplay();
+            }
+        }
+
+        // ── Leaderboard ─────────────────────────────────────────────────────────
+
+        function loadScores() {
+            try {
+                const raw = localStorage.getItem(STORAGE_SCORES);
+                if (raw) return JSON.parse(raw);
+            } catch (e) { /* ignore corrupt data */ }
+            return [];
+        }
+
+        function saveScores(scores) {
+            localStorage.setItem(STORAGE_SCORES, JSON.stringify(scores));
+        }
+
+        function renderLeaderboard(highlightId) {
+            const scores = loadScores().sort((a, b) => b.score - a.score);
+            const list = document.getElementById('leaderboard-list');
+            const empty = document.getElementById('leaderboard-empty');
+            list.innerHTML = '';
+
+            if (scores.length === 0) {
+                empty.hidden = false;
+                return;
+            }
+            empty.hidden = true;
+
+            scores.slice(0, 10).forEach(entry => {
+                const li = document.createElement('li');
+                li.className = 'leaderboard-entry';
+                if (entry.id === highlightId) li.classList.add('is-new');
+
+                const name = document.createElement('span');
+                name.className = 'lb-name';
+                name.textContent = entry.name;
+
+                const tierSpan = document.createElement('span');
+                tierSpan.className = 'lb-tier';
+                tierSpan.textContent = TIER_NAMES[entry.tier] || '';
+
+                const scoreSpan = document.createElement('span');
+                scoreSpan.className = 'lb-score';
+                scoreSpan.textContent = `${entry.score} p`;
+
+                li.append(name, tierSpan, scoreSpan);
+                list.appendChild(li);
+            });
+        }
+
+        saveScoreForm.addEventListener('submit', e => {
+            e.preventDefault();
+            if (game.scoreSaved) return;
+            const name = playerNameInput.value.trim() || 'Unknown pilot';
+            localStorage.setItem(STORAGE_NAME, name);
+
+            const scores = loadScores();
+            const id = Date.now() + '-' + Math.random().toString(36).slice(2);
+            scores.push({
+                id,
+                name,
+                score: game.score,
+                tier: tierForCount(game.destroyedCount),
+                date: new Date().toISOString()
+            });
+            scores.sort((a, b) => b.score - a.score);
+            saveScores(scores.slice(0, 50));
+
+            game.scoreSaved = true;
+            saveScoreForm.hidden = true;
+            saveScoreConfirm.hidden = false;
+            renderLeaderboard(id);
+        });
+
+        // ── Drawing ─────────────────────────────────────────────────────────────
+
+        function drawBackground(dt) {
+            const grad = ctx.createLinearGradient(0, 0, 0, LOGICAL_H);
+            grad.addColorStop(0, '#0a0e27');
+            grad.addColorStop(1, '#160c2e');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, LOGICAL_W, LOGICAL_H);
+
+            for (const s of stars) {
+                s.y += s.speed * dt;
+                if (s.y > LOGICAL_H) { s.y = 0; s.x = Math.random() * LOGICAL_W; }
+                s.phase += dt * 2;
+                const alpha = 0.4 + 0.6 * Math.abs(Math.sin(s.phase));
+                ctx.fillStyle = `rgba(255,255,255,${alpha.toFixed(2)})`;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function drawShip() {
+            ctx.save();
+            ctx.translate(game.shipX, SHIP_Y);
+            ctx.shadowColor = '#5ee6ff';
+            ctx.shadowBlur = 14;
+            ctx.font = '28px serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.rotate(-Math.PI / 4);
+            ctx.fillText('🚀', 0, 0);
+            ctx.restore();
+        }
+
+        function drawAlien(al, isActive) {
+            ctx.save();
+            ctx.font = '30px serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            if (isActive) {
+                ctx.shadowColor = '#ff6b6b';
+                ctx.shadowBlur = 16;
+            }
+            ctx.fillText('👾', al.x, al.y);
+            ctx.restore();
+
+            if (isActive) {
+                const text = al.problem.text;
+                ctx.font = '700 18px Inter, sans-serif';
+                const w = ctx.measureText(text).width + 24;
+                const bx = al.x - w / 2;
+                const by = al.y - 46;
+                ctx.fillStyle = 'rgba(10, 6, 30, 0.85)';
+                roundRect(bx, by, w, 30, 8);
+                ctx.fill();
+                ctx.strokeStyle = '#ff8a5c';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+                ctx.fillStyle = '#ffe8d6';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(text, al.x, by + 15);
+            }
+        }
+
+        function drawEffects(dt) {
+            for (const fx of game.effects) {
+                fx.t += dt;
+                const p = Math.min(fx.t / fx.duration, 1);
+
+                if (fx.type === 'blast') {
+                    ctx.save();
+                    ctx.strokeStyle = `rgba(94, 230, 255, ${1 - p})`;
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.moveTo(fx.fromX, fx.fromY);
+                    ctx.lineTo(fx.x, fx.y);
+                    ctx.globalAlpha = Math.max(0, 1 - p * 1.5);
+                    ctx.stroke();
+                    ctx.restore();
+
+                    const radius = 6 + p * 26;
+                    ctx.save();
+                    ctx.globalAlpha = 1 - p;
+                    ctx.fillStyle = '#ffb86b';
+                    ctx.beginPath();
+                    ctx.arc(fx.x, fx.y, radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                } else if (fx.type === 'flash') {
+                    ctx.save();
+                    ctx.globalAlpha = (1 - p) * 0.5;
+                    ctx.fillStyle = '#ff3b3b';
+                    ctx.fillRect(0, 0, LOGICAL_W, LOGICAL_H);
+                    ctx.restore();
+                }
+            }
+            game.effects = game.effects.filter(fx => fx.t < fx.duration);
+        }
+
+        // ── Update loop ─────────────────────────────────────────────────────────
+
+        let lastTime = performance.now();
+
+        function update(dt) {
+            if (game.state !== 'playing') return;
+
+            const active = activeAlien();
+            const tier = active ? active.problem.tier : tierForCount(game.destroyedCount);
+
+            game.lastSpawn += dt * 1000;
+            if (game.aliens.length < maxConcurrent(tier) && game.lastSpawn >= spawnIntervalMs(tier)) {
+                spawnAlien();
+                game.lastSpawn = 0;
+            }
+
+            for (const al of game.aliens) {
+                al.y += al.speed * dt;
+            }
+
+            const invader = game.aliens.find(a => a.y >= INVASION_Y);
+            if (invader) invadeLife(invader);
+
+            const targetX = active ? active.x : LOGICAL_W / 2;
+            game.shipX += (targetX - game.shipX) * Math.min(1, dt * 4);
+
+            updateProblemDisplay();
+        }
+
+        function render(dt) {
+            drawBackground(dt);
+            if (game.state === 'playing' || game.state === 'gameover') {
+                const active = activeAlien();
+                for (const al of game.aliens) drawAlien(al, active && al.id === active.id);
+                drawShip();
+            }
+            drawEffects(dt);
+        }
+
+        function loop(now) {
+            let dt = (now - lastTime) / 1000;
+            dt = Math.min(dt, 0.05);
+            lastTime = now;
+
+            update(dt);
+            render(dt);
+
+            requestAnimationFrame(loop);
+        }
+        requestAnimationFrame(loop);
+
+        // ── Init ────────────────────────────────────────────────────────────────
+
+        renderLeaderboard();
+    </script>
+
+    <style>
+        /* App-specific styles. Layout, typography, and colour variables come
+           from /css/tokens.css, /css/nav.css, /css/footer.css, /css/components.css. */
+
+        .game-panel { padding: 1.6rem 1.6rem 1.8rem; }
+
+        .hud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.6rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hud-item { display: flex; flex-direction: column; gap: 0.15rem; }
+
+        .hud-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .hud-item > span:last-child { font-size: 1.15rem; font-weight: 700; }
+
+        .hearts { display: flex; gap: 0.2rem; font-size: 1.15rem; line-height: 1; }
+        .heart { color: #ef4444; transition: opacity 0.2s, filter 0.2s; }
+        .heart.lost { opacity: 0.25; filter: grayscale(1); }
+
+        .game-stage {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 8 / 5;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--border-strong);
+        }
+
+        #game-canvas { display: block; width: 100%; height: 100%; }
+
+        .stage-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 0.9rem;
+            padding: 1.5rem;
+            background: rgba(6, 4, 20, 0.82);
+            color: #F5F3EF;
+        }
+
+        .stage-overlay[hidden] { display: none; }
+
+        .stage-overlay h2 { font-size: 1.5rem; font-weight: 800; }
+        .stage-overlay p { max-width: 46ch; color: #C9C6DA; line-height: 1.6; font-size: 0.95rem; }
+
+        .stage-overlay .row-form { margin-top: 0.4rem; }
+
+        .current-problem {
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            margin: 1.1rem 0 0.8rem;
+            min-height: 2.2rem;
+        }
+
+        .answer-row {
+            display: flex;
+            gap: 0.6rem;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .answer-row input {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            text-align: center;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .answer-row input:disabled { opacity: 0.5; }
+
+        .answer-row input.shake { animation: shake 0.3s; border-color: var(--danger); }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+
+        #feedback-msg {
+            text-align: center;
+            margin-top: 0.7rem;
+            min-height: 1.3rem;
+        }
+
+        .feedback-ok { color: var(--success); }
+        .feedback-bad { color: var(--danger); }
+
+        .row-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .row-form input[type="text"] {
+            flex: 1;
+            padding: 0.6rem 0.85rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        button {
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 0.55rem 1.1rem;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s, color 0.15s;
+        }
+
+        button:hover:not(:disabled) { border-color: var(--border-strong); background: var(--surface-hover); }
+        button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        button.primary {
+            background: var(--accent-grad);
+            color: #14100A;
+            border: none;
+        }
+
+        button.primary:hover:not(:disabled) { opacity: 0.9; background: var(--accent-grad); }
+
+        .stage-overlay button.secondary {
+            color: #F5F3EF;
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+        .stage-overlay button.secondary:hover:not(:disabled) {
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .stage-overlay button.primary { color: #14100A; }
+
+        #restart-btn { margin-top: 0.2rem; }
+
+        .leaderboard-panel { padding: 2rem 2.4rem; }
+
+        .leaderboard-list {
+            list-style: none;
+            counter-reset: rank;
+        }
+
+        .leaderboard-entry {
+            counter-increment: rank;
+            display: grid;
+            grid-template-columns: 1.6rem 1fr auto auto;
+            align-items: center;
+            gap: 0.9rem;
+            padding: 0.6rem 0.4rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        .leaderboard-entry:last-child { border-bottom: none; }
+
+        .leaderboard-entry::before {
+            content: counter(rank);
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .leaderboard-entry.is-new {
+            background: rgba(232, 161, 94, 0.1);
+            border-radius: 8px;
+        }
+
+        .lb-name { font-weight: 600; }
+        .lb-tier { color: var(--text-muted); font-size: 0.85rem; }
+        .lb-score { font-weight: 700; color: var(--accent); text-align: right; }
+
+        @media (max-width: 560px) {
+            .leaderboard-panel { padding: 1.5rem; }
+            .leaderboard-entry { grid-template-columns: 1.4rem 1fr auto; }
+            .lb-tier { display: none; }
+            .current-problem { font-size: 1.3rem; }
+        }
+    </style>
+
+</body>
+</html>
