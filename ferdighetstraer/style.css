@@ -890,25 +890,13 @@ main {
 
 /* Legend */
 
+/* Kortene selv skriver nå ut "Del 1"/"Del 2"/"Del 1+2" i sin egen badge
+   (se makeHjelpemiddelBadge i engine.js) i stedet for forkortelsen "D1" -
+   en egen forklarende legend er derfor overflødig. #legend-elementet står
+   igjen tomt i hvert fags index.html; skjul det helt så det ikke tar opp
+   plass. */
 #legend {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem 1.2rem;
-  display: flex;
-  gap: 1.4rem;
-  flex-wrap: wrap;
-  font-size: 0.78rem;
-  color: var(--text-muted);
-}
-
-.legend-item { display: flex; align-items: center; gap: 0.4rem; }
-
-.legend-swatch {
-  width: 14px;
-  height: 14px;
-  border-radius: 4px;
-  display: inline-block;
-  flex-shrink: 0;
+  display: none;
 }
 
 @media (max-width: 720px) {

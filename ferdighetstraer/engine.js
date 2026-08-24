@@ -814,7 +814,6 @@ async function init() {
     renderErrorBanner();
     computeLevels();
     layoutAndRender();
-    renderLegend();
     updateProgressUI();
   } catch (err) {
     console.error('Kunne ikke laste ferdighetstreet:', err);
@@ -1348,23 +1347,8 @@ function makeHjelpemiddelBadge(value) {
   span.className = 'badge ' + (
     value === 'del1' ? 'badge-del1' : value === 'del2' ? 'badge-del2' : 'badge-begge'
   );
-  span.textContent = value === 'del1' ? 'D1' : value === 'del2' ? 'D2' : 'D1+D2';
+  span.textContent = value === 'del1' ? 'Del 1' : value === 'del2' ? 'Del 2' : 'Del 1+2';
   return span;
-}
-
-// Begrep/Ferdighet/Låst er utelatt her - det fremgår allerede av selve
-// noden (form/opasitet/badge-type), og trenger ingen egen forklaring.
-function renderLegend() {
-  const legend = document.getElementById('legend');
-  if (!SHOW_HJELPEMIDDEL) {
-    legend.innerHTML = '';
-    legend.style.display = 'none';
-    return;
-  }
-  legend.innerHTML = `
-    <span class="legend-item"><span class="legend-swatch" style="background:var(--del1);border-radius:3px;"></span>Del 1</span>
-    <span class="legend-item"><span class="legend-swatch" style="background:var(--del2);border-radius:3px;"></span>Del 2</span>
-  `;
 }
 
 /* ------------------------------------------------------------------ */
