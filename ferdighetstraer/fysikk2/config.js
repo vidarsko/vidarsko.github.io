@@ -43,18 +43,27 @@ window.FT_CONFIG = {
   // Hjelpemiddel-kontekst for KI-instruksen. Del 1 av Fysikk 2-eksamen er
   // uten hjelpemidler i det hele tatt - ikke engang kalkulator - kun
   // skrivesaker, passer, linjal, vinkelmåler og vedleggene i oppgavesettet
-  // (faktavedlegg, formelvedlegg, programmeringsvedlegg). Del 2 tillater
-  // alle hjelpemidler bortsett fra åpent internett og verktøy for å
-  // kommunisere med andre (samskriving, chat) - inkludert at kunstig
-  // intelligens/chatbot ikke er tillatt som hjelpemiddel på selve eksamen.
+  // (faktavedlegg, formelvedlegg, programmeringsvedlegg). FRA VÅREN 2027
+  // (samme nasjonale hjelpemiddelreform som i matematikkfagene) fjernes
+  // datamaskin/nettbrett helt som hjelpemiddel også på del 2 - del 2 skal da
+  // besvares for hånd, med kun egne notater på papir, trykte hjelpemidler og
+  // en enkel vitenskapelig kalkulator (kvadratrøtter, logaritmer, sin/cos/tan,
+  // standardavvik). Grafiske, likningsløsende, programmerbare eller
+  // kommunikasjonsdyktige kalkulatorer er IKKE tillatt.
+  // UAVKLART (spør Vidar): del 2 tillot tidligere lokalt installert
+  // programmering og GeoGebra, og eksamenssettene denne appen er bygget på
+  // (5 sett, alle FØR reformen) inneholder oppgaver som forutsetter nettopp
+  // dette (f.eks. numeriske simuleringer). Med datamaskin fullstendig fjernet
+  // er det uklart hvordan/om denne typen oppgaver videreføres på del 2 fra
+  // våren 2027 - se fysikk2instruks.md.
   composeHjelpemiddelContext(hjelpemiddel) {
     const felles = 'Eksamen tillater uansett ikke kunstig intelligens eller chatbot som hjelpemiddel i selve eksamensgjennomføringen - denne treningsøkten er forberedelse, ikke eksamen.';
     if (hjelpemiddel === 'del1') {
       return `Hjelpemidler: Dette gjelder del 1 av eksamen, helt uten hjelpemidler - ikke engang kalkulator. Forvent at eleven regner for hånd, med kun skrivesaker, passer, linjal, vinkelmåler og de trykte vedleggene (faktavedlegg, formelvedlegg, programmeringsvedlegg) tilgjengelig. ${felles}`;
     }
     if (hjelpemiddel === 'del2') {
-      return `Hjelpemidler: Dette gjelder del 2 av eksamen. Her er alle hjelpemidler tillatt - kalkulator, programmering (lokalt installert), GeoGebra og andre trykte eller digitale kilder - bortsett fra åpent internett og verktøy som gjør det mulig å kommunisere med andre. ${felles}`;
+      return `Hjelpemidler: Dette gjelder del 2 av eksamen, som fra våren 2027 skal besvares for hånd - ingen datamaskin/nettbrett, programmering eller GeoGebra i det hele tatt. Forvent at eleven bruker en enkel vitenskapelig kalkulator (kan regne med kvadratrøtter, logaritmer, sinus/cosinus/tangens og standardavvik), egne notater på papir og trykte kilder. Grafiske kalkulatorer og kalkulatorer som kan løse likninger, er programmerbare eller kan kommunisere med andre enheter, er IKKE tillatt. Der noden i utgangspunktet forutsetter et digitalt verktøy (f.eks. numerisk simulering/programmering), er det per nå uklart hvordan dette skal løses på del 2 uten datamaskin - flagg dette til eleven fremfor å late som om kalkulatoren kan erstatte det. ${felles}`;
     }
-    return `Hjelpemidler: Dette er relevant både uten hjelpemidler (del 1) og med fritt hjelpemiddelvalg utenom åpent internett/kommunikasjon (del 2). Tilpass etter hvilken del eleven trener på, og spør eleven hvis det er uklart. ${felles}`;
+    return `Hjelpemidler: Dette er relevant både uten hjelpemidler (del 1) og med en enkel vitenskapelig kalkulator/trykte kilder (del 2, fra våren 2027 - ingen datamaskin, programmering eller GeoGebra, og heller ingen grafisk/likningsløsende/programmerbar kalkulator). Tilpass etter hvilken del eleven trener på, og spør eleven hvis det er uklart. ${felles}`;
   },
 };

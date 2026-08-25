@@ -43,18 +43,25 @@ window.FT_CONFIG = {
 
   // Hjelpemiddel-kontekst for KI-instruksen. Del 1 av Kjemi 2-eksamen er
   // uten kalkulator - kun skrivesaker, passer, linjal, vinkelmåler og det
-  // trykte vedlegget "Tabeller og formler i REA3046 Kjemi 2". Del 2 tillater
-  // alle hjelpemidler bortsett fra åpent internett og verktøy for å
-  // kommunisere med andre (samskriving, chat) - inkludert at kunstig
-  // intelligens/chatbot ikke er tillatt som hjelpemiddel på selve eksamen.
+  // trykte vedlegget "Tabeller og formler i REA3046 Kjemi 2". FRA VÅREN 2027
+  // (samme nasjonale hjelpemiddelreform som i matematikkfagene) fjernes
+  // datamaskin/nettbrett helt som hjelpemiddel også på del 2 - del 2 skal da
+  // besvares for hånd, med kun egne notater på papir, trykte hjelpemidler og
+  // en enkel vitenskapelig kalkulator (kvadratrøtter, logaritmer, sin/cos/tan,
+  // standardavvik). Grafiske, likningsløsende, programmerbare eller
+  // kommunikasjonsdyktige kalkulatorer er IKKE tillatt. De to eksamenssettene
+  // denne appen er bygget på (2024 vår/høst) ble skrevet FØR reformen og
+  // tillot derfor fortsatt fri bruk av digitale kilder på del 2 - det
+  // gjenspeiler ikke ordningen elever som bruker denne appen faktisk vil
+  // møte, og skal derfor ikke brukes som fasit for denne teksten.
   composeHjelpemiddelContext(hjelpemiddel) {
     const felles = 'Eksamen tillater uansett ikke kunstig intelligens eller chatbot som hjelpemiddel i selve eksamensgjennomføringen - denne treningsøkten er forberedelse, ikke eksamen.';
     if (hjelpemiddel === 'del1') {
       return `Hjelpemidler: Dette gjelder del 1 av eksamen, uten kalkulator. Forvent at eleven regner for hånd eller resonnerer kvalitativt, med kun skrivesaker, passer, linjal, vinkelmåler og det trykte vedlegget "Tabeller og formler i REA3046 Kjemi 2" (periodesystem, standardpotensialer, formler) tilgjengelig. ${felles}`;
     }
     if (hjelpemiddel === 'del2') {
-      return `Hjelpemidler: Dette gjelder del 2 av eksamen. Her er alle hjelpemidler tillatt - kalkulator, lærebok og andre trykte eller digitale kilder - bortsett fra åpent internett og verktøy som gjør det mulig å kommunisere med andre. ${felles}`;
+      return `Hjelpemidler: Dette gjelder del 2 av eksamen, som fra våren 2027 skal besvares for hånd - ingen datamaskin/nettbrett i det hele tatt. Forvent at eleven bruker en enkel vitenskapelig kalkulator (kan regne med kvadratrøtter, logaritmer, sinus/cosinus/tangens og standardavvik), egne notater på papir, lærebok og det trykte vedlegget "Tabeller og formler i REA3046 Kjemi 2". Grafiske kalkulatorer og kalkulatorer som kan løse likninger, er programmerbare eller kan kommunisere med andre enheter, er IKKE tillatt - og heller ikke digitale kilder eller åpent internett. ${felles}`;
     }
-    return `Hjelpemidler: Dette er relevant både uten kalkulator (del 1) og med fritt hjelpemiddelvalg utenom åpent internett/kommunikasjon (del 2). Tilpass etter hvilken del eleven trener på, og spør eleven hvis det er uklart. ${felles}`;
+    return `Hjelpemidler: Dette er relevant både uten kalkulator (del 1) og med en enkel vitenskapelig kalkulator/trykte kilder (del 2, fra våren 2027 - ingen datamaskin/nettbrett, og heller ingen grafisk/likningsløsende/programmerbar kalkulator). Tilpass etter hvilken del eleven trener på, og spør eleven hvis det er uklart. ${felles}`;
   },
 };

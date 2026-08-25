@@ -39,19 +39,22 @@ window.FT_CONFIG = {
 
   // Hjelpemiddel-kontekst for KI-instruksen. Del 1 av Biologi 2-eksamen er
   // uten hjelpemidler i det hele tatt utover skrivesaker og linjal - ikke
-  // engang kalkulator. Del 2 tillater alle hjelpemidler bortsett fra åpent
-  // internett og verktøy for å kommunisere med andre - i praksis kalkulator
-  // og trykte/fysiske kilder, ikke en PC med nettilgang (samme praksis som i
-  // Fysikk 2 og de andre realfagene på vgs nå) - og aldri kunstig
-  // intelligens/chatbot som hjelpemiddel på selve eksamen.
+  // engang kalkulator. FRA VÅREN 2027 (samme nasjonale hjelpemiddelreform som
+  // i matematikkfagene og de andre realfagene) fjernes datamaskin/nettbrett
+  // helt som hjelpemiddel også på del 2 - ikke bare "PC med nettilgang" som
+  // tidligere anslått her, men datamaskin i det hele tatt. Del 2 skal da
+  // besvares for hånd, med kun egne notater på papir, trykte hjelpemidler og
+  // en enkel vitenskapelig kalkulator (kvadratrøtter, logaritmer, sin/cos/tan,
+  // standardavvik). Grafiske, likningsløsende, programmerbare eller
+  // kommunikasjonsdyktige kalkulatorer er IKKE tillatt.
   composeHjelpemiddelContext(hjelpemiddel) {
     const felles = 'Eksamen tillater uansett ikke kunstig intelligens eller chatbot som hjelpemiddel i selve eksamensgjennomføringen - denne treningsøkten er forberedelse, ikke eksamen.';
     if (hjelpemiddel === 'del1') {
       return `Hjelpemidler: Dette gjelder del 1 av eksamen, helt uten hjelpemidler utover skrivesaker og linjal - ikke engang kalkulator. Forvent at eleven svarer kort og presist for hånd, uten oppslagsverk eller utregningshjelp. ${felles}`;
     }
     if (hjelpemiddel === 'del2') {
-      return `Hjelpemidler: Dette gjelder del 2 av eksamen. Her er alle hjelpemidler tillatt bortsett fra åpent internett og verktøy for å kommunisere med andre - i praksis kalkulator og trykte eller fysiske kilder som lærebøker og egne notater, ikke en PC med nettilgang. ${felles}`;
+      return `Hjelpemidler: Dette gjelder del 2 av eksamen, som fra våren 2027 skal besvares for hånd - ingen datamaskin/nettbrett i det hele tatt. Forvent at eleven bruker en enkel vitenskapelig kalkulator (kan regne med kvadratrøtter, logaritmer, sinus/cosinus/tangens og standardavvik), egne notater på papir og trykte kilder som lærebøker. Grafiske kalkulatorer og kalkulatorer som kan løse likninger, er programmerbare eller kan kommunisere med andre enheter, er IKKE tillatt - og heller ikke digitale kilder eller åpent internett. ${felles}`;
     }
-    return `Hjelpemidler: Dette er relevant både uten hjelpemidler (del 1) og med kalkulator/trykte kilder tillatt (del 2, uten nettilgang). Tilpass etter hvilken del eleven trener på, og spør eleven hvis det er uklart. ${felles}`;
+    return `Hjelpemidler: Dette er relevant både uten hjelpemidler (del 1) og med en enkel vitenskapelig kalkulator/trykte kilder (del 2, fra våren 2027 - ingen datamaskin, og heller ingen grafisk/likningsløsende/programmerbar kalkulator). Tilpass etter hvilken del eleven trener på, og spør eleven hvis det er uklart. ${felles}`;
   },
 };

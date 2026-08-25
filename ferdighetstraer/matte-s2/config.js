@@ -50,25 +50,36 @@ window.FT_CONFIG = {
   // fri bruk av CAS/graftegner/regneark/programmering på del 2, fordi begge
   // sett ble skrevet før den nasjonale hjelpemiddelreformen som trer i kraft
   // fra våren 2027. Fra og med da gjelder samme ordning for S2 som for
-  // 1P/2P/S1/R1: del 1 er som før (ingen hjelpemidler), mens del 2 kun
-  // tillater egne notater, trykte hjelpemidler og en spesifisert vitenskapelig
-  // kalkulator - som godt kan ha innebygd graftegning, det er ikke problemet.
-  // Det som IKKE er tillatt, er CAS-programvare, regneark eller annen
-  // PC-programvare. Selve oppgavetekstene/nodene (regresjon, digital
-  // binomisk/hypergeometrisk beregning, programmering osv.) er fortsatt
-  // gyldige som øvingsoppgaver — det er kun hvilket verktøy eleven forventes
-  // å løse dem med på ordentlig eksamen, som er endret. Noder som gjelder ren
-  // programmering (f.eks. å skrive og kjøre et program for en rekursiv følge)
-  // er unntak: dette er en kompetanse i seg selv (jf. kompetansemål 2) og
-  // trenes fortsatt med et faktisk programmeringsverktøy, ikke kalkulatoren.
+  // 1P/2P/S1/R1: del 1 er som før (ingen hjelpemidler), mens del 2 skal
+  // besvares for hånd - ingen datamaskin/nettbrett i det hele tatt. Kun egne
+  // notater på papir, trykte hjelpemidler og en enkel vitenskapelig kalkulator
+  // (kvadratrøtter, logaritmer, sin/cos/tan, standardavvik) er tillatt -
+  // grafiske, likningsløsende, programmerbare eller kommunikasjonsdyktige
+  // kalkulatorer er IKKE tillatt.
+  // UAVKLART (spør Vidar), to punkter reformen ikke sier noe om direkte:
+  // (1) Udirs minstekrav til kalkulatoren nevner ikke regresjon eller
+  //     fordelingsfunksjoner (binomisk/hypergeometrisk sannsynlighet) -
+  //     hvordan noder som forutsetter et slikt digitalt verktøy skal løses på
+  //     del 2 er uklart.
+  // (2) Kompetansemål 2 («utforske rekursive sammenhenger ved å bruke
+  //     programmering») krever i praksis å skrive og kjøre kode - noe som per
+  //     definisjon krever en datamaskin. Med datamaskin fullstendig fjernet
+  //     fra del 2 er det uklart hvordan/om dette kompetansemålet fortsatt
+  //     kan eksamineres der (tidligere unntak i denne filen, der
+  //     programmeringsnoder trentes med et faktisk programmeringsspråk «siden
+  //     kalkulatoren ikke skal erstatte det», holder ikke lenger dersom PC
+  //     er helt utelukket - se S2instruks.md).
+  // Selve oppgavetekstene/nodene er fortsatt gyldige som øvingsoppgaver - det
+  // er kun hvilket verktøy eleven forventes å løse dem med på ordentlig
+  // eksamen, som er endret/uavklart.
   composeHjelpemiddelContext(hjelpemiddel) {
-    const felles = 'Treningen skal gjenspeile hvordan ferdigheten faktisk skal utføres på eksamen, med den nye hjelpemiddelordningen fra våren 2027 (ingen CAS-programvare, regneark eller annen PC-programvare på del 2, kun en spesifisert kalkulator). Eksamen tillater uansett ikke kunstig intelligens til å generere innhold i besvarelsen - denne treningsøkten er forberedelse, ikke eksamensgjennomføring.';
+    const felles = 'Treningen skal gjenspeile hvordan ferdigheten faktisk skal utføres på eksamen, med hjelpemiddelordningen fra våren 2027 (ingen datamaskin/nettbrett på del 2 i det hele tatt - kun en enkel vitenskapelig kalkulator, egne notater på papir og trykte hjelpemidler). Eksamen tillater uansett ikke kunstig intelligens til å generere innhold i besvarelsen - denne treningsøkten er forberedelse, ikke eksamensgjennomføring.';
     if (hjelpemiddel === 'del1') {
       return `Hjelpemidler: Dette gjelder del 1 av eksamen, uten hjelpemidler. Forvent at eleven regner for hånd, uten kalkulator (men med tilgang på en oppgitt tabell for standard normalfordeling der det er relevant). ${felles}`;
     }
     if (hjelpemiddel === 'del2') {
-      return `Hjelpemidler: Dette gjelder del 2 av eksamen med ny ordning. Forvent at eleven bruker egne notater, trykte hjelpemidler og en spesifisert vitenskapelig kalkulator. Merk: en slik kalkulator kan godt ha innebygd graftegning - det er ikke i seg selv et problem og bør ikke unngås eller trekkes frem som et minus i treningen. Det som IKKE er tillatt, er CAS-programvare, regneark eller annen PC-programvare. Der noden i utgangspunktet forutsetter et digitalt verktøy som regresjon, en fordelingsfunksjon eller numerisk likningsløsning, la eleven bruke kalkulatorens innebygde funksjoner for dette. Unntak: noder som spesifikt handler om å skrive og kjøre et program (rekursive følger, simulering) trenes fortsatt med et faktisk programmeringsspråk, siden dette er en egen kompetanse i S2 og ikke noe kalkulatoren skal erstatte. ${felles}`;
+      return `Hjelpemidler: Dette gjelder del 2 av eksamen, som fra våren 2027 skal besvares for hånd. Forvent at eleven bruker en enkel vitenskapelig kalkulator (kan regne med kvadratrøtter, logaritmer, sinus/cosinus/tangens og standardavvik), eventuelt egne notater/trykte hjelpemidler. Merk: grafiske kalkulatorer og kalkulatorer som kan løse likninger, er programmerbare eller kan kommunisere med andre enheter, er IKKE tillatt - og heller ikke CAS-programvare, regneark eller annen PC-programvare. Der noden i utgangspunktet forutsetter et digitalt verktøy som regresjon, en fordelingsfunksjon eller numerisk likningsløsning: dette går utover det en enkel vitenskapelig kalkulator er spesifisert til å klare, så la eleven regne det ut fra formel for hånd i stedet. Unntak: noder som spesifikt handler om å skrive og kjøre et program (rekursive følger, simulering) trenes fortsatt med et faktisk programmeringsspråk, siden dette er en egen kompetanse i S2 - men merk at det per nå er uklart hvordan denne kompetansen faktisk skal eksamineres på del 2 uten datamaskin tilgjengelig. ${felles}`;
     }
-    return `Hjelpemidler: Dette er relevant både uten hjelpemidler (del 1) og med egne notater/trykte hjelpemidler/spesifisert vitenskapelig kalkulator (del 2, ny ordning - ingen CAS-programvare, regneark eller annen PC-programvare, men kalkulatoren kan godt ha graftegning). Tilpass etter hvilken del eleven trener på, og spør eleven hvis det er uklart. ${felles}`;
+    return `Hjelpemidler: Dette er relevant både uten hjelpemidler (del 1) og med en enkel vitenskapelig kalkulator (del 2, fra våren 2027 - ingen datamaskin, og heller ingen grafisk/likningsløsende/programmerbar kalkulator). Tilpass etter hvilken del eleven trener på, og spør eleven hvis det er uklart. ${felles}`;
   },
 };

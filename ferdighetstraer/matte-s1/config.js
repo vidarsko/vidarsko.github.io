@@ -44,21 +44,27 @@ window.FT_CONFIG = {
   // fri bruk av CAS/graftegner på del 2, fordi de settene ble skrevet før den
   // nasjonale hjelpemiddelreformen som trer i kraft fra våren 2027. Fra og
   // med da gjelder samme ordning for S1 som for 1P/2P: del 1 er som før
-  // (ingen hjelpemidler), mens del 2 kun tillater håndholdt vitenskapelig
-  // kalkulator - som godt kan ha innebygd graftegning, det er ikke problemet.
-  // Det som IKKE er tillatt, er CAS-programvare og PC/nettbrett (GeoGebra,
-  // regneark e.l.). Selve oppgavetekstene/nodene (regresjon, digitalt verktøy
-  // for sannsynlighetsberegning osv.) er fortsatt gyldige som øvingsoppgaver -
-  // det er kun hvilket verktøy eleven forventes å løse dem med på ordentlig
-  // eksamen, som er endret.
+  // (ingen hjelpemidler), mens del 2 skal besvares for hånd - ingen
+  // datamaskin/nettbrett i det hele tatt. Kun egne notater på papir, trykte
+  // hjelpemidler og en enkel vitenskapelig kalkulator (kvadratrøtter,
+  // logaritmer, sin/cos/tan, standardavvik) er tillatt - grafiske,
+  // likningsløsende, programmerbare eller kommunikasjonsdyktige kalkulatorer
+  // er IKKE tillatt. UAVKLART (spør Vidar): Udirs minstekrav til kalkulatoren
+  // nevner ikke regresjon eller fordelingsfunksjoner (binomisk/hypergeometrisk
+  // sannsynlighet) - hvordan noder som i utgangspunktet forutsetter et slikt
+  // digitalt verktøy skal løses med kun en "enkel vitenskapelig kalkulator" på
+  // del 2 er ikke avklart her, og teksten under er derfor forsiktig omskrevet
+  // i påvente av en avgjørelse. Selve oppgavetekstene/nodene er fortsatt
+  // gyldige som øvingsoppgaver - det er kun hvilket verktøy eleven forventes å
+  // løse dem med på ordentlig eksamen, som er endret.
   composeHjelpemiddelContext(hjelpemiddel) {
-    const felles = 'Treningen skal gjenspeile hvordan ferdigheten faktisk skal utføres på eksamen, med den nye hjelpemiddelordningen fra våren 2027 (ingen CAS-programvare eller PC/nettbrett på del 2, kun håndholdt kalkulator).';
+    const felles = 'Treningen skal gjenspeile hvordan ferdigheten faktisk skal utføres på eksamen, med hjelpemiddelordningen fra våren 2027 (ingen datamaskin/nettbrett på del 2 i det hele tatt - kun en enkel vitenskapelig kalkulator, egne notater på papir og trykte hjelpemidler).';
     if (hjelpemiddel === 'del1') {
       return `Hjelpemidler: Dette gjelder del 1 av eksamen, uten hjelpemidler. Forvent at eleven regner for hånd, uten kalkulator. ${felles}`;
     }
     if (hjelpemiddel === 'del2') {
-      return `Hjelpemidler: Dette gjelder del 2 av eksamen med ny ordning. Forvent at eleven bruker håndholdt vitenskapelig kalkulator, eventuelt egne notater/trykte hjelpemidler. Merk: en slik kalkulator kan godt ha innebygd graftegning - det er ikke i seg selv et problem. Det som IKKE er tillatt, er CAS-programvare og PC/nettbrett (f.eks. GeoGebra). Der noden i utgangspunktet forutsetter et digitalt verktøy som regresjon eller en fordelingsfunksjon (f.eks. binomisk/hypergeometrisk sannsynlighet), la eleven bruke kalkulatorens innebygde funksjoner for dette - ikke CAS-programvare eller PC-verktøy. ${felles}`;
+      return `Hjelpemidler: Dette gjelder del 2 av eksamen, som fra våren 2027 skal besvares for hånd. Forvent at eleven bruker en enkel vitenskapelig kalkulator (kan regne med kvadratrøtter, logaritmer, sinus/cosinus/tangens og standardavvik), eventuelt egne notater/trykte hjelpemidler. Merk: grafiske kalkulatorer og kalkulatorer som kan løse likninger, er programmerbare eller kan kommunisere med andre enheter, er IKKE tillatt - og heller ikke CAS-programvare eller PC/nettbrett (f.eks. GeoGebra). Der noden i utgangspunktet forutsetter et digitalt verktøy som regresjon eller en fordelingsfunksjon (f.eks. binomisk/hypergeometrisk sannsynlighet): dette går utover det en enkel vitenskapelig kalkulator er spesifisert til å klare, så la eleven regne det ut fra formel for hånd (eventuelt med kalkulatorens grunnleggende funksjoner som del av utregningen) fremfor å vise til et digitalt verktøy. ${felles}`;
     }
-    return `Hjelpemidler: Dette er relevant både uten hjelpemidler (del 1) og med håndholdt vitenskapelig kalkulator (del 2, ny ordning - ingen CAS-programvare eller PC/nettbrett, men kalkulatoren kan godt ha graftegning). Tilpass etter hvilken del eleven trener på, og spør eleven hvis det er uklart. ${felles}`;
+    return `Hjelpemidler: Dette er relevant både uten hjelpemidler (del 1) og med en enkel vitenskapelig kalkulator (del 2, fra våren 2027 - ingen datamaskin, og heller ingen grafisk/likningsløsende/programmerbar kalkulator). Tilpass etter hvilken del eleven trener på, og spør eleven hvis det er uklart. ${felles}`;
   },
 };
