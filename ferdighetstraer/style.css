@@ -88,9 +88,11 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
    #action-menu-panel, som ensureActionMenu() (engine.js) fyller med ALT som
    før lå i headeren: tilbake-lenke + dag/natt-knapp (#menu-nav-row),
    fremdriftslinje, tittel/undertekst, og til slutt de sjeldnere brukte
-   knappene (hjelp, læringsmål-liste, prøvegenerator, motivasjon). Selve
-   #menu-wrap er bare et ankerpunkt for panelet - #bottom-toolbar (fixed)
-   gir selve den flytende posisjoneringen. */
+   knappene (læringsmål-liste, prøvegenerator, motivasjon). Selve #menu-wrap
+   er bare et ankerpunkt for panelet - #bottom-toolbar (fixed) gir selve den
+   flytende posisjoneringen. Hjelp-knappen (#help-btn, se under) står som
+   egen knapp rett til høyre for #menu-wrap, IKKE inni panelet - se
+   setupHelpButton i engine.js. */
 #menu-wrap {
   position: relative;
 }
@@ -113,6 +115,32 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 #menu-toggle-btn svg { width: 18px; height: 18px; }
 
 #menu-toggle-btn:hover, #menu-toggle-btn[aria-expanded="true"] {
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
+}
+
+/* Hjelp-knappen («?») står som egen, alltid synlig knapp rett til høyre for
+   #menu-toggle-btn (se setupHelpButton i engine.js) - IKKE inni
+   #action-menu-panel som de andre sjeldnere brukte knappene, siden dette er
+   det første en ny bruker trenger å finne. */
+#help-btn {
+  width: 2.6rem;
+  height: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+#help-btn:hover, #help-btn:focus-visible {
   border-color: var(--border-strong);
   background: var(--surface-hover);
 }
@@ -162,7 +190,6 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 }
 
 #action-menu-panel #motivation-btn,
-#action-menu-panel #help-btn,
 #action-menu-panel #goal-index-btn {
   font-size: 0.82rem;
   font-weight: 600;
@@ -180,7 +207,6 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 }
 
 #action-menu-panel #motivation-btn:hover,
-#action-menu-panel #help-btn:hover,
 #action-menu-panel #goal-index-btn:hover {
   border-color: var(--border-strong);
   background: var(--surface-hover);

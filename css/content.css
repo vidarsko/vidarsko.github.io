@@ -20,6 +20,10 @@
   line-height: 1.6;
 }
 
+.page-header-cta {
+  margin-top: 1.2rem;
+}
+
 /* ---------- prose panels ---------- */
 
 .content-panel {

@@ -417,21 +417,25 @@ function setupMotivationButton() {
 // Hjelp-knapp («Hvordan bruker jeg denne siden?»), alle fag. Åpner en popup
 // med en kort, generell forklaring av hvordan kartet skal brukes - ikke
 // knyttet til noe fagspesifikt utover om faget viser hjelpemiddel-merking
-// og/eller motivasjonsknappen.
+// og/eller motivasjonsknappen. Egen, alltid synlig knapp rett til høyre for
+// meny-knappen (IKKE gjemt bak trekkspill-panelet som de andre sjeldnere
+// brukte knappene) - siden dette er det første en ny bruker trenger å finne.
 function setupHelpButton() {
-  const actions = ensureActionMenu();
-  if (!actions) return;
+  ensureActionMenu(); // sikrer at #menu-wrap finnes i verktøylinjen
+  const menuWrap = document.getElementById('menu-wrap');
+  if (!menuWrap) return;
 
   const btn = document.createElement('button');
   btn.id = 'help-btn';
   btn.type = 'button';
-  btn.textContent = 'Hvordan bruker jeg denne siden?';
-  btn.title = 'Åpne en kort forklaring på hvordan ferdighetstreet fungerer';
+  btn.textContent = '?';
+  btn.setAttribute('aria-label', 'Hvordan bruker jeg denne siden?');
+  btn.title = 'Hvordan bruker jeg denne siden?';
   btn.addEventListener('click', () => {
     closeActionMenu();
     openHelpModal();
   });
-  actions.appendChild(btn);
+  menuWrap.insertAdjacentElement('afterend', btn);
 }
 
 // Modalen bygges lat, én gang, og gjenbrukes ved senere åpninger - samme
@@ -490,6 +494,9 @@ function helpSection(body, heading, text) {
 
 function renderHelpBody(body) {
   body.innerHTML = '';
+
+  helpSection(body, 'Menyknappen',
+    'Trykk på ☰-knappen nederst til venstre, ved siden av denne hjelpeknappen, for å åpne en meny med tilbake-lenke, lys/mørk modus, fremgangen din og de andre knappene på siden - forklart under.');
 
   helpSection(body, 'Kartet',
     'Kartet viser hvordan ferdigheter og begreper bygger på hverandre, fra det mest grunnleggende til venstre til det mest sammensatte til høyre. Boksene du ikke har forutsetningene for ennå, ser du som grå og låste - huk av dem du mangler først. Dra for å panorere kartet, og bruk +/- eller musehjulet for å zoome.');

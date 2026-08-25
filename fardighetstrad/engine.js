@@ -428,21 +428,25 @@ function setupMotivationButton() {
 // Hjelp-knapp («Hur använder jag den här sidan?»), alle fag. Åpner en popup
 // med en kort, generell forklaring av hvordan kartet skal brukes - ikke
 // knyttet til noe fagspesifikt utover om faget viser hjelpemiddel-merking
-// og/eller motivasjonsknappen.
+// og/eller motivasjonsknappen. Egen, alltid synlig knapp rett til høyre for
+// meny-knappen (IKKE gjemt bak trekkspill-panelet som de andre sjeldnere
+// brukte knappene) - siden dette er det første en ny bruker trenger å finne.
 function setupHelpButton() {
-  const actions = ensureActionMenu();
-  if (!actions) return;
+  ensureActionMenu(); // sikrer at #menu-wrap finnes i verktøylinjen
+  const menuWrap = document.getElementById('menu-wrap');
+  if (!menuWrap) return;
 
   const btn = document.createElement('button');
   btn.id = 'help-btn';
   btn.type = 'button';
-  btn.textContent = 'Hur använder jag den här sidan?';
-  btn.title = 'Öppna en kort förklaring av hur färdighetsträdet fungerar';
+  btn.textContent = '?';
+  btn.setAttribute('aria-label', 'Hur använder jag den här sidan?');
+  btn.title = 'Hur använder jag den här sidan?';
   btn.addEventListener('click', () => {
     closeActionMenu();
     openHelpModal();
   });
-  actions.appendChild(btn);
+  menuWrap.insertAdjacentElement('afterend', btn);
 }
 
 // Modalen bygges lat, én gang, og gjenbrukes ved senere åpninger - samme
@@ -501,6 +505,9 @@ function helpSection(body, heading, text) {
 
 function renderHelpBody(body) {
   body.innerHTML = '';
+
+  helpSection(body, 'Menyknappen',
+    'Tryck på ☰-knappen längst ner till vänster, bredvid den här hjälpknappen, för att öppna en meny med tillbaka-länk, ljust/mörkt läge, ditt framsteg och de andra knapparna på sidan - förklarade nedan.');
 
   helpSection(body, 'Kartan',
     'Kartan visar hur färdigheter och begrepp bygger på varandra, från det mest grundläggande till vänster till det mest sammansatta till höger. Rutorna du inte har förkunskaperna för än ser du som grå och låsta - kryssa i det som saknas först. Dra för att panorera kartan, och använd +/- eller mushjulet för att zooma.');
