@@ -174,6 +174,23 @@ const MOTIVATION_INSTRUCTION_TEMPLATE = SHOW_MOTIVATION_BUTTON
 // motoren for original.)
 const BEGREP_TEST_GUIDANCE = `Detta är ett BEGREPP (deklarativ kunskap), inte en räknefärdighet. När du testar om eleven förstår begreppet, använd inte omfattande räkneuppgifter som test - utförlig räkning med begreppet hör hemma i en egen, tillhörande färdighet längre ner i färdighetsträdet, och blir ofta meningslöst att testa här eftersom eleven ändå ska träna grundligt på det där. Testa hellre begreppsförståelsen kvalitativt, till exempel genom att be eleven förklara begreppet med egna ord, förklara ett special-/gränsfall, motivera varför något är eller inte är ett exempel på begreppet, eller identifiera begreppet bland flera alternativ. Om ett test ändå involverar tal, håll räkningen minimal och underordnad - poängen är om eleven förstår begreppet, inte om eleven kan räkna.`;
 
+// Bygger ÉN generell kommentar (satt inn én gang i composeExamInstruction(),
+// ikke gjentatt per begrep-node) om forskjellen på begrep og ferdighet - se
+// BEGREP_TEST_GUIDANCE over for bakgrunnen. Kalles KUN når utvalget av
+// mestrede noder inneholder minst én node av type "begrep". Teksten
+// forgrener seg på sammensetningen av utvalget: består det KUN av
+// begrep-noder skal hele prøven være kvalitativ, mens en blanding vektes
+// gradvis etter andelen begrep-noder. (Svensk tekst - se
+// buildExamBegrepGuidance i den norske motoren for original.)
+function buildExamBegrepGuidance(nodes) {
+  const allBegrep = nodes.every(n => n.type === 'begrep');
+  const intro = `Punkterna i listan ovan är märkta [begrepp] eller [färdighet]. [färdighet]-punkter ska testas med fullvärdiga uppgifter, precis som du normalt skulle göra på ett skriftligt prov. [begrepp]-punkter ska däremot ALDRIG bli en fullvärdig räkneuppgift på egen hand - testa hellre begreppsförståelsen kvalitativt, till exempel genom att be eleven förklara begreppet med egna ord, motivera om något är ett exempel på begreppet, identifiera begreppet bland flera alternativ, eller förklara ett special-/gränsfall.`;
+  if (allBegrep) {
+    return `${intro} Alla punkter i detta urval är [begrepp]-punkter - hela provet ska därför bestå av kvalitativa uppgifter, inga räkneuppgifter.`;
+  }
+  return `${intro} Vikta uppgiftsmixen efter urvalets sammansättning: ju större andel [begrepp]-punkter i förhållande till [färdighet]-punkter, desto större andel av provet ska vara kvalitativa uppgifter framför räkneuppgifter. En [begrepp]-punkt kan också ingå som en liten, underordnad deluppgift i en uppgift som annars testar en tillhörande [färdighet]-punkt.`;
+}
+
 /* ------------------------------------------------------------------ */
 /* Global tilstand                                                     */
 /* ------------------------------------------------------------------ */
@@ -715,13 +732,21 @@ function hjelpemiddelKort(value) {
 function composeExamInstruction(nodes, count) {
   const courseLabel = CONFIG.courseName || 'ämnet';
   const list = nodes
-    .map(n => `- ${SHOW_HJELPEMIDDEL ? `${n.navn} [${hjelpemiddelKort(n.hjelpemiddel)}]` : n.navn}: ${n.beskrivelse}`)
+    .map(n => {
+      const tags = [typeLabelText(n.type)];
+      if (SHOW_HJELPEMIDDEL) tags.push(hjelpemiddelKort(n.hjelpemiddel));
+      return `- ${n.navn} [${tags.join(', ')}]: ${n.beskrivelse}`;
+    })
     .join('\n');
 
   const parts = [];
   parts.push(`Du är en AI-inlärningsassistent som ska skapa ett skriftligt prov i ${courseLabel} till en elev, baserat på de färdigheter och begrepp eleven (eller läraren) har markerat som avklarade i färdighetsträdet.`);
   parts.push(`Följande ${nodes.length} färdigheter/begrepp är markerade som avklarade:\n${list}`);
   parts.push(`Skapa ett prov med exakt ${count} uppgift(er). Provet behöver inte täcka alla punkter ovan - välj hellre ut ett representativt urval som tillsammans täcker så många som möjligt av dem, variera svårighetsgrad, och låt gärna några uppgifter kombinera flera av färdigheterna. Numrera uppgifterna och formulera dem som de typiskt skulle sett ut på ett skriftligt prov i ämnet.`);
+
+  if (nodes.some(n => n.type === 'begrep')) {
+    parts.push(buildExamBegrepGuidance(nodes));
+  }
 
   if (SHOW_HJELPEMIDDEL) {
     const hasDel1 = nodes.some(n => n.hjelpemiddel === 'del1' || n.hjelpemiddel === 'begge');

@@ -163,6 +163,28 @@ const MOTIVATION_INSTRUCTION_TEMPLATE = SHOW_MOTIVATION_BUTTON
 // nettopp poenget.
 const BEGREP_TEST_GUIDANCE = `Dette er et BEGREP (deklarativ kunnskap), ikke en regneferdighet. Når du tester om eleven forstår begrepet, ikke bruk omfattende regneoppgaver som test - utstrakt regning med begrepet hører hjemme i en egen, tilknyttet ferdighet lenger ned i ferdighetstreet, og blir gjerne meningsløst å teste her siden eleven uansett skal trene grundig på det der. Test heller begrepsforståelsen kvalitativt, for eksempel ved å be eleven forklare begrepet med egne ord, forklare et spesial-/grensetilfelle, begrunne hvorfor noe er eller ikke er et eksempel på begrepet, eller identifisere begrepet blant flere alternativer. Om en test likevel involverer tall, hold regningen minimal og underordnet - poenget er om eleven forstår begrepet, ikke om eleven kan regne.`;
 
+// Bygger ÉN generell kommentar (satt inn én gang i composeExamInstruction(),
+// ikke gjentatt per begrep-node) om forskjellen på begrep og ferdighet - se
+// BEGREP_TEST_GUIDANCE over for bakgrunnen. Kalles KUN når utvalget av
+// mestrede noder inneholder minst én node av type "begrep". Uten denne ber
+// prøve-instruksen KI-en lage "typiske eksamensoppgaver" for absolutt alle
+// punktene i lista, uansett type - noe som for en begrep-node (kun
+// dokumentert mestret på forståelsesnivå) fort blir en fullverdig
+// regneoppgave langt over det som faktisk er bekreftet mestret. Teksten
+// forgrener seg på sammensetningen av utvalget: består det KUN av
+// begrep-noder skal hele prøven være kvalitativ (det finnes ingen
+// ferdighet-oppgave å legge et begrep inn i som deloppgave), mens en
+// blanding skal vektes gradvis - jo større andel begrep-noder i utvalget,
+// desto mer av prøven skal være kvalitativ fremfor regneoppgaver.
+function buildExamBegrepGuidance(nodes) {
+  const allBegrep = nodes.every(n => n.type === 'begrep');
+  const intro = `Punktene i lista over er merket [begrep] eller [ferdighet]. [ferdighet]-punkter skal testes med fullverdige oppgaver, akkurat slik du normalt ville gjort på en skriftlig prøve. [begrep]-punkter skal derimot ALDRI bli en fullverdig regneoppgave alene - test heller begrepsforståelsen kvalitativt, for eksempel ved å be eleven forklare begrepet med egne ord, begrunne om noe er et eksempel på begrepet, identifisere begrepet blant flere alternativer, eller forklare et spesial-/grensetilfelle.`;
+  if (allBegrep) {
+    return `${intro} Alle punktene i dette utvalget er [begrep]-punkter - hele prøven skal derfor bestå av kvalitative oppgaver, ingen regneoppgaver.`;
+  }
+  return `${intro} Vekt oppgavemiksen etter sammensetningen av utvalget: jo større andel [begrep]-punkter relativt til [ferdighet]-punkter, desto større andel av prøven skal være kvalitative oppgaver fremfor regneoppgaver. Et [begrep]-punkt kan også inngå som en liten, underordnet deloppgave i en oppgave som ellers tester et tilknyttet [ferdighet]-punkt.`;
+}
+
 /* ------------------------------------------------------------------ */
 /* Global tilstand                                                     */
 /* ------------------------------------------------------------------ */
@@ -704,13 +726,21 @@ function hjelpemiddelKort(value) {
 function composeExamInstruction(nodes, count) {
   const courseLabel = CONFIG.courseName || 'faget';
   const list = nodes
-    .map(n => `- ${SHOW_HJELPEMIDDEL ? `${n.navn} [${hjelpemiddelKort(n.hjelpemiddel)}]` : n.navn}: ${n.beskrivelse}`)
+    .map(n => {
+      const tags = [n.type];
+      if (SHOW_HJELPEMIDDEL) tags.push(hjelpemiddelKort(n.hjelpemiddel));
+      return `- ${n.navn} [${tags.join(', ')}]: ${n.beskrivelse}`;
+    })
     .join('\n');
 
   const parts = [];
   parts.push(`Du er en KI-læringsassistent som skal lage en skriftlig prøve i ${courseLabel} til en elev, basert på ferdighetene og begrepene eleven (eller læreren) har markert som mestret i ferdighetstreet.`);
   parts.push(`Følgende ${nodes.length} ferdigheter/begreper er markert som mestret:\n${list}`);
   parts.push(`Lag en prøve med nøyaktig ${count} oppgave(r). Prøven trenger ikke dekke alle punktene over - velg heller ut et representativt utvalg som til sammen dekker flest mulig av dem, varier vanskelighetsgrad, og la gjerne noen oppgaver kombinere flere av ferdighetene. Nummerer oppgavene og formuler dem slik de typisk ville sett ut på en skriftlig prøve/eksamen i faget.`);
+
+  if (nodes.some(n => n.type === 'begrep')) {
+    parts.push(buildExamBegrepGuidance(nodes));
+  }
 
   if (SHOW_HJELPEMIDDEL) {
     const hasDel1 = nodes.some(n => n.hjelpemiddel === 'del1' || n.hjelpemiddel === 'begge');
