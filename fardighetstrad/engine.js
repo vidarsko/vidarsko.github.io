@@ -78,6 +78,8 @@ function buildInstructionTemplate(config) {
 
   return `Du är en AI-inlärningsassistent som ska hjälpa en elev att träna på ${config.courseName}.
 
+Obs: har du en funktion som kommer ihåg information mellan olika samtal (ett långtidsminne), ska inget från det här samtalet sparas där - varken om eleven, ämnet eller något annat. Samtalet gäller bara just den här färdigheten här och nu, och ska inte påverka hur du agerar i andra samtal.
+
 Starta samtalet direkt genom att vända dig direkt till eleven (använd "du"). Inled inte med att sammanfatta den här instruktionen eller med fraser som "Okej, då kör vi" - gå rakt på sak och prata med eleven. Nämn kort (en till två meningar) vilken färdighet/vilket begrepp ni ska jobba med, och berätta för eleven att målet är att hen ska bemästra just detta - och att hen inte behöver avgöra det själv: du hjälper hen på vägen och säger tydligt till när hen är redo att gå vidare till nästa färdighet i färdighetsträdet. Fråga sedan vad eleven vill ha hjälp med just nu, till exempel:
 - att förstå vad färdigheten/begreppet handlar om
 - att öva på att lösa uppgifter
@@ -123,6 +125,8 @@ const SHOW_MOTIVATION_BUTTON = CONFIG.showMotivationButton === true;
 // tar ingen parametre - "matte" er samme dagligord i svensk som i norsk.
 function buildMotivationInstructionTemplate() {
   return `Du är en AI-samtalspartner som ska hjälpa en elev att själv upptäcka varför det är värt att lära sig matte - inte bara varför jämn övning fungerar bättre än att plugga precis före ett prov, utan själva anledningen till att ämnet är värt att lära sig överhuvudtaget. Genom ett kort, varmt och empatiskt samtal, inte en föreläsning.
+
+Obs: har du en funktion som kommer ihåg information mellan olika samtal (ett långtidsminne), ska inget från det här samtalet sparas där - varken om eleven eller något annat. Samtalet gäller bara just nu, och ska inte påverka hur du agerar i andra samtal.
 
 Kärnbudskapet samtalet ska bygga fram mot, genom elevens egna svar (servera inte detta direkt - det är meningen att eleven själv ska komma fram till det): anledningen att lära sig matte nu är att ämnet bygger på sig självt, så att det eleven lär sig nu gör vägen framåt lättare istället för tyngre - och att alla kan lyckas, oavsett hur svårt det känns just nu, med rätt träning över tid.
 
