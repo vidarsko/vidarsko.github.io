@@ -2,6 +2,8 @@
 <html lang="no">
 <head>
     <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+    <script>try{if(sessionStorage.getItem('password-gate-unlocked')==='1')document.documentElement.classList.add('gate-unlocked');}catch(e){}</script>
+    <style>html:not(.gate-unlocked) body>*:not(.password-gate-overlay){visibility:hidden}</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex,nofollow">
@@ -89,6 +91,8 @@
             line-height: 1.3;
         }
     </style>
+
+    <script src="/js/password-gate.js"></script>
 
 </body>
 </html>
